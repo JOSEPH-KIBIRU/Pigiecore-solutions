@@ -99,7 +99,7 @@ export default function Footer() {
             reserved.
           </p>
           <p className="text-sm text-slate-500">
-            Built with care at Pigiecore
+            Built with <span className="text-red-400">❤️</span> care at Pigiecore
           </p>
         </div>
       </div>

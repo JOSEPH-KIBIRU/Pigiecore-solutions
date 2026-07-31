@@ -139,7 +139,7 @@ export default function Showcase() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            Our Templates
+            Our Featured Projects
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Pre-built dashboards and systems ready to customize for your business.
@@ -212,7 +212,7 @@ export default function Showcase() {
                           rel="noopener noreferrer"
                           className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-500 hover:text-sky-600 transition-colors dark:text-sky-400 dark:hover:text-sky-300"
                         >
-                          View Template →
+                          View Project →
                         </a>
                       ) : (
                         <span className="mt-4 inline-flex items-center text-sm text-slate-400 dark:text-slate-500">

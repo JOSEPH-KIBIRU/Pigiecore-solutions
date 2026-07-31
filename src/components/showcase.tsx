@@ -78,6 +78,7 @@ interface DbTemplate {
   name: string;
   description: string;
   image_url: string | null;
+  url: string | null;
   category: string;
   icon_name: string;
   preview_gradient: string;

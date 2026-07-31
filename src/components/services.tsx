@@ -7,7 +7,9 @@ import {
   Hospital,
 } from "lucide-react";
 
-const services = [
+type ColorKey = "sky" | "violet" | "emerald" | "amber" | "rose" | "teal";
+
+const services: { icon: typeof Home; title: string; description: string; color: ColorKey }[] = [
   {
     icon: Home,
     title: "Real Estate Dashboard",
@@ -52,7 +54,7 @@ const services = [
   },
 ];
 
-const colorMap = {
+const colorMap: Record<ColorKey, { bg: string; iconBg: string; iconText: string; border: string }> = {
   sky: {
     bg: "bg-sky-50 dark:bg-sky-500/10",
     iconBg: "bg-sky-100 dark:bg-sky-500/20",

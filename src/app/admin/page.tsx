@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { signIn, signUp, signOut, getCurrentUser } from "@/lib/auth";
+import { signIn, signOut, getCurrentUser } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import AdminInvoices from "@/components/admin-invoices";
+import AdminUsers from "@/components/admin-users";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -19,7 +20,6 @@ import {
   GripVertical,
   Search,
   X,
-  Check,
   AlertCircle,
   Home,
   Globe,
@@ -31,6 +31,7 @@ import {
   FileText,
   Upload,
   Loader2,
+  User as UserIcon,
 } from "lucide-react";
 
 interface Submission {
@@ -120,13 +121,11 @@ const emptyTemplate = {
 export default function AdminPage() {
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"dashboard" | "templates" | "invoices">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "templates" | "invoices" | "users">("dashboard");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loginFieldErrors, setLoginFieldErrors] = useState<Record<string, string>>({});
-  const [loginMode, setLoginMode] = useState<"login" | "signup">("login");
-  const [signupSuccess, setSignupSuccess] = useState(false);
 
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [subLoading, setSubLoading] = useState(false);
@@ -216,23 +215,12 @@ export default function AdminPage() {
     }
     if (!loginPassword) {
       nextErrors.password = "Password is required";
-    } else if (loginMode === "signup" && loginPassword.length < 6) {
-      nextErrors.password = "Password must be at least 6 characters";
     }
     setLoginFieldErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
     try {
-      if (loginMode === "login") {
-        await signIn(loginEmail, loginPassword);
-      } else {
-        const result = await signUp(loginEmail, loginPassword);
-        if (result.user) {
-          setSignupSuccess(true);
-          setLoginMode("login");
-          return;
-        }
-      }
+      await signIn(loginEmail, loginPassword);
       const u = await getCurrentUser();
       if (u) {
         setUser(u);
@@ -386,22 +374,11 @@ export default function AdminPage() {
             <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-sky-500/25">
               <span className="text-white font-bold text-2xl">P</span>
             </div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-              {loginMode === "login" ? "Welcome Back" : "Create Account"}
-            </h1>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Welcome Back</h1>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-              {loginMode === "login"
-                ? "Sign in to manage your site"
-                : "Create your admin account"}
+              Sign in to manage your site
             </p>
           </div>
-
-          {signupSuccess && (
-            <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-sm text-emerald-700 flex items-center gap-3 dark:bg-emerald-950/30 dark:border-emerald-800 dark:text-emerald-400">
-              <Check className="w-5 h-5 shrink-0" />
-              Account created! Check your email to confirm, then sign in.
-            </div>
-          )}
 
           <form onSubmit={handleLogin} noValidate className="space-y-4 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <div>
@@ -439,16 +416,9 @@ export default function AdminPage() {
             )}
             <button type="submit"
               className="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-3 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-sky-500/25">
-              {loginMode === "login" ? "Sign In" : "Create Account"}
+              Sign In
             </button>
           </form>
-
-          <div className="mt-4 text-center">
-            <button onClick={() => { setLoginMode(loginMode === "login" ? "signup" : "login"); setLoginError(""); setSignupSuccess(false); }}
-              className="text-sm text-sky-500 hover:text-sky-600 transition-colors">
-              {loginMode === "login" ? "No account? Create one" : "Already have an account? Sign in"}
-            </button>
-          </div>
 
           <p className="mt-6 text-center text-xs text-slate-400 dark:text-slate-500">
             <Link href="/" className="hover:text-sky-500 transition-colors">← Back to homepage</Link>
@@ -494,6 +464,14 @@ export default function AdminPage() {
             }`}>
             <FileText className="w-5 h-5" /> Invoices
           </button>
+          <button onClick={() => setActiveTab("users")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
+              activeTab === "users"
+                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
+                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+            }`}>
+            <UserIcon className="w-5 h-5" /> Users
+          </button>
         </nav>
         <div className="p-4 border-t border-slate-200 dark:border-slate-800">
           <div className="text-sm text-slate-500 dark:text-slate-400 mb-2 truncate">{user.email}</div>
@@ -524,6 +502,10 @@ export default function AdminPage() {
             <button onClick={() => setActiveTab("invoices")}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "invoices" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
               Invoices
+            </button>
+            <button onClick={() => setActiveTab("users")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "users" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
+              Users
             </button>
             <button onClick={async () => { await signOut(); setUser(null); }}
               className="text-xs text-slate-400 hover:text-red-500 ml-2">Sign Out</button>
@@ -914,6 +896,9 @@ export default function AdminPage() {
           )}
           {activeTab === "invoices" && (
             <AdminInvoices />
+          )}
+          {activeTab === "users" && (
+            <AdminUsers />
           )}
         </div>
       </div>

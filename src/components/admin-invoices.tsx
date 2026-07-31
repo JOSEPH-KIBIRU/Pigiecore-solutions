@@ -73,6 +73,7 @@ export default function AdminInvoices() {
   });
 
   const [formError, setFormError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
   const [vatInclusive, setVatInclusive] = useState(false);
 
@@ -108,6 +109,7 @@ export default function AdminInvoices() {
     setForm({ client_name: "", client_email: "", client_phone: "", service: "website", description: "", amount: "", vat_rate: 16 });
     setVatInclusive(false);
     setFormError("");
+    setFieldErrors({});
     setShowForm(true);
   }
 
@@ -123,6 +125,7 @@ export default function AdminInvoices() {
       vat_rate: inv.vat_rate,
     });
     setFormError("");
+    setFieldErrors({});
     setShowForm(true);
   }
 
@@ -133,14 +136,26 @@ export default function AdminInvoices() {
   const total = amountNum + vatAmount;
 
   async function saveInvoice() {
-    if (!form.client_name || !form.client_email || !form.amount) {
-      setFormError("Client name, email, and amount are required");
-      return;
+    const nextErrors: Record<string, string> = {};
+    if (!form.client_name.trim()) {
+      nextErrors.client_name = "Client name is required";
     }
-    if (amountNum <= 0) {
-      setFormError("Amount must be greater than 0");
-      return;
+    if (!form.client_email.trim()) {
+      nextErrors.client_email = "Client email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.client_email.trim())) {
+      nextErrors.client_email = "Please enter a valid email address";
     }
+    if (form.client_phone && !/^(\+?\d{1,3}[-.\s]?)?\(?\d{3,4}\)?[-.\s]?\d{3}[-.\s]?\d{4,5}$/.test(form.client_phone)) {
+      nextErrors.client_phone = "Please enter a valid phone number";
+    }
+    if (!form.amount) {
+      nextErrors.amount = "Amount is required";
+    } else if (amountNum <= 0) {
+      nextErrors.amount = "Amount must be greater than 0";
+    }
+    setFieldErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+
     setSaving(true);
     setFormError("");
 
@@ -301,6 +316,13 @@ export default function AdminInvoices() {
     pdf.save(`${inv.invoice_number}.pdf`);
   }
 
+  const fieldCls = (field: string, extra = "") =>
+    `block w-full rounded-lg border px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:ring-2 outline-none dark:bg-slate-800 dark:text-slate-100 ${extra} ${
+      fieldErrors[field]
+        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+        : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"
+    }`;
+
   const filtered = invoices.filter(
     (inv) =>
       inv.client_name.toLowerCase().includes(search.toLowerCase()) ||
@@ -344,9 +366,9 @@ export default function AdminInvoices() {
                 <input
                   type="text"
                   value={form.client_name}
-                  onChange={(e) => setForm((f) => ({ ...f, client_name: e.target.value }))}
+                  onChange={(e) => { setForm((f) => ({ ...f, client_name: e.target.value })); if (fieldErrors.client_name) setFieldErrors((er) => ({ ...er, client_name: "" })); }}
                   placeholder="Search or type client name..."
-                  className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                  className={`w-full pl-9 pr-4 py-2 rounded-lg border text-sm text-slate-900 placeholder-slate-400 focus:ring-2 outline-none dark:bg-slate-800 dark:text-slate-100 ${fieldErrors.client_name ? "border-red-400 focus:border-red-500 focus:ring-red-500/20" : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"}`}
                   list="client-suggestions"
                 />
                 <datalist id="client-suggestions">
@@ -355,24 +377,33 @@ export default function AdminInvoices() {
                   ))}
                 </datalist>
               </div>
+              {fieldErrors.client_name && (
+                <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{fieldErrors.client_name}</p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
               <input
                 type="email"
                 value={form.client_email}
-                onChange={(e) => setForm((f) => ({ ...f, client_email: e.target.value }))}
-                className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                onChange={(e) => { setForm((f) => ({ ...f, client_email: e.target.value })); if (fieldErrors.client_email) setFieldErrors((er) => ({ ...er, client_email: "" })); }}
+                className={fieldCls("client_email")}
               />
+              {fieldErrors.client_email && (
+                <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{fieldErrors.client_email}</p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone</label>
               <input
                 type="tel"
                 value={form.client_phone}
-                onChange={(e) => setForm((f) => ({ ...f, client_phone: e.target.value }))}
-                className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                onChange={(e) => { setForm((f) => ({ ...f, client_phone: e.target.value })); if (fieldErrors.client_phone) setFieldErrors((er) => ({ ...er, client_phone: "" })); }}
+                className={fieldCls("client_phone")}
               />
+              {fieldErrors.client_phone && (
+                <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{fieldErrors.client_phone}</p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Service</label>
@@ -400,13 +431,16 @@ export default function AdminInvoices() {
                 <input
                   type="number"
                   value={form.amount}
-                  onChange={(e) => setForm((f) => ({ ...f, amount: e.target.value }))}
+                  onChange={(e) => { setForm((f) => ({ ...f, amount: e.target.value })); if (fieldErrors.amount) setFieldErrors((er) => ({ ...er, amount: "" })); }}
                   min="0"
                   step="0.01"
-                  className="block w-full pl-12 pr-3 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                  className={`block w-full pl-12 pr-3 py-2 rounded-lg border text-sm text-slate-900 placeholder-slate-400 focus:ring-2 outline-none dark:bg-slate-800 dark:text-slate-100 ${fieldErrors.amount ? "border-red-400 focus:border-red-500 focus:ring-red-500/20" : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"}`}
                   placeholder="0.00"
                 />
               </div>
+              {fieldErrors.amount && (
+                <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{fieldErrors.amount}</p>
+              )}
             </div>
             <div>
               <div className="flex items-center justify-between mb-1">

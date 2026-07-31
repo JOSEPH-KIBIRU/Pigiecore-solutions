@@ -9,6 +9,7 @@ export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [signupSuccess, setSignupSuccess] = useState(false);
@@ -16,6 +17,21 @@ export default function AdminLogin() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    const nextErrors: Record<string, string> = {};
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    if (!email.trim()) {
+      nextErrors.email = "Email address is required";
+    } else if (!emailValid) {
+      nextErrors.email = "Please enter a valid email address";
+    }
+    if (!password) {
+      nextErrors.password = "Password is required";
+    } else if (mode === "signup" && password.length < 6) {
+      nextErrors.password = "Password must be at least 6 characters";
+    }
+    setFieldErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+
     setLoading(true);
 
     try {
@@ -64,6 +80,7 @@ export default function AdminLogin() {
 
         <form
           onSubmit={handleSubmit}
+          noValidate
           className="space-y-4 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900"
         >
           <div>
@@ -71,24 +88,37 @@ export default function AdminLogin() {
               Email
             </label>
             <input
-              type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required
-              className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+              type="email" id="email" value={email}
+              onChange={(e) => { setEmail(e.target.value); if (fieldErrors.email) setFieldErrors((er) => ({ ...er, email: "" })); }}
+              className={`block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-slate-100 ${
+                fieldErrors.email
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+                  : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"
+              }`}
               placeholder="admin@pigiecore.com"
             />
+            {fieldErrors.email && (
+              <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{fieldErrors.email}</p>
+            )}
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
               Password
             </label>
             <input
-              type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6}
-              className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+              type="password" id="password" value={password}
+              onChange={(e) => { setPassword(e.target.value); if (fieldErrors.password) setFieldErrors((er) => ({ ...er, password: "" })); }}
+              className={`block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-slate-100 ${
+                fieldErrors.password
+                  ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+                  : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"
+              }`}
               placeholder="Enter your password"
             />
+            {fieldErrors.password && (
+              <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{fieldErrors.password}</p>
+            )}
           </div>
-          {mode === "signup" && (
-            <p className="text-xs text-slate-400 dark:text-slate-500">Password must be at least 6 characters</p>
-          )}
           {error && (
             <p className="text-sm text-red-600 dark:text-red-400 flex items-center gap-2">
               <AlertCircle className="w-4 h-4" /> {error}
@@ -104,7 +134,7 @@ export default function AdminLogin() {
 
         <div className="mt-4 text-center">
           <button
-            onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); setSignupSuccess(false); }}
+            onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); setFieldErrors({}); setSignupSuccess(false); }}
             className="text-sm text-sky-500 hover:text-sky-600 transition-colors"
           >
             {mode === "login" ? "No account? Create one" : "Already have an account? Sign in"}

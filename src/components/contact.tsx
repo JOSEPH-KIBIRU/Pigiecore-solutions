@@ -2,10 +2,89 @@
 
 import { useState } from "react";
 
+interface ContactErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  message?: string;
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^(\+?\d{1,3}[-.\s]?)?\(?\d{3,4}\)?[-.\s]?\d{3}[-.\s]?\d{4,5}$/;
+
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
+  const [errors, setErrors] = useState<ContactErrors>({});
+
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  function validate(data: ContactErrors): ContactErrors {
+    const next: ContactErrors = {};
+    if (!data.name || data.name.trim().length < 2) {
+      next.name = "Please enter your full name";
+    }
+    if (!data.email) {
+      next.email = "Email address is required";
+    } else if (!EMAIL_RE.test(data.email)) {
+      next.email = "Please enter a valid email address";
+    }
+    if (data.phone && !PHONE_RE.test(data.phone)) {
+      next.phone = "Please enter a valid phone number";
+    }
+    if (!data.message || data.message.trim().length < 10) {
+      next.message = "Please enter a message of at least 10 characters";
+    }
+    return next;
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("idle");
+    const nextErrors = validate(values);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+
+    setStatus("loading");
+    const body = {
+      name: values.name,
+      email: values.email,
+      phone: values.phone || null,
+      service: (e.target as HTMLFormElement).service?.value ?? null,
+      message: values.message,
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setValues({ name: "", email: "", phone: "", message: "" });
+        (e.target as HTMLFormElement).reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  const inputClass = (hasError: boolean) =>
+    `block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all ${
+      hasError
+        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+        : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20"
+    }`;
 
   return (
     <section
@@ -25,36 +104,8 @@ export default function Contact() {
         <div className="max-w-xl mx-auto">
           <form
             className="space-y-6"
-            onSubmit={async (e) => {
-              e.preventDefault();
-              setStatus("loading");
-              const form = e.target as HTMLFormElement;
-              const data = new FormData(form);
-              const body = {
-                name: data.get("name"),
-                email: data.get("email"),
-                phone: data.get("phone"),
-                service: data.get("service"),
-                message: data.get("message"),
-              };
-
-              try {
-                const res = await fetch("/api/contact", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(body),
-                });
-
-                if (res.ok) {
-                  setStatus("success");
-                  form.reset();
-                } else {
-                  setStatus("error");
-                }
-              } catch {
-                setStatus("error");
-              }
-            }}
+            noValidate
+            onSubmit={handleSubmit}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
@@ -68,10 +119,18 @@ export default function Contact() {
                   type="text"
                   id="name"
                   name="name"
-                  required
-                  className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all"
+                  value={values.name}
+                  onChange={(e) => {
+                    setValues((v) => ({ ...v, name: e.target.value }));
+                    if (errors.name) setErrors((er) => ({ ...er, name: undefined }));
+                  }}
+                  className={inputClass(!!errors.name)}
                   placeholder="Your name"
+                  aria-invalid={!!errors.name}
                 />
+                {errors.name && (
+                  <p className="mt-1.5 text-sm text-red-500">{errors.name}</p>
+                )}
               </div>
               <div>
                 <label
@@ -84,10 +143,18 @@ export default function Contact() {
                   type="email"
                   id="email"
                   name="email"
-                  required
-                  className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all"
+                  value={values.email}
+                  onChange={(e) => {
+                    setValues((v) => ({ ...v, email: e.target.value }));
+                    if (errors.email) setErrors((er) => ({ ...er, email: undefined }));
+                  }}
+                  className={inputClass(!!errors.email)}
                   placeholder="your.email@company.com"
+                  aria-invalid={!!errors.email}
                 />
+                {errors.email && (
+                  <p className="mt-1.5 text-sm text-red-500">{errors.email}</p>
+                )}
               </div>
             </div>
             <div>
@@ -95,15 +162,24 @@ export default function Contact() {
                 htmlFor="phone"
                 className="block text-sm font-medium text-slate-700 mb-1.5"
               >
-                Phone Number
+                Phone Number <span className="text-slate-400 font-normal">(optional)</span>
               </label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
-                className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all"
+                value={values.phone}
+                onChange={(e) => {
+                  setValues((v) => ({ ...v, phone: e.target.value }));
+                  if (errors.phone) setErrors((er) => ({ ...er, phone: undefined }));
+                }}
+                className={inputClass(!!errors.phone)}
                 placeholder="+254 7XX XXX XXX"
+                aria-invalid={!!errors.phone}
               />
+              {errors.phone && (
+                <p className="mt-1.5 text-sm text-red-500">{errors.phone}</p>
+              )}
             </div>
             <div>
               <label
@@ -138,9 +214,18 @@ export default function Contact() {
                 id="message"
                 name="message"
                 rows={4}
-                className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all resize-none"
+                value={values.message}
+                onChange={(e) => {
+                  setValues((v) => ({ ...v, message: e.target.value }));
+                  if (errors.message) setErrors((er) => ({ ...er, message: undefined }));
+                }}
+                className={`${inputClass(!!errors.message)} resize-none`}
                 placeholder="Tell us about your project..."
+                aria-invalid={!!errors.message}
               ></textarea>
+              {errors.message && (
+                <p className="mt-1.5 text-sm text-red-500">{errors.message}</p>
+              )}
             </div>
             <button
               type="submit"

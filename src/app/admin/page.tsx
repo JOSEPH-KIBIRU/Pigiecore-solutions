@@ -124,6 +124,7 @@ export default function AdminPage() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [loginFieldErrors, setLoginFieldErrors] = useState<Record<string, string>>({});
   const [loginMode, setLoginMode] = useState<"login" | "signup">("login");
   const [signupSuccess, setSignupSuccess] = useState(false);
 
@@ -206,6 +207,21 @@ export default function AdminPage() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoginError("");
+    const nextErrors: Record<string, string> = {};
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginEmail.trim());
+    if (!loginEmail.trim()) {
+      nextErrors.email = "Email address is required";
+    } else if (!emailValid) {
+      nextErrors.email = "Please enter a valid email address";
+    }
+    if (!loginPassword) {
+      nextErrors.password = "Password is required";
+    } else if (loginMode === "signup" && loginPassword.length < 6) {
+      nextErrors.password = "Password must be at least 6 characters";
+    }
+    setLoginFieldErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+
     try {
       if (loginMode === "login") {
         await signIn(loginEmail, loginPassword);
@@ -387,22 +403,35 @@ export default function AdminPage() {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <form onSubmit={handleLogin} noValidate className="space-y-4 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Email</label>
-              <input type="email" id="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required
-                className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+              <input type="email" id="email" value={loginEmail}
+                onChange={(e) => { setLoginEmail(e.target.value); if (loginFieldErrors.email) setLoginFieldErrors((er) => ({ ...er, email: "" })); }}
+                className={`block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-slate-100 ${
+                  loginFieldErrors.email
+                    ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+                    : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"
+                }`}
                 placeholder="admin@pigiecore.com" />
+              {loginFieldErrors.email && (
+                <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{loginFieldErrors.email}</p>
+              )}
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Password</label>
-              <input type="password" id="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required minLength={6}
-                className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+              <input type="password" id="password" value={loginPassword}
+                onChange={(e) => { setLoginPassword(e.target.value); if (loginFieldErrors.password) setLoginFieldErrors((er) => ({ ...er, password: "" })); }}
+                className={`block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-slate-100 ${
+                  loginFieldErrors.password
+                    ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+                    : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"
+                }`}
                 placeholder="Enter your password" />
+              {loginFieldErrors.password && (
+                <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{loginFieldErrors.password}</p>
+              )}
             </div>
-            {loginMode === "signup" && (
-              <p className="text-xs text-slate-400 dark:text-slate-500">Password must be at least 6 characters</p>
-            )}
             {loginError && (
               <p className="text-sm text-red-600 dark:text-red-400 flex items-center gap-2">
                 <AlertCircle className="w-4 h-4" /> {loginError}

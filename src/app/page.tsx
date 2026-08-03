@@ -17,7 +17,7 @@ const jsonLd = {
       name: "Pigiecore Solutions",
       url: siteUrl,
       logo: `${siteUrl}/icon.svg`,
-      image: `${siteUrl}/opengraph-image.png`,
+      image: `${siteUrl}/opengraph-image`,
       description:
         "Custom software development agency in Kenya building dashboards and web applications for real estate, logistics, salons, schools, and hospitals.",
       email: "hello@pigiecoresolutions.com",

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Pigiecore Solutions — Custom Software Development in Kenya",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     title: "Pigiecore Solutions — Custom Software Development in Kenya",
     description:
       "Custom software that automates real estate, logistics, salons, schools, and hospitals with modern dashboards.",
-    images: ["/opengraph-image.png"],
+    images: ["/opengraph-image"],
   },
   icons: {
     icon: "/icon.svg",

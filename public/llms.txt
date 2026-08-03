@@ -1,0 +1,37 @@
+# Pigiecore Solutions
+
+> Pigiecore Solutions is a custom software development agency in Kenya. We build dashboards and web applications that automate and modernize business operations for real estate, logistics, salons, schools, and hospitals.
+
+Official website: https://pigiecore.vercel.app
+
+## About
+
+Pigiecore Solutions designs and develops custom software for Kenyan businesses and enterprises. The team moves businesses away from spreadsheets and manual processes by delivering unified, responsive platforms for fleet, bookings, payments, and management — all in one system.
+
+## Services
+
+- **Real Estate Management Software** — Property management dashboard for landlords, property managers, and real estate companies: rent collection, tenant management, maintenance tracking, and financial reporting.
+- **Website Development** — Custom business websites and company web presence.
+- **Logistics & Fleet Management** — Fleet tracking, NTSA compliance, driver portal, and native M-Pesa integration.
+- **Salon & Barber Booking** — Online appointment booking and client management.
+- **School Management System** — Student records, fees, and staff management.
+- **Hospital Management System** — Patient records, appointment booking, billing, pharmacy tracking, and staff management.
+
+## Products
+
+- **SteadyCargo ERP** — A multi-tenant, enterprise-grade web application for logistics companies, with a driver portal, NTSA compliance tracking, and native M-Pesa integration.
+- **BomaPulse Ventures** — A cloud-based property management platform for rent collection, tenant management, maintenance tracking, financial reporting, and communication.
+
+## Contact
+
+- Email: hello@pigiecoresolutions.com
+- Phone: +254 798 118515 / +254 708 469769
+- Service area: Kenya
+
+## Key pages
+
+- [Homepage](https://pigiecore.vercel.app/)
+- [Services](https://pigiecore.vercel.app/#services)
+- [About](https://pigiecore.vercel.app/#about)
+- [Featured Projects](https://pigiecore.vercel.app/#showcase)
+- [Contact](https://pigiecore.vercel.app/#contact)

@@ -2,10 +2,75 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
+const siteUrl = "https://pigiecore.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Pigiecore Solutions — Software That Works",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Pigiecore Solutions — Custom Software Development in Kenya",
+    template: "%s | Pigiecore Solutions",
+  },
   description:
     "Pigiecore Solutions delivers custom software for real estate, logistics, salons, schools, and hospitals — automating your operations with modern dashboards and web applications.",
+  applicationName: "Pigiecore Solutions",
+  authors: [{ name: "Pigiecore Solutions" }],
+  keywords: [
+    "software development",
+    "custom software",
+    "web application development",
+    "real estate software",
+    "logistics management",
+    "salon booking software",
+    "school management system",
+    "hospital management system",
+    "Kenya software company",
+    "business automation",
+  ],
+  creator: "Pigiecore Solutions",
+  publisher: "Pigiecore Solutions",
+  formatDetection: { telephone: false },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "Pigiecore Solutions",
+    title: "Pigiecore Solutions — Custom Software Development in Kenya",
+    description:
+      "Custom software for real estate, logistics, salons, schools, and hospitals — automating your operations with modern dashboards and web applications.",
+    locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Pigiecore Solutions — Custom Software Development in Kenya",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pigiecore Solutions — Custom Software Development in Kenya",
+    description:
+      "Custom software that automates real estate, logistics, salons, schools, and hospitals with modern dashboards.",
+    images: ["/opengraph-image.png"],
+  },
+  icons: {
+    icon: "/icon.svg",
+  },
+  manifest: "/manifest.webmanifest",
 };
 
 export default function RootLayout({

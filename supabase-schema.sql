@@ -98,6 +98,12 @@ create table if not exists invoices (
   status text default 'pending'
 );
 
+-- ===== Migration: add payment detail columns to invoices =====
+alter table invoices add column if not exists payment_bank text;
+alter table invoices add column if not exists payment_account_name text;
+alter table invoices add column if not exists payment_account_number text;
+alter table invoices add column if not exists payment_branch text;
+
 alter table invoices enable row level security;
 
 drop policy if exists "Allow authenticated all" on invoices;

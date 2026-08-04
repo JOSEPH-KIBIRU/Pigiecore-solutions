@@ -28,6 +28,10 @@ interface Invoice {
   total: number;
   invoice_number: string;
   status: string;
+  payment_bank: string | null;
+  payment_account_name: string | null;
+  payment_account_number: string | null;
+  payment_branch: string | null;
 }
 
 interface ClientOption {
@@ -70,6 +74,10 @@ export default function AdminInvoices() {
     description: "",
     amount: "",
     vat_rate: 16,
+    payment_bank: "Equity Bank",
+    payment_account_name: "Bomapulse Ventures",
+    payment_account_number: "",
+    payment_branch: "Nairobi",
   });
 
   const [formError, setFormError] = useState("");
@@ -106,7 +114,7 @@ export default function AdminInvoices() {
 
   function openNewForm() {
     setEditingId(null);
-    setForm({ client_name: "", client_email: "", client_phone: "", service: "website", description: "", amount: "", vat_rate: 16 });
+    setForm({ client_name: "", client_email: "", client_phone: "", service: "website", description: "", amount: "", vat_rate: 16, payment_bank: "Equity Bank", payment_account_name: "Bomapulse Ventures", payment_account_number: "", payment_branch: "Nairobi" });
     setVatInclusive(false);
     setFormError("");
     setFieldErrors({});
@@ -123,6 +131,10 @@ export default function AdminInvoices() {
       description: inv.description ?? "",
       amount: String(inv.amount),
       vat_rate: inv.vat_rate,
+      payment_bank: inv.payment_bank ?? "Equity Bank",
+      payment_account_name: inv.payment_account_name ?? "Bomapulse Ventures",
+      payment_account_number: inv.payment_account_number ?? "",
+      payment_branch: inv.payment_branch ?? "",
     });
     setFormError("");
     setFieldErrors({});
@@ -169,6 +181,10 @@ export default function AdminInvoices() {
       vat_rate: vatRate,
       vat_amount: vatAmount,
       total,
+      payment_bank: form.payment_bank || null,
+      payment_account_name: form.payment_account_name || null,
+      payment_account_number: form.payment_account_number || null,
+      payment_branch: form.payment_branch || null,
     };
 
     let error;
@@ -212,16 +228,19 @@ export default function AdminInvoices() {
     const pdf = new jsPDF("p", "mm", "a4");
     const pageW = 190;
     const left = 10;
+    const right = 10;
     let y = 20;
 
-    function text(txt: string, size: number, x: number, opts?: { bold?: boolean; color?: string; align?: "left" | "right"; top?: number }) {
+    function text(txt: string, size: number, x: number, opts?: { bold?: boolean; color?: string; align?: "left" | "right" | "center"; top?: number }) {
       pdf.setFontSize(size);
       pdf.setFont("helvetica", opts?.bold ? "bold" : "normal");
       if (opts?.color) pdf.setTextColor(opts.color);
       else pdf.setTextColor("#1e293b");
       const py = opts?.top ?? y;
       if (opts?.align === "right") {
-        pdf.text(txt, x, py, { align: "right" });
+        pdf.text(txt, left + pageW, py, { align: "right" });
+      } else if (opts?.align === "center") {
+        pdf.text(txt, x, py, { align: "center" });
       } else {
         pdf.text(txt, x, py);
       }
@@ -233,85 +252,116 @@ export default function AdminInvoices() {
       pdf.line(left, yPos, left + pageW, yPos);
     }
 
-    // Header
-    const hdrY = y;
+    // --- Header band ---
+    pdf.setFillColor("#0f172a");
+    pdf.rect(0, 0, 210, 34, "F");
     pdf.setFillColor("#0ea5e9");
-    pdf.roundedRect(left, hdrY, 8, 8, 1, 1, "F");
+    pdf.roundedRect(left, 8, 8, 8, 1, 1, "F");
     pdf.setTextColor("#ffffff");
-    pdf.setFontSize(12);
+    pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
-    pdf.text("P", left + 2.5, hdrY + 6);
-    pdf.setTextColor("#0f172a");
+    pdf.text("P", left + 2.6, 14);
     pdf.setFontSize(16);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("Pigiecore Solutions", left + 12, hdrY + 6);
+    pdf.text("Pigiecore Solutions", left + 13, 13.5);
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
-    pdf.setTextColor("#64748b");
-    pdf.text("Custom Software Solutions", left + 12, hdrY + 11);
+    pdf.setTextColor("#94a3b8");
+    pdf.text("Custom Software Solutions", left + 13, 18.5);
+    // INVOICE badge on the right
+    pdf.setFillColor("#0ea5e9");
+    pdf.roundedRect(125, 9, pageW + left - 125, 16, 1, 1, "F");
+    pdf.setTextColor("#ffffff");
+    pdf.setFontSize(13);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("INVOICE", 128, 20);
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "normal");
+    pdf.text(`#${inv.invoice_number}`, 128, 22);
 
-    text("INVOICE", 22, left + pageW, { bold: true, color: "#0f172a", align: "right" });
-    y = hdrY + 10;
-    text(`#${inv.invoice_number}`, 9, left + pageW, { color: "#64748b", align: "right" });
-    y = hdrY + 20;
-    line(y);
-    y += 12;
+    y = 44;
 
-    // Bill To
+    // --- Bill To + meta ---
     const billY = y;
     text("BILL TO", 7, left, { color: "#94a3b8" });
-    text(inv.client_name, 12, left, { bold: true, top: billY + 5 });
-    text(inv.client_email, 10, left, { color: "#64748b", top: billY + 11 });
-    let phoneOffset = 11;
+    text(inv.client_name, 13, left, { bold: true, top: billY + 5.5 });
+    text(inv.client_email, 10, left, { color: "#64748b", top: billY + 12 });
     if (inv.client_phone) {
-      text(inv.client_phone, 10, left, { color: "#64748b", top: billY + 17 });
-      phoneOffset = 17;
+      text(inv.client_phone, 10, left, { color: "#64748b", top: billY + 18 });
     }
 
-    text("DATE", 7, left + pageW, { color: "#94a3b8", align: "right", top: billY });
-    text(formatDate(inv.created_at), 10, left + pageW, { color: "#64748b", align: "right", top: billY + 5 });
-    y = billY + phoneOffset + 8;
+    const metaTop = billY;
+    text("INVOICE DATE", 7, left + pageW, { color: "#94a3b8", align: "right", top: metaTop });
+    text(formatDate(inv.created_at), 10, left + pageW, { color: "#334155", align: "right", top: metaTop + 5.5 });
+    if (inv.client_phone) {
+      y = billY + 18;
+    } else {
+      y = billY + 12;
+    }
+    y += 8;
     line(y);
     y += 6;
 
-    // Table header
-    pdf.setFillColor("#f8fafc");
-    pdf.rect(left, y, pageW, 7, "F");
-    text("DESCRIPTION", 7, left + 3, { color: "#94a3b8" });
-    text("AMOUNT", 7, left + pageW - 3, { color: "#94a3b8", align: "right" });
-    y += 10;
+    // --- Items table ---
+    pdf.setFillColor("#f1f5f9");
+    pdf.rect(left, y, pageW, 8, "F");
+    text("DESCRIPTION", 8, left + 3, { color: "#64748b" });
+    text("AMOUNT", 8, left + pageW - 3, { color: "#64748b", align: "right" });
+    y += 11;
 
-    // Items
     text(inv.description || inv.service, 11, left + 3);
     text(formatCurrency(inv.amount), 11, left + pageW - 3, { align: "right" });
     y += 8;
-    text(`VAT (${inv.vat_rate}%)`, 10, left + 3, { color: "#64748b" });
-    text(formatCurrency(inv.vat_amount), 10, left + pageW - 3, { color: "#64748b", align: "right" });
-    y += 8;
+    text(`VAT (${inv.vat_rate}%)`, 9, left + 3, { color: "#64748b" });
+    text(formatCurrency(inv.vat_amount), 9, left + pageW - 3, { color: "#64748b", align: "right" });
+    y += 4;
+    line(y);
     y += 4;
 
-    // Total
-    const subtotalW = 50;
-    const totalX = left + pageW - subtotalW;
+    // --- Totals ---
+    const colW = 55;
+    const totalX = left + pageW - colW;
     text("Subtotal", 10, totalX, { color: "#64748b" });
-    text(formatCurrency(inv.amount), 10, left + pageW, { color: "#64748b", align: "right" });
+    text(formatCurrency(inv.amount), 10, left + pageW, { color: "#334155", align: "right" });
     y += 5;
     text(`VAT (${inv.vat_rate}%)`, 10, totalX, { color: "#64748b" });
-    text(formatCurrency(inv.vat_amount), 10, left + pageW, { color: "#64748b", align: "right" });
-    y += 4;
-    line(y);
-    y += 4;
-    text("Total", 16, totalX, { bold: true, color: "#0f172a" });
-    text(formatCurrency(inv.total), 16, left + pageW, { bold: true, color: "#0f172a", align: "right" });
-
-    // Footer
-    y = 270;
-    line(y);
+    text(formatCurrency(inv.vat_amount), 10, left + pageW, { color: "#334155", align: "right" });
     y += 5;
+    pdf.setFillColor("#0ea5e9");
+    pdf.roundedRect(totalX, y + 2, colW, 9, 1, 1, "F");
+    text("TOTAL", 10, totalX + 3, { bold: true, color: "#ffffff", top: y + 8 });
+    text(formatCurrency(inv.total), 12, left + pageW - 3, { bold: true, color: "#ffffff", align: "right", top: y + 8 });
+    y += 16;
+
+    // --- Payment Details box ---
+    pdf.setFillColor("#f8fafc");
+    pdf.setDrawColor("#e2e8f0");
+    pdf.roundedRect(left, y - 2, pageW, 30, 1.5, 1.5, "FD");
+    const py = y;
+    pdf.setFillColor("#0ea5e9");
+    pdf.roundedRect(left + 3, py + 1, 3, 3, 0.5, 0.5, "F");
+    text("PAYMENT DETAILS", 7, left + 8, { color: "#0c4a6e", bold: true, top: py + 3 });
+    let rowY = py + 11;
+    text("Bank", 8, left + 8, { color: "#94a3b8" });
+    text(inv.payment_bank || "\u2014", 9, left + 40, { color: "#334155" });
+    text("Account Name", 8, left + 68, { color: "#94a3b8" });
+    text(inv.payment_account_name || "\u2014", 9, left + 100, { color: "#334155" });
+    rowY += 6;
+    text("Account No.", 8, left + 8, { color: "#94a3b8", top: rowY });
+    text(inv.payment_account_number || "\u2014", 9, left + 40, { color: "#334155", top: rowY });
+    text("Branch", 8, left + 68, { color: "#94a3b8", top: rowY });
+    text(inv.payment_branch || "\u2014", 9, left + 100, { color: "#334155", top: rowY });
+    y += 34;
+
+    // --- Footer ---
+    line(278);
+    y = 278;
+    y += 6;
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor("#94a3b8");
     pdf.text("Pigiecore Solutions  \u00b7  hello@pigiecoresolutions.com  \u00b7  0798118515 / 0708469769", left + pageW / 2, y, { align: "center" });
+    pdf.setTextColor("#cbd5e1");
+    pdf.text("Thank you for your business!", left + pageW / 2, y + 5, { align: "center" });
 
     pdf.save(`${inv.invoice_number}.pdf`);
   }
@@ -469,6 +519,54 @@ export default function AdminInvoices() {
               <p className="mt-1 text-[10px] text-slate-400 dark:text-slate-500">
                 {vatInclusive ? "Amount entered includes VAT — system calculates backward" : "VAT is added on top of the amount"}
               </p>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center dark:bg-emerald-950/30">
+                <FileText className="w-4 h-4 text-emerald-500" />
+              </div>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Payment Details</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Bank</label>
+                <input
+                  type="text"
+                  value={form.payment_bank}
+                  onChange={(e) => setForm((f) => ({ ...f, payment_bank: e.target.value }))}
+                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Account Name</label>
+                <input
+                  type="text"
+                  value={form.payment_account_name}
+                  onChange={(e) => setForm((f) => ({ ...f, payment_account_name: e.target.value }))}
+                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Account Number</label>
+                <input
+                  type="text"
+                  value={form.payment_account_number}
+                  onChange={(e) => setForm((f) => ({ ...f, payment_account_number: e.target.value }))}
+                  placeholder="e.g. 011xxxxxxx"
+                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Branch</label>
+                <input
+                  type="text"
+                  value={form.payment_branch}
+                  onChange={(e) => setForm((f) => ({ ...f, payment_branch: e.target.value }))}
+                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                />
+              </div>
             </div>
           </div>
 

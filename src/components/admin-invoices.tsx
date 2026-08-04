@@ -274,9 +274,9 @@ export default function AdminInvoices() {
     pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
     pdf.text("INVOICE", 128, 20);
-    pdf.setFontSize(8);
-    pdf.setFont("helvetica", "normal");
-    pdf.text(`#${inv.invoice_number}`, 128, 22);
+    const invoiceWordWidth = pdf.getTextWidth("INVOICE");
+    pdf.setFontSize(9);
+    pdf.text(`#${inv.invoice_number}`, 128 + invoiceWordWidth + 6, 20);
 
     y = 44;
 

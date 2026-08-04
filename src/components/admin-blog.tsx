@@ -13,6 +13,7 @@ import {
   Upload,
   ImageIcon,
   Eye,
+  Sparkles,
 } from "lucide-react";
 
 interface BlogPost {
@@ -67,6 +68,31 @@ export default function AdminBlog() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [showImport, setShowImport] = useState(false);
+  const [draftText, setDraftText] = useState("");
+
+  function importDraft() {
+    const lines = draftText.split(/\r?\n/).map((l) => l.trim());
+    const titleLine =
+      lines.find((l) => l.startsWith("#")) || lines.find((l) => l.length > 0) || "";
+    const title = titleLine.replace(/^#+\s*/, "").trim();
+    const body = lines.filter((l) => !l.startsWith("#"));
+    const content = body.join("\n\n").replace(/\n{3,}/g, "\n\n").trim();
+    const firstPara = body.find((l) => l.length > 0) || "";
+    const excerpt =
+      firstPara.length > 160 ? `${firstPara.slice(0, 157).trim()}…` : firstPara;
+
+    setForm((f) => ({
+      ...f,
+      title: title || f.title,
+      slug: slugify(title) || f.slug,
+      excerpt: excerpt || f.excerpt,
+      content: content || f.content,
+    }));
+    setFieldErrors((er) => ({ ...er, title: "" }));
+    setShowImport(false);
+    setDraftText("");
+  }
 
   const inputCls = (field: string) =>
     `block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-slate-100 ${
@@ -230,6 +256,48 @@ export default function AdminBlog() {
             </button>
           </div>
 
+          <button
+            type="button"
+            onClick={() => setShowImport((v) => !v)}
+            className="mb-6 inline-flex items-center gap-2 rounded-lg border border-sky-200 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-600 hover:bg-sky-100 dark:border-sky-900 dark:bg-sky-950/30 dark:text-sky-400 dark:hover:bg-sky-950/50"
+          >
+            <Sparkles className="w-3.5 h-3.5" /> Import from AI draft
+          </button>
+
+          {showImport && (
+            <div className="mb-6 rounded-xl border border-sky-200 bg-sky-50/50 p-4 dark:border-sky-900 dark:bg-sky-950/20">
+              <p className="text-xs text-slate-600 dark:text-slate-400 mb-3">
+                Paste an article from Perplexity, Gemini, or Copilot. A line starting with{" "}
+                <code className="text-sky-600 dark:text-sky-400">#</code> becomes the title;
+                the first paragraph becomes the excerpt and slug are filled automatically.
+              </p>
+              <textarea
+                value={draftText}
+                onChange={(e) => setDraftText(e.target.value)}
+                rows={6}
+                placeholder={`# How custom software scales your business\n\nCustom software helps you automate repetitive tasks and grow without limits...`}
+                className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+              />
+              <div className="mt-3 flex gap-2">
+                <button
+                  type="button"
+                  onClick={importDraft}
+                  disabled={!draftText.trim()}
+                  className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2 text-xs font-semibold text-white transition-all hover:shadow-lg hover:shadow-sky-500/25 disabled:opacity-50"
+                >
+                  <Sparkles className="w-3.5 h-3.5" /> Fill the form
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowImport(false)}
+                  className="rounded-lg border border-slate-300 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+
           <form onSubmit={handleSave} noValidate className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Title</label>
@@ -266,7 +334,21 @@ export default function AdminBlog() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Excerpt (short summary)</label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Excerpt (short summary)</label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const firstPara = (form.content || "").split(/\n{2,}/)[0]?.trim() || "";
+                    if (!firstPara) return;
+                    const excerpt = firstPara.length > 160 ? `${firstPara.slice(0, 157).trim()}…` : firstPara;
+                    setForm((f) => ({ ...f, excerpt }));
+                  }}
+                  className="text-xs font-semibold text-sky-500 hover:text-sky-600"
+                >
+                  Auto from content
+                </button>
+              </div>
               <input
                 type="text"
                 value={form.excerpt}

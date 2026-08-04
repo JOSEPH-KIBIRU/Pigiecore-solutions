@@ -5,6 +5,8 @@ import { signIn, signOut, getCurrentUser } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import AdminInvoices from "@/components/admin-invoices";
 import AdminUsers from "@/components/admin-users";
+import AdminBlog from "@/components/admin-blog";
+import AdminTestimonials from "@/components/admin-testimonials";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -32,6 +34,8 @@ import {
   Upload,
   Loader2,
   User as UserIcon,
+  Newspaper,
+  Quote as QuoteIcon,
 } from "lucide-react";
 
 interface Submission {
@@ -121,7 +125,7 @@ const emptyTemplate = {
 export default function AdminPage() {
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"dashboard" | "templates" | "invoices" | "users">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "templates" | "invoices" | "users" | "blog" | "testimonials">("dashboard");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -472,6 +476,22 @@ export default function AdminPage() {
             }`}>
             <UserIcon className="w-5 h-5" /> Users
           </button>
+          <button onClick={() => setActiveTab("blog")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
+              activeTab === "blog"
+                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
+                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+            }`}>
+            <Newspaper className="w-5 h-5" /> Blog
+          </button>
+          <button onClick={() => setActiveTab("testimonials")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
+              activeTab === "testimonials"
+                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
+                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+            }`}>
+            <QuoteIcon className="w-5 h-5" /> Testimonials
+          </button>
         </nav>
         <div className="p-4 border-t border-slate-200 dark:border-slate-800">
           <div className="text-sm text-slate-500 dark:text-slate-400 mb-2 truncate">{user.email}</div>
@@ -506,6 +526,14 @@ export default function AdminPage() {
             <button onClick={() => setActiveTab("users")}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "users" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
               Users
+            </button>
+            <button onClick={() => setActiveTab("blog")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "blog" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
+              Blog
+            </button>
+            <button onClick={() => setActiveTab("testimonials")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "testimonials" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
+              Reviews
             </button>
             <button onClick={async () => { await signOut(); setUser(null); }}
               className="text-xs text-slate-400 hover:text-red-500 ml-2">Sign Out</button>
@@ -899,6 +927,12 @@ export default function AdminPage() {
           )}
           {activeTab === "users" && (
             <AdminUsers />
+          )}
+          {activeTab === "blog" && (
+            <AdminBlog />
+          )}
+          {activeTab === "testimonials" && (
+            <AdminTestimonials />
           )}
         </div>
       </div>

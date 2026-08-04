@@ -127,6 +127,12 @@ export default function Navbar() {
             >
               Contact
             </Link>
+            <Link
+              href="/blog"
+              className="text-sm text-slate-600 hover:text-sky-500 transition-colors dark:text-slate-300 dark:hover:text-sky-400"
+            >
+              Insights
+            </Link>
             <button
               onClick={toggleDark}
               className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800"
@@ -205,6 +211,10 @@ export default function Navbar() {
             <Link href="#contact" onClick={() => setMobileMenuOpen(false)}
               className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
               Contact
+            </Link>
+            <Link href="/blog" onClick={() => setMobileMenuOpen(false)}
+              className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+              Insights
             </Link>
             <div className="pt-2 px-4">
               <Link href="#contact" onClick={() => setMobileMenuOpen(false)}

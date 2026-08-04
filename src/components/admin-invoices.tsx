@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import { FileText, Plus, X, Search, Download, Pencil, Trash2 } from "lucide-react";
+import { FileText, Plus, X, Search, Download, Pencil, Trash2, Mail, Send, Loader2, Check, AlertCircle } from "lucide-react";
 
 const SERVICES = [
   { value: "real-estate", label: "Real Estate Dashboard" },
@@ -81,6 +81,8 @@ export default function AdminInvoices() {
   });
 
   const [formError, setFormError] = useState("");
+  const [actionMessage, setActionMessage] = useState("");
+  const [sendingId, setSendingId] = useState<number | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
   const [vatInclusive, setVatInclusive] = useState(false);
@@ -222,7 +224,7 @@ export default function AdminInvoices() {
     setInvoices((prev) => prev.filter((inv) => inv.id !== id));
   }
 
-  async function downloadPdf(inv: Invoice) {
+  async function buildPdf(inv: Invoice) {
     const { default: jsPDF } = await import("jspdf");
 
     const pdf = new jsPDF("p", "mm", "a4");
@@ -363,7 +365,49 @@ export default function AdminInvoices() {
     pdf.setTextColor("#cbd5e1");
     pdf.text("Thank you for your business!", left + pageW / 2, y + 5, { align: "center" });
 
+    return pdf;
+  }
+
+  async function downloadPdf(inv: Invoice) {
+    const pdf = await buildPdf(inv);
     pdf.save(`${inv.invoice_number}.pdf`);
+  }
+
+  async function emailInvoice(inv: Invoice) {
+    setSendingId(inv.id);
+    setFormError("");
+    try {
+      const pdf = await buildPdf(inv);
+      const buffer = await pdf.output("arraybuffer");
+      let binary = "";
+      const bytes = new Uint8Array(buffer);
+      const chunkSize = 0x8000;
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + chunkSize)));
+      }
+      const pdfBase64 = btoa(binary);
+
+      const res = await fetch("/api/send-invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to: inv.client_email,
+          subject: `Invoice ${inv.invoice_number} from Pigiecore Solutions`,
+          message: `<p>Hi ${inv.client_name},</p><p>Please find your invoice <strong>${inv.invoice_number}</strong> for <strong>${formatCurrency(inv.total)}</strong> attached below.</p><p>Thank you for your business!</p><p>— Pigiecore Solutions</p>`,
+          pdfBase64,
+          fileName: `${inv.invoice_number}.pdf`,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send email");
+      }
+      setActionMessage(`Invoice ${inv.invoice_number} sent to ${inv.client_email}`);
+      updateStatus(inv.id, "sent");
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : "Failed to send email");
+    }
+    setSendingId(null);
   }
 
   const fieldCls = (field: string, extra = "") =>
@@ -392,6 +436,17 @@ export default function AdminInvoices() {
           <Plus className="w-4 h-4" /> New Invoice
         </button>
       </div>
+
+      {actionMessage && (
+        <div className="mb-6 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-sm text-emerald-700 flex items-center gap-2 dark:bg-emerald-950/30 dark:border-emerald-800 dark:text-emerald-400">
+          <Check className="w-4 h-4 shrink-0" /> {actionMessage}
+        </div>
+      )}
+      {formError && (
+        <div className="mb-6 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-600 flex items-center gap-2 dark:bg-red-950/30 dark:border-red-800 dark:text-red-400">
+          <AlertCircle className="w-4 h-4 shrink-0" /> {formError}
+        </div>
+      )}
 
       {showForm && (
         <div className="mb-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
@@ -661,6 +716,11 @@ export default function AdminInvoices() {
                   <button onClick={() => downloadPdf(inv)}
                     className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-sky-500 font-medium">
                     <Download className="w-3 h-3" /> PDF
+                  </button>
+                  <button onClick={() => emailInvoice(inv)} disabled={sendingId === inv.id}
+                    className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-emerald-500 font-medium disabled:opacity-50">
+                    {sendingId === inv.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
+                    {sendingId === inv.id ? "Sending..." : "Email"}
                   </button>
                   <button onClick={() => deleteInvoice(inv.id)}
                     className="inline-flex items-center gap-1 text-xs text-red-400 hover:text-red-500 font-medium ml-auto">

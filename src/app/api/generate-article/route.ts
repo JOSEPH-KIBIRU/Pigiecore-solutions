@@ -88,7 +88,7 @@ function buildContext(items: NewsItem[]) {
     .join("\n");
 }
 
-function buildPrompt(topic: string, context: string) {
+function buildPrompt(topic: string, context: string, concise = false) {
   return `You are the blog writer for Pigiecore Solutions, a software and business automation company in Kenya.
 
 Write a unique, SEO-friendly blog article about this topic: "${topic}"
@@ -99,7 +99,7 @@ NEWS SOURCES:
 ${context}
 
 Rules:
-- Write 700-1100 words in original sentences, simple business-friendly English. Do NOT copy text from the sources.
+- Write ${concise ? "500-700" : "700-1100"} words in original sentences, simple business-friendly English. Do NOT copy text from the sources.
 - Base the article on the news sources: reference the newest developments and cite the sources by their titles.
 - Include: an intro on what the topic is, key benefits (tied to growing a small/medium business), practical steps or examples, and a conclusion with a gentle call to action to contact Pigiecore Solutions.
 - End the article with a "Sources:" section listing 3-6 sources as "- Title - URL" lines, using the URLs given above.
@@ -121,15 +121,15 @@ function extractJson(text: string): unknown {
   return JSON.parse(raw.slice(start, end + 1));
 }
 
-async function callGemini(key: string, topic: string, context: string) {
+async function callGemini(key: string, topic: string, context: string, concise = false) {
   const res = await fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json", "x-goog-api-key": key },
     body: JSON.stringify({
-      contents: [{ role: "user", parts: [{ text: buildPrompt(topic, context) }] }],
+      contents: [{ role: "user", parts: [{ text: buildPrompt(topic, context, concise) }] }],
       generationConfig: {
         temperature: 0.7,
-        maxOutputTokens: 4096,
+        maxOutputTokens: 8000,
         responseMimeType: "application/json",
       },
     }),
@@ -206,6 +206,14 @@ export async function POST(request: Request) {
     }
 
     const result = await callGemini(key, topic.trim(), buildContext(news));
+    if (result.error && /parse|JSON/i.test(String(result.error))) {
+      const retry = await callGemini(key, topic.trim(), buildContext(news), true);
+      if (!retry.error) return NextResponse.json(retry);
+      return NextResponse.json(
+        { error: "The AI returned an incomplete article. Please try again." },
+        { status: 502 }
+      );
+    }
     if (result.error) {
       const msg = String(result.error);
       const friendly = /quota|plan|billing|rate|daily limit/i.test(msg)

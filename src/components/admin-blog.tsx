@@ -14,6 +14,7 @@ import {
   ImageIcon,
   Eye,
   Sparkles,
+  ExternalLink,
 } from "lucide-react";
 
 interface BlogPost {
@@ -70,6 +71,49 @@ export default function AdminBlog() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showImport, setShowImport] = useState(false);
   const [draftText, setDraftText] = useState("");
+  const [topic, setTopic] = useState("");
+  const [generating, setGenerating] = useState(false);
+  const [genError, setGenError] = useState("");
+  const [genSources, setGenSources] = useState<string[]>([]);
+
+  async function handleGenerate() {
+    if (!topic.trim()) {
+      setGenError("Enter a topic first");
+      return;
+    }
+    setGenerating(true);
+    setGenError("");
+    setGenSources([]);
+    try {
+      const res = await fetch("/api/generate-article", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic: topic.trim() }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setGenError(data.error || "Failed to generate article");
+        setGenerating(false);
+        return;
+      }
+      setForm({
+        title: data.title || "",
+        slug: slugify(data.title || topic),
+        excerpt: data.excerpt || "",
+        content: data.content || "",
+        cover_image_url: "",
+        author: "Pigiecore Solutions",
+        published: false,
+      });
+      setFieldErrors({});
+      setShowImport(false);
+      setShowForm(true);
+      setGenSources(Array.isArray(data.sources) ? data.sources : []);
+    } catch {
+      setGenError("Network error while generating");
+    }
+    setGenerating(false);
+  }
 
   function importDraft() {
     const lines = draftText.split(/\r?\n/).map((l) => l.trim());
@@ -232,6 +276,61 @@ export default function AdminBlog() {
           className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-sky-500/25">
           <Plus className="w-4 h-4" /> New Post
         </button>
+      </div>
+
+      <div className="mb-8 rounded-xl border border-violet-200 bg-gradient-to-br from-violet-50/60 to-sky-50/60 p-6 dark:border-violet-900 dark:from-violet-950/30 dark:to-sky-950/20">
+        <div className="flex items-center gap-2 mb-1.5">
+          <Sparkles className="w-5 h-5 text-violet-500" />
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">AI Writer</h2>
+        </div>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+          Type a topic and the AI searches the web for the latest articles, then writes a full post for you.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            value={topic}
+            onChange={(e) => { setTopic(e.target.value); setGenError(""); }}
+            placeholder="e.g. How a website helps boost your sales revenue"
+            className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all focus:border-violet-500 focus:ring-violet-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+          />
+          <button
+            onClick={handleGenerate}
+            disabled={generating}
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-violet-500/25 disabled:opacity-60 shrink-0"
+          >
+            {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+            {generating ? "Searching & writing..." : "Generate Article"}
+          </button>
+        </div>
+        {genError && (
+          <div className="mt-3 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-600 flex items-center gap-2 dark:bg-red-950/30 dark:border-red-800 dark:text-red-400">
+            <AlertCircle className="w-4 h-4 shrink-0" /> {genError}
+          </div>
+        )}
+        {genSources.length > 0 && (
+          <div className="mt-4">
+            <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+              Sources used ({genSources.length})
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {genSources.map((url) => (
+                <a
+                  key={url}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600 hover:border-violet-400 hover:text-violet-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-violet-400"
+                >
+                  <ExternalLink className="w-3 h-3" /> {url.replace(/^https?:\/\//, "").split("/")[0]}
+                </a>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
+              The sources are also included at the end of the article. Review and edit before publishing.
+            </p>
+          </div>
+        )}
       </div>
 
       {actionMessage && (

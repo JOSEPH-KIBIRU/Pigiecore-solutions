@@ -39,6 +39,74 @@ function formatDate(iso: string) {
   });
 }
 
+function renderInline(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^)]+\))/g);
+  return parts.map((part, i) => {
+    if (/^\*\*[^*]+\*\*$/.test(part)) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    if (/^\*[^*]+\*$/.test(part)) {
+      return <em key={i}>{part.slice(1, -1)}</em>;
+    }
+    const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (m) {
+      return (
+        <a key={i} href={m[2]} target="_blank" rel="noopener noreferrer" className="text-sky-500 hover:text-sky-600 underline underline-offset-2">
+          {m[1]}
+        </a>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
+function renderContent(text: string) {
+  const blocks = text.split(/\n{2,}/);
+  return blocks.map((block, i) => {
+    const trimmed = block.trim();
+    if (!trimmed) return null;
+
+    if (/^#{2,3}\s/.test(trimmed)) {
+      const level = trimmed.startsWith("### ") ? 3 : 2;
+      const label = trimmed.replace(/^#{2,3}\s+/, "");
+      return level === 2 ? (
+        <h2 key={i} className="mt-8 mb-3 text-2xl font-bold text-slate-900 dark:text-white">
+          {renderInline(label)}
+        </h2>
+      ) : (
+        <h3 key={i} className="mt-6 mb-2 text-xl font-semibold text-slate-900 dark:text-white">
+          {renderInline(label)}
+        </h3>
+      );
+    }
+
+    if (trimmed.startsWith("> ")) {
+      return (
+        <blockquote key={i} className="mt-4 mb-4 border-l-4 border-sky-300 pl-4 italic text-slate-600 dark:border-sky-700 dark:text-slate-300">
+          {renderInline(trimmed.slice(2))}
+        </blockquote>
+      );
+    }
+
+    if (/^[-*]\s/.test(trimmed)) {
+      const items = trimmed.split(/\n/).map((l) => l.replace(/^[-*]\s+/, "")).filter(Boolean);
+      return (
+        <ul key={i} className="my-4 space-y-2 pl-5 list-disc">
+          {items.map((item, j) => (
+            <li key={j}>{renderInline(item)}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    return (
+      <p key={i} className="my-4">
+        {renderInline(trimmed)}
+      </p>
+    );
+  });
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
@@ -114,8 +182,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <p className="mt-4 text-lg text-slate-500 dark:text-slate-400 leading-relaxed">{post.excerpt}</p>
         )}
 
-        <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
-          {post.content || ""}
+        <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+          {post.content ? renderContent(post.content) : null}
         </div>
 
         <div className="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">

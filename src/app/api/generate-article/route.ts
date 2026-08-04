@@ -3,26 +3,111 @@ import { NextResponse } from "next/server";
 
 export const maxDuration = 60;
 
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-3.6-flash";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
-function buildPrompt(topic: string) {
+interface NewsItem {
+  title: string;
+  link: string;
+  pub: string;
+  source: string;
+}
+
+function stripHtml(html: string) {
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractItems(xml: string): NewsItem[] {
+  const items: NewsItem[] = [];
+  const itemRe = /<item>([\s\S]*?)<\/item>/g;
+  let m: RegExpExecArray | null;
+  while ((m = itemRe.exec(xml))) {
+    const block = m[1];
+    const title = (block.match(/<title>(.*?)<\/title>/) || [])[1] || "";
+    const link = (block.match(/<link>(.*?)<\/link>/) || [])[1] || "";
+    const pub = (block.match(/<pubDate>(.*?)<\/pubDate>/) || [])[1] || "";
+    const descRaw =
+      (block.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/) || [])[1] ||
+      (block.match(/<description>(.*?)<\/description>/) || [])[1] ||
+      "";
+    const source = (block.match(/<source[^>]*>(.*?)<\/source>/) || [])[1] || "";
+    const desc = stripHtml(descRaw);
+    if (title) items.push({ title, link, pub, source, ...(desc ? { desc } : {}) });
+  }
+  return items;
+}
+
+async function fetchNews(topic: string): Promise<NewsItem[]> {
+  const query = encodeURIComponent(topic);
+  const sources: Array<{ url: string; label: string }> = [
+    {
+      url: `https://news.google.com/rss/search?q=${query}&hl=en&gl=US&ceid=US:en`,
+      label: "Google News",
+    },
+    {
+      url: `https://www.bing.com/news/search?q=${query}&format=RSS`,
+      label: "Bing News",
+    },
+  ];
+
+  for (const src of sources) {
+    try {
+      const res = await fetch(src.url, {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; PigiecoreBot/1.0)" },
+      });
+      if (!res.ok) continue;
+      const xml = await res.text();
+      const items = extractItems(xml);
+      if (items.length > 0) return items.slice(0, 10);
+    } catch {
+      // try next source
+    }
+  }
+  return [];
+}
+
+function buildContext(items: NewsItem[]) {
+  return items
+    .map((item, i) => {
+      const date = item.pub ? ` (${item.pub})` : "";
+      const source = item.source ? ` - ${item.source}` : "";
+      const desc = (item as NewsItem & { desc?: string }).desc
+        ? `: ${(item as NewsItem & { desc?: string }).desc}`
+        : "";
+      return `${i + 1}. ${item.title}${source}${date} - ${item.link}${desc}`;
+    })
+    .join("\n");
+}
+
+function buildPrompt(topic: string, context: string) {
   return `You are the blog writer for Pigiecore Solutions, a software and business automation company in Kenya.
 
 Write a unique, SEO-friendly blog article about this topic: "${topic}"
 
-Use the Google search results to get the LATEST and most up-to-date information. Prioritize the newest articles (this year) and include recent facts, stats, or examples when the search results provide them.
+Below are the LATEST news articles about this topic, ordered from newest to oldest. Use them as your sources.
 
-Cover: what the topic is, the key benefits (tied to growing a small/medium business), practical steps or examples, and a short conclusion with a gentle call to action to contact Pigiecore Solutions.
+NEWS SOURCES:
+${context}
 
 Rules:
-- 700-1100 words.
-- Write original sentences in simple, business-friendly English. Do NOT copy text from the sources.
+- Write 700-1100 words in original sentences, simple business-friendly English. Do NOT copy text from the sources.
+- Base the article on the news sources: reference the newest developments and cite the sources by their titles.
+- Include: an intro on what the topic is, key benefits (tied to growing a small/medium business), practical steps or examples, and a conclusion with a gentle call to action to contact Pigiecore Solutions.
+- End the article with a "Sources:" section listing 3-6 sources as "- Title - URL" lines, using the URLs given above.
 - Output ONLY valid JSON with no markdown fences and no extra text, exactly in this shape:
 {
   "title": "SEO title, under 60 characters, compelling, no double quotes",
   "excerpt": "One or two sentence summary, under 160 characters",
-  "content": "Full article as plain text. Use '## ' for section headings. Separate paragraphs with a blank line. End the article with a 'Sources:' section listing 3-6 sources as '- Title - URL' lines.",
+  "content": "Full article as plain text. Use '## ' for section headings. Separate paragraphs with a blank line. End with the Sources: section.",
   "sources": ["https://example.com/article", "https://example.com/post"]
 }`;
 }
@@ -36,13 +121,12 @@ function extractJson(text: string): unknown {
   return JSON.parse(raw.slice(start, end + 1));
 }
 
-async function callGemini(key: string, topic: string, tool: unknown) {
+async function callGemini(key: string, topic: string, context: string) {
   const res = await fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json", "x-goog-api-key": key },
     body: JSON.stringify({
-      contents: [{ role: "user", parts: [{ text: buildPrompt(topic) }] }],
-      tools: [tool],
+      contents: [{ role: "user", parts: [{ text: buildPrompt(topic, context) }] }],
       generationConfig: {
         temperature: 0.7,
         maxOutputTokens: 4096,
@@ -113,22 +197,19 @@ export async function POST(request: Request) {
       );
     }
 
-    let result = await callGemini(key, topic.trim(), { google_search: {} });
-    if (result.error) {
-      result = await callGemini(key, topic.trim(), {
-        google_search_retrieval: {
-          dynamic_retrieval_config: {
-            mode: "MODE_DYNAMIC",
-            dynamic_threshold: 0.6,
-          },
-        },
-      });
+    const news = await fetchNews(topic.trim());
+    if (news.length === 0) {
+      return NextResponse.json(
+        { error: "No recent news articles found for this topic. Try rewording it." },
+        { status: 422 }
+      );
     }
 
+    const result = await callGemini(key, topic.trim(), buildContext(news));
     if (result.error) {
       const msg = String(result.error);
-      const friendly = /grounding|search tool|not enabled|forbidden|quota/i.test(msg)
-        ? "Google Search grounding is unavailable on this key. Get a free key at aistudio.google.com/apikey and add it as GEMINI_API_KEY."
+      const friendly = /quota|plan|billing|rate|daily limit/i.test(msg)
+        ? "The free Gemini tier's daily limit was reached. Try again later or visit aistudio.google.com for your quota."
         : msg;
       return NextResponse.json({ error: friendly }, { status: 502 });
     }

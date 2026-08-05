@@ -9,6 +9,23 @@ export const metadata: Metadata = {
   title: "Insights & Blog",
   description:
     "Insights, guides, and tips on custom software, business automation, and technology from Pigiecore Solutions.",
+  keywords: [
+    "software blog",
+    "business automation",
+    "custom software Kenya",
+    "web development insights",
+    "Pigiecore blog",
+  ],
+  openGraph: {
+    title: "Insights & Blog | Pigiecore Solutions",
+    description:
+      "Practical guides on building software that grows your business.",
+    type: "website",
+    url: "https://pigiecore.co.ke/blog",
+  },
+  alternates: {
+    canonical: "/blog",
+  },
 };
 
 interface BlogPost {
@@ -81,8 +98,8 @@ export default async function BlogPage() {
                     />
                   </div>
                 ) : (
-                  <div className="aspect-[16/9] bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-4xl font-bold text-white">
-                    P
+                  <div className="aspect-[16/9] bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
+                    <span className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white/25 backdrop-blur-sm text-2xl font-bold text-white">P</span>
                   </div>
                 )}
                 <div className="p-5">
@@ -94,7 +111,7 @@ export default async function BlogPage() {
                     )}
                     <span>{post.author || "Pigiecore Solutions"}</span>
                   </div>
-                  <h2 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                  <h2 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                     {post.title}
                   </h2>
                   {post.excerpt && (

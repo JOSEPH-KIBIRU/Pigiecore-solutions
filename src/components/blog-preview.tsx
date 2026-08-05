@@ -70,8 +70,8 @@ export default async function BlogPreview() {
                     />
                   </div>
                 ) : (
-                  <div className="aspect-[16/9] bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-4xl font-bold text-white">
-                    P
+                  <div className="aspect-[16/9] bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
+                    <span className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white/25 backdrop-blur-sm text-2xl font-bold text-white">P</span>
                   </div>
                 )}
                 <div className="p-5">

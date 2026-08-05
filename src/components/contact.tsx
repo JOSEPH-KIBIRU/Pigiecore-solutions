@@ -10,7 +10,7 @@ interface ContactErrors {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_RE = /^(\+?\d{1,3}[-.\s]?)?\(?\d{3,4}\)?[-.\s]?\d{3}[-.\s]?\d{4,5}$/;
+const PHONE_RE = /^\d{9,15}$/;
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
@@ -35,7 +35,9 @@ export default function Contact() {
     } else if (!EMAIL_RE.test(data.email)) {
       next.email = "Please enter a valid email address";
     }
-    if (data.phone && !PHONE_RE.test(data.phone)) {
+    if (!data.phone) {
+      next.phone = "Phone number is required";
+    } else if (!PHONE_RE.test(data.phone)) {
       next.phone = "Please enter a valid phone number";
     }
     if (!data.message || data.message.trim().length < 10) {
@@ -162,19 +164,21 @@ export default function Contact() {
                 htmlFor="phone"
                 className="block text-sm font-medium text-slate-700 mb-1.5"
               >
-                Phone Number <span className="text-slate-400 font-normal">(optional)</span>
+                Phone Number
               </label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
+                inputMode="numeric"
                 value={values.phone}
                 onChange={(e) => {
-                  setValues((v) => ({ ...v, phone: e.target.value }));
+                  const digits = e.target.value.replace(/\D/g, "");
+                  setValues((v) => ({ ...v, phone: digits }));
                   if (errors.phone) setErrors((er) => ({ ...er, phone: undefined }));
                 }}
                 className={inputClass(!!errors.phone)}
-                placeholder="+254 7XX XXX XXX"
+                placeholder="0712345678"
                 aria-invalid={!!errors.phone}
               />
               {errors.phone && (

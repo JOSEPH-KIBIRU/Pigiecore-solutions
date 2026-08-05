@@ -17,6 +17,7 @@ interface BlogPost {
   author: string | null;
   published_at: string | null;
   created_at: string;
+  updated_at: string | null;
 }
 
 async function getPost(slug: string): Promise<BlogPost | null> {
@@ -113,6 +114,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.title,
     description: post.excerpt || `${post.title} — Pigiecore Solutions Insights`,
+    keywords: ["software", "automation", "Pigiecore", "business growth"],
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt || undefined,
@@ -120,6 +125,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: `${siteUrl}/blog/${post.slug}`,
       images: post.cover_image_url ? [{ url: post.cover_image_url }] : undefined,
       publishedTime: post.published_at || post.created_at,
+      modifiedTime: post.updated_at || undefined,
+      authors: [post.author || "Pigiecore Solutions"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt || undefined,
+      images: post.cover_image_url ? [post.cover_image_url] : undefined,
     },
   };
 }
@@ -181,7 +194,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <p className="mt-4 text-lg text-slate-500 dark:text-slate-400 leading-relaxed">{post.excerpt}</p>
         )}
 
-        <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-base text-slate-700 dark:text-slate-300 leading-relaxed">
+        <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-lg text-slate-700 dark:text-slate-300 leading-relaxed tracking-wide">
           {post.content ? renderContent(post.content) : null}
         </div>
 

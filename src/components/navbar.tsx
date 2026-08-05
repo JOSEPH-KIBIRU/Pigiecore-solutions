@@ -80,12 +80,12 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200 dark:bg-slate-950 dark:border-slate-800">
-      <div className="w-full px-5 sm:px-10 lg:px-16">
+      <div className="w-full px-5 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-16 gap-8">
           <Link href="/" aria-label="Pigiecore Solutions — Home" className="shrink-0">
             <Logo size={38} />
           </Link>
-          <div className="hidden md:flex flex-1 items-center justify-between gap-4">
+          <div className="hidden md:flex items-center gap-8">
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -128,6 +128,12 @@ export default function Navbar() {
               className="text-sm text-slate-600 hover:text-sky-500 transition-colors dark:text-slate-300 dark:hover:text-sky-400"
             >
               Insights
+            </Link>
+            <Link
+              href="/faq"
+              className="text-sm text-slate-600 hover:text-sky-500 transition-colors dark:text-slate-300 dark:hover:text-sky-400"
+            >
+              FAQ
             </Link>
             <button
               onClick={toggleDark}
@@ -211,6 +217,10 @@ export default function Navbar() {
             <Link href="/blog" onClick={() => setMobileMenuOpen(false)}
               className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
               Insights
+            </Link>
+            <Link href="/faq" onClick={() => setMobileMenuOpen(false)}
+              className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+              FAQ
             </Link>
             <div className="pt-2 px-4">
               <Link href="#contact" onClick={() => setMobileMenuOpen(false)}

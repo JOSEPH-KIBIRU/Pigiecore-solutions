@@ -51,6 +51,13 @@ export default function LegalPage({
               className="text-sky-500 hover:text-sky-400"
             >
               +254798118515
+            </a>{" "}
+            or{" "}
+            <a
+              href="tel:+254708769459"
+              className="text-sky-500 hover:text-sky-400"
+            >
+              +254708769459
             </a>
             .
           </p>

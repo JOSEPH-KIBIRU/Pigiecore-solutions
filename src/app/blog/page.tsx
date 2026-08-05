@@ -2,6 +2,8 @@ import { getServerClient } from "@/lib/supabase-server";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, ArrowRight } from "lucide-react";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 export const dynamic = "force-dynamic";
 
@@ -59,17 +61,22 @@ export default async function BlogPage() {
   const posts = (data as BlogPost[] | null) ?? [];
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      <div className="bg-gradient-to-b from-sky-50 to-slate-50 dark:from-slate-900 dark:to-slate-950">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
-            Insights &amp; Blog
-          </h1>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Guides and ideas on building software that grows your business.
-          </p>
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <div className="bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-100 mb-4">
+              Insights
+            </span>
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              Insights &amp; Blog
+            </h1>
+            <p className="mt-4 text-lg text-sky-100/90 max-w-2xl mx-auto">
+              Guides and ideas on building software that grows your business.
+            </p>
+          </div>
         </div>
-      </div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {error ? (
@@ -128,6 +135,8 @@ export default async function BlogPage() {
           </div>
         )}
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

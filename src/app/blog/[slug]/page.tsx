@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, ArrowLeft } from "lucide-react";
 import { siteUrl } from "@/lib/site";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 export const dynamic = "force-dynamic";
 
@@ -162,7 +164,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   };
 
   return (
-    <main className="min-h-screen bg-white dark:bg-slate-950">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-white dark:bg-slate-950 pt-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm text-sky-500 hover:text-sky-600 transition-colors mb-8">
@@ -208,6 +212,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </p>
         </div>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

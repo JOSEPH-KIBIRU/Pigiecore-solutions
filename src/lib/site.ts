@@ -1,2 +1,2 @@
 export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://pigicore.co.ke";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://pigiecore.co.ke";

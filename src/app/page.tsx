@@ -20,7 +20,7 @@ const jsonLd = {
       image: `${siteUrl}/opengraph-image`,
       description:
         "Custom software development agency in Kenya building dashboards and web applications for real estate, logistics, salons, schools, and hospitals.",
-      email: "hello@pigiecoresolutions.com",
+      email: "info@pigiecore.co.ke",
       telephone: "+254798118515",
       areaServed: "Kenya",
       contactPoint: [

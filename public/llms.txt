@@ -1,26 +1,26 @@
-# Pigiecore Solutions
+﻿# Pigiecore Solutions
 
 > Pigiecore Solutions is a custom software development agency in Kenya. We build dashboards and web applications that automate and modernize business operations for real estate, logistics, salons, schools, and hospitals.
 
-Official website: https://pigiecore.vercel.app
+Official website: https://pigiecore.co.ke
 
 ## About
 
-Pigiecore Solutions designs and develops custom software for Kenyan businesses and enterprises. The team moves businesses away from spreadsheets and manual processes by delivering unified, responsive platforms for fleet, bookings, payments, and management — all in one system.
+Pigiecore Solutions designs and develops custom software for Kenyan businesses and enterprises. The team moves businesses away from spreadsheets and manual processes by delivering unified, responsive platforms for fleet, bookings, payments, and management â€” all in one system.
 
 ## Services
 
-- **Real Estate Management Software** — Property management dashboard for landlords, property managers, and real estate companies: rent collection, tenant management, maintenance tracking, and financial reporting.
-- **Website Development** — Custom business websites and company web presence.
-- **Logistics & Fleet Management** — Fleet tracking, NTSA compliance, driver portal, and native M-Pesa integration.
-- **Salon & Barber Booking** — Online appointment booking and client management.
-- **School Management System** — Student records, fees, and staff management.
-- **Hospital Management System** — Patient records, appointment booking, billing, pharmacy tracking, and staff management.
+- **Real Estate Management Software** â€” Property management dashboard for landlords, property managers, and real estate companies: rent collection, tenant management, maintenance tracking, and financial reporting.
+- **Website Development** â€” Custom business websites and company web presence.
+- **Logistics & Fleet Management** â€” Fleet tracking, NTSA compliance, driver portal, and native M-Pesa integration.
+- **Salon & Barber Booking** â€” Online appointment booking and client management.
+- **School Management System** â€” Student records, fees, and staff management.
+- **Hospital Management System** â€” Patient records, appointment booking, billing, pharmacy tracking, and staff management.
 
 ## Products
 
-- **SteadyCargo ERP** — A multi-tenant, enterprise-grade web application for logistics companies, with a driver portal, NTSA compliance tracking, and native M-Pesa integration.
-- **BomaPulse Ventures** — A cloud-based property management platform for rent collection, tenant management, maintenance tracking, financial reporting, and communication.
+- **SteadyCargo ERP** â€” A multi-tenant, enterprise-grade web application for logistics companies, with a driver portal, NTSA compliance tracking, and native M-Pesa integration.
+- **BomaPulse Ventures** â€” A cloud-based property management platform for rent collection, tenant management, maintenance tracking, financial reporting, and communication.
 
 ## Contact
 
@@ -30,8 +30,8 @@ Pigiecore Solutions designs and develops custom software for Kenyan businesses a
 
 ## Key pages
 
-- [Homepage](https://pigiecore.vercel.app/)
-- [Services](https://pigiecore.vercel.app/#services)
-- [About](https://pigiecore.vercel.app/#about)
-- [Featured Projects](https://pigiecore.vercel.app/#showcase)
-- [Contact](https://pigiecore.vercel.app/#contact)
+- [Homepage](https://pigiecore.co.ke/)
+- [Services](https://pigiecore.co.ke/#services)
+- [About](https://pigiecore.co.ke/#about)
+- [Featured Projects](https://pigiecore.co.ke/#showcase)
+- [Contact](https://pigiecore.co.ke/#contact)

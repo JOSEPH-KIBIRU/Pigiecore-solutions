@@ -3,10 +3,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, ArrowLeft } from "lucide-react";
+import { siteUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
-
-const siteUrl = "https://pigiecore.vercel.app";
 
 interface BlogPost {
   id: number;

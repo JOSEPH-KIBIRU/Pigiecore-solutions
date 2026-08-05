@@ -6,8 +6,7 @@ import Showcase from "@/components/showcase";
 import Testimonials from "@/components/testimonials";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
-
-const siteUrl = "https://pigiecore.vercel.app";
+import { siteUrl } from "@/lib/site";
 
 const jsonLd = {
   "@context": "https://schema.org",

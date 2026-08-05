@@ -5,6 +5,7 @@ import About from "@/components/about";
 import Showcase from "@/components/showcase";
 import Testimonials from "@/components/testimonials";
 import BlogPreview from "@/components/blog-preview";
+import Faq from "@/components/faq";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import OfferPopup from "@/components/offer-popup";
@@ -122,6 +123,7 @@ export default function Home() {
         <Showcase />
         <Testimonials />
         <BlogPreview />
+        <Faq />
         <Contact />
         <Footer />
       </main>

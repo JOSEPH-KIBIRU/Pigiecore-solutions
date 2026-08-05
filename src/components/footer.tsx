@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/logo";
 
 export default function Footer() {
   return (
@@ -6,10 +7,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">P</span>
-              </div>
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
+              <Logo size={36} />
               <span className="font-semibold text-lg text-white">
                 Pigiecore
               </span>
@@ -65,9 +64,20 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <span className="text-sm text-slate-500">
+                <Link
+                  href="/privacy-policy"
+                  className="text-sm hover:text-sky-400 transition-colors"
+                >
                   Privacy Policy
-                </span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-sm hover:text-sky-400 transition-colors"
+                >
+                  Terms &amp; Conditions
+                </Link>
               </li>
             </ul>
           </div>
@@ -93,11 +103,19 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col items-center justify-center gap-3 text-center">
           <p className="text-sm">
             &copy; {new Date().getFullYear()} Pigiecore Solutions. All rights
             reserved.
           </p>
+          <div className="flex items-center justify-center gap-6">
+            <Link href="/privacy-policy" className="text-sm text-slate-400 hover:text-sky-400 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-sm text-slate-400 hover:text-sky-400 transition-colors">
+              Terms &amp; Conditions
+            </Link>
+          </div>
           <p className="text-sm text-slate-500">
             Built with <span className="text-red-400">❤️</span> care at Pigiecore
           </p>

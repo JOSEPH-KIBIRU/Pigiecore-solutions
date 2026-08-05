@@ -80,12 +80,12 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200 dark:bg-slate-950 dark:border-slate-800">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" aria-label="Pigiecore Solutions — Home">
+      <div className="w-full px-5 sm:px-10 lg:px-16">
+        <div className="flex items-center justify-between h-16 gap-8">
+          <Link href="/" aria-label="Pigiecore Solutions — Home" className="shrink-0">
             <Logo size={38} />
           </Link>
-          <div className="hidden md:flex items-center gap-9">
+          <div className="hidden md:flex flex-1 items-center justify-between gap-4">
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}

@@ -4,6 +4,7 @@ import Services from "@/components/services";
 import About from "@/components/about";
 import Showcase from "@/components/showcase";
 import Testimonials from "@/components/testimonials";
+import BlogPreview from "@/components/blog-preview";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import { siteUrl } from "@/lib/site";
@@ -119,6 +120,7 @@ export default function Home() {
         <About />
         <Showcase />
         <Testimonials />
+        <BlogPreview />
         <Contact />
         <Footer />
       </main>

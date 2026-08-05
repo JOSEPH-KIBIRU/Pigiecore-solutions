@@ -2,7 +2,7 @@
 
 > Pigiecore Solutions is a custom software development agency in Kenya. We build dashboards and web applications that automate and modernize business operations for real estate, logistics, salons, schools, and hospitals.
 
-Official website: https://pigiecore.co.ke
+Official website: https://pigicore.co.ke
 
 ## About
 
@@ -30,8 +30,9 @@ Pigiecore Solutions designs and develops custom software for Kenyan businesses a
 
 ## Key pages
 
-- [Homepage](https://pigiecore.co.ke/)
-- [Services](https://pigiecore.co.ke/#services)
-- [About](https://pigiecore.co.ke/#about)
-- [Featured Projects](https://pigiecore.co.ke/#showcase)
-- [Contact](https://pigiecore.co.ke/#contact)
+- [Homepage](https://pigicore.co.ke/)
+- [Services](https://pigicore.co.ke/#services)
+- [About](https://pigicore.co.ke/#about)
+- [Featured Projects](https://pigicore.co.ke/#showcase)
+- [Contact](https://pigicore.co.ke/#contact)
+

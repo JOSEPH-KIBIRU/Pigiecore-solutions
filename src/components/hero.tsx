@@ -46,7 +46,7 @@ export default function Hero() {
         <div className="text-center max-w-4xl mx-auto animate-fade-in-up">
           <div className="inline-flex items-center gap-2 rounded-full bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800 px-4 py-1.5 text-sm font-medium text-sky-700 dark:text-sky-300 mb-8">
             <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
-            Software Solutions for Modern Businesses
+            <span>Pigiecore Solutions</span>
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl lg:leading-[1.1]">
             We Build Software That

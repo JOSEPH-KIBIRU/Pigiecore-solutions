@@ -7,6 +7,7 @@ import Testimonials from "@/components/testimonials";
 import BlogPreview from "@/components/blog-preview";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
+import OfferPopup from "@/components/offer-popup";
 import { siteUrl } from "@/lib/site";
 
 const jsonLd = {
@@ -124,6 +125,7 @@ export default function Home() {
         <Contact />
         <Footer />
       </main>
+      <OfferPopup />
     </>
   );
 }

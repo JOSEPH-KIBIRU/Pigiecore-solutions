@@ -92,7 +92,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-20 sm:py-28 lg:py-32 bg-slate-50 dark:bg-slate-950"
+      className="py-20 sm:py-28 lg:py-32 bg-slate-50 dark:bg-slate-950 scroll-mt-20 sm:scroll-mt-28 lg:scroll-mt-32"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-16">

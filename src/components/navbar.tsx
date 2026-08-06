@@ -5,12 +5,12 @@ import { useState, useRef, useEffect } from "react";
 import Logo from "@/components/logo";
 
 const SERVICE_ITEMS = [
-  { label: "Real Estate Dashboard", value: "real-estate", href: "#services" },
-  { label: "Website Development", value: "website", href: "#services" },
-  { label: "Logistics & Fleet Management", value: "logistics", href: "#services" },
-  { label: "Salon & Barber Booking", value: "salon", href: "#services" },
-  { label: "School Management System", value: "school", href: "#services" },
-  { label: "Hospital Management System", value: "hospital", href: "#services" },
+  { label: "Real Estate Dashboard", value: "real-estate", href: "/#services" },
+  { label: "Website Development", value: "website", href: "/#services" },
+  { label: "Logistics & Fleet Management", value: "logistics", href: "/#services" },
+  { label: "Salon & Barber Booking", value: "salon", href: "/#services" },
+  { label: "School Management System", value: "school", href: "/#services" },
+  { label: "Hospital Management System", value: "hospital", href: "/#services" },
 ];
 
 function toggleDark(): void {

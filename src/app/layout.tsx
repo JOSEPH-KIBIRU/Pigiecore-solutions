@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { siteUrl } from "@/lib/site";
 import BackToTop from "@/components/back-to-top";
+import HashScroll from "@/components/hash-scroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -106,6 +107,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col text-slate-900 font-sans transition-colors duration-300">
         {children}
         <BackToTop />
+        <HashScroll />
         <Script
           id="tawkto"
           strategy="afterInteractive"

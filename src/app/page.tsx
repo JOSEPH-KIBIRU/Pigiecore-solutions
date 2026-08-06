@@ -103,6 +103,46 @@ const jsonLd = {
       inLanguage: "en",
       publisher: { "@id": `${siteUrl}/#organization` },
     },
+    {
+      "@type": "SoftwareApplication",
+      name: "SteadyCargo ERP",
+      operatingSystem: "Web",
+      applicationCategory: "BusinessApplication",
+      description:
+        "Logistics and fleet management ERP with real-time GPS tracking, route optimization, NTSA compliance, delivery scheduling, and fuel and maintenance analytics.",
+      url: `${siteUrl}/#services`,
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "BomaPulse",
+      operatingSystem: "Web",
+      applicationCategory: "BusinessApplication",
+      description:
+        "Real estate management dashboard with property analytics, lead tracking, investment calculators, tenant management, and smart MLS integrations.",
+      url: `${siteUrl}/#services`,
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "Pigiecore Salon & Barber Booking",
+      operatingSystem: "Web",
+      applicationCategory: "BusinessApplication",
+      description:
+        "Online appointment scheduling with staff management, payment processing, client history, and inventory tracking for salons and barbershops.",
+      url: `${siteUrl}/#services`,
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "Pigiecore School Management System",
+      operatingSystem: "Web",
+      applicationCategory: "EducationalApplication",
+      description:
+        "Complete school operating system with student records, timetables, attendance, grade books, communications, and parent portals.",
+      url: `${siteUrl}/#services`,
+      publisher: { "@id": `${siteUrl}/#organization` },
+    },
   ],
 };
 

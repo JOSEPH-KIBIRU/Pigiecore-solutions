@@ -49,7 +49,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="#about"
+                  href="/about"
                   className="text-sm hover:text-sky-400 transition-colors"
                 >
                   About

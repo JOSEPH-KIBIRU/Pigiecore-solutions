@@ -112,7 +112,7 @@ export default function Navbar() {
               )}
             </div>
             <Link
-              href="#about"
+              href="/about"
               className="text-sm text-slate-600 hover:text-sky-500 transition-colors dark:text-slate-300 dark:hover:text-sky-400"
             >
               About
@@ -206,7 +206,7 @@ export default function Navbar() {
                 </Link>
               ))}
             </div>
-            <Link href="#about" onClick={() => setMobileMenuOpen(false)}
+            <Link href="/about" onClick={() => setMobileMenuOpen(false)}
               className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
               About
             </Link>

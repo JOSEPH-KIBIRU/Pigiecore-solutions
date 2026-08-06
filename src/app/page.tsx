@@ -117,8 +117,8 @@ export default function Home() {
         <Navbar />
         <Hero />
         <Services />
-        <About />
         <Showcase />
+        <About />
         <Testimonials />
         <Contact />
         <Footer />

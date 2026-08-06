@@ -8,7 +8,7 @@ import Footer from "@/components/footer";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Insights & Blog",
+  title: "Insights & Blog — Software, Automation & Business Tips",
   description:
     "Insights, guides, and tips on custom software, business automation, and technology from Pigiecore Solutions.",
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "Pigiecore blog",
   ],
   openGraph: {
-    title: "Insights & Blog | Pigiecore Solutions",
+    title: "Insights & Blog — Software, Automation & Business Tips",
     description:
       "Practical guides on building software that grows your business.",
     type: "website",

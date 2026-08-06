@@ -6,7 +6,7 @@ import { siteUrl } from "@/lib/site";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Pigiecore Solutions — Custom Software Development in Kenya",
+    default: "Custom Software Development & ERP Solutions | Pigiecore",
     template: "%s | Pigiecore Solutions",
   },
   description:
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Pigiecore Solutions",
-    title: "Pigiecore Solutions — Custom Software Development in Kenya",
+    title: "Custom Software Development & ERP Solutions | Pigiecore",
     description:
       "Custom software for real estate, logistics, salons, schools, and hospitals — automating your operations with modern dashboards and web applications.",
     locale: "en_US",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pigiecore Solutions — Custom Software Development in Kenya",
+    title: "Custom Software Development & ERP Solutions | Pigiecore",
     description:
       "Custom software that automates real estate, logistics, salons, schools, and hospitals with modern dashboards.",
     images: ["/opengraph-image"],

@@ -80,34 +80,32 @@ export default function PrivacyPolicyPage() {
         </p>
       </Section>
 
-      <Section title="5. Data Storage and Third Parties">
+      <Section title="5. Data Storage and Security">
         <p>
-          Your data is stored securely using trusted service providers, including:
+          Your data is stored securely using trusted and reputable service
+          providers that maintain industry-standard security measures and data
+          protection practices.
         </p>
-        <ul className="list-disc pl-5 space-y-1">
-          <li>Supabase — for our database, authentication, and file storage.</li>
-          <li>
-            Vercel — for website hosting and deployment infrastructure.
-          </li>
-          <li>
-            Tawk.to — for live chat support on our website.
-          </li>
-          <li>
-            Email and payment providers used to deliver our services.
-          </li>
-        </ul>
         <p>
-          These providers process data only to the extent necessary to provide their
-          services and are expected to maintain appropriate security measures.
+          We apply strict technical and organisational safeguards to protect your
+          information, including encrypted transmission, restricted access, and
+          continuous monitoring of our infrastructure. Access to your data is
+          limited to personnel who need it to deliver our services.
+        </p>
+        <p>
+          We do not disclose the specific infrastructure, hosting providers, or
+          deployment locations of our systems, as this is part of our security
+          posture. Rest assured that every provider and system we use is held to
+          high security and confidentiality standards.
         </p>
       </Section>
 
-      <Section title="6. Data Security">
+      <Section title="6. Security Disclaimer">
         <p>
-          We apply reasonable technical and organisational measures to protect your
-          information against unauthorised access, alteration, disclosure, or
-          destruction. However, no method of transmission over the internet is 100%
-          secure, and we cannot guarantee absolute security.
+          While we take strong measures to protect your information, no method of
+          transmission over the internet or electronic storage is 100% secure. We
+          cannot guarantee absolute security, but we are committed to continuously
+          improving our safeguards and acting promptly if a risk is identified.
         </p>
       </Section>
 

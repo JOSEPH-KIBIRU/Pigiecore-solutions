@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { siteUrl } from "@/lib/site";
 import BackToTop from "@/components/back-to-top";
-import ThemeProvider from "@/lib/theme-context";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -95,23 +94,17 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                try {
-                  var stored = localStorage.getItem("theme");
-                  var dark;
-                  if (stored === "dark") dark = true;
-                  else if (stored === "light") dark = false;
-                  else dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                  if (dark) document.documentElement.classList.add("dark");
-                } catch (e) {}
+                var stored = localStorage.getItem("theme");
+                if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                  document.documentElement.classList.add("dark");
+                }
               })();
             `,
           }}
         />
       </head>
       <body className="min-h-full flex flex-col text-slate-900 font-sans transition-colors duration-300">
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        {children}
         <BackToTop />
         <Script
           id="tawkto"

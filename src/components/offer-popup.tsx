@@ -31,8 +31,7 @@ export default function OfferPopup() {
         if (!data.length) return;
         const top = data[0];
         try {
-          const dismissed = JSON.parse(localStorage.getItem(DISMISSED_KEY) || "{}");
-          if (dismissed[top.id] && Date.now() - dismissed[top.id] < 3 * 24 * 60 * 60 * 1000) return;
+          if (sessionStorage.getItem(DISMISSED_KEY)) return;
         } catch {
           /* ignore storage */
         }
@@ -50,20 +49,16 @@ export default function OfferPopup() {
 
   function dismiss() {
     setVisible(false);
-    if (offer) {
-      try {
-        const dismissed = JSON.parse(localStorage.getItem(DISMISSED_KEY) || "{}");
-        dismissed[offer.id] = Date.now();
-        localStorage.setItem(DISMISSED_KEY, JSON.stringify(dismissed));
-      } catch {
-        // ignore storage
-      }
+    try {
+      sessionStorage.setItem(DISMISSED_KEY, "1");
+    } catch {
+      // ignore storage
     }
   }
 
   if (!offer || !visible) return null;
 
-  const href = offer.button_url || "#contact";
+  const href = offer.button_url || "/#contact";
   const external = /^https?:\/\//i.test(href);
 
   return (

@@ -25,15 +25,15 @@ export default function Footer() {
             <ul className="space-y-3">
               {[
                 "Real Estate Dashboard",
-                "Website Dev",
-                "Logistics & Fleet",
-                "Salon Booking",
-                "School Mgmt",
-                "Hospital Mgmt",
+                "Website Development",
+                "Logistics & Fleet Management",
+                "Salon & Barber Booking",
+                "School Management System",
+                "Hospital Management System",
               ].map((item) => (
                 <li key={item}>
                   <Link
-                    href="#services"
+                    href="/#services"
                     className="text-sm hover:text-sky-400 transition-colors"
                   >
                     {item}
@@ -52,12 +52,28 @@ export default function Footer() {
                   href="/about"
                   className="text-sm hover:text-sky-400 transition-colors"
                 >
-                  About
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#contact"
+                  href="/faq"
+                  className="text-sm hover:text-sky-400 transition-colors"
+                >
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/#services"
+                  className="text-sm hover:text-sky-400 transition-colors"
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/#contact"
                   className="text-sm hover:text-sky-400 transition-colors"
                 >
                   Contact
@@ -117,7 +133,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="text-sm text-slate-500">
-            Built with <span className="text-red-400">❤️</span> care at Pigiecore
+            Built with <span className="text-red-400">❤️</span> &amp; care at Pigiecore
           </p>
         </div>
       </div>

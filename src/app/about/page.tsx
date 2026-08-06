@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import Reveal from "@/components/reveal";
 import { Zap, Code2, Compass, LifeBuoy, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -138,21 +139,22 @@ export default function AboutPage() {
               What Makes Us Different
             </h2>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {DIFFERENTIATORS.map((item) => (
-                <div
-                  key={item.title}
-                  className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center mb-4">
-                    <item.icon className="w-5 h-5 text-white" />
+              {DIFFERENTIATORS.map((item, i) => (
+                <Reveal key={item.title} delay={i * 0.08}>
+                  <div
+                    className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center mb-4">
+                      <item.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -160,19 +162,21 @@ export default function AboutPage() {
 
         <section className="py-16 sm:py-20 bg-white dark:bg-slate-900">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
-              Ready to build with us?
-            </h2>
-            <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Tell us about your business and we'll show you what custom software
-              could do for it — with a response within 24 hours.
-            </p>
-            <Link
-              href="/#contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-sky-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600"
-            >
-              Start a Project <ArrowRight className="w-5 h-5" />
-            </Link>
+            <Reveal>
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
+                Ready to build with us?
+              </h2>
+              <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Tell us about your business and we'll show you what custom software
+                could do for it — with a response within 24 hours.
+              </p>
+              <Link
+                href="/#contact"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-sky-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600"
+              >
+                Start a Project <ArrowRight className="w-5 h-5" />
+              </Link>
+            </Reveal>
           </div>
         </section>
       </main>

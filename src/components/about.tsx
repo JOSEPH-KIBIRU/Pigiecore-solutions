@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
+import Reveal from "@/components/reveal";
 
 const slides = [
   {
@@ -75,7 +76,7 @@ export default function About() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
+          <Reveal>
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
               Built by Engineers.
               <br />
@@ -113,9 +114,10 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="relative">
+          <Reveal delay={0.15}>
+            <div className="relative">
             <div
               className="aspect-[4/3] rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-800 shadow-sm"
               onMouseEnter={() => setIsPaused(true)}
@@ -190,6 +192,7 @@ export default function About() {
             <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-sky-200 to-blue-200 rounded-2xl -z-10 dark:from-sky-500/10 dark:to-blue-500/10"></div>
             <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-violet-200 to-purple-200 rounded-xl -z-10 dark:from-violet-500/10 dark:to-purple-500/10"></div>
           </div>
+          </Reveal>
         </div>
       </div>
     </section>

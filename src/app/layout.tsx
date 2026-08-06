@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { siteUrl } from "@/lib/site";
 import BackToTop from "@/components/back-to-top";
+import ThemeProvider from "@/lib/theme-context";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -79,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
         <Script
           id="theme-init"
@@ -87,17 +95,23 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                var stored = localStorage.getItem("theme");
-                if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-                  document.documentElement.classList.add("dark");
-                }
+                try {
+                  var stored = localStorage.getItem("theme");
+                  var dark;
+                  if (stored === "dark") dark = true;
+                  else if (stored === "light") dark = false;
+                  else dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                  if (dark) document.documentElement.classList.add("dark");
+                } catch (e) {}
               })();
             `,
           }}
         />
       </head>
       <body className="min-h-full flex flex-col text-slate-900 font-sans transition-colors duration-300">
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
         <BackToTop />
         <Script
           id="tawkto"

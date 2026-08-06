@@ -12,6 +12,7 @@ import {
   ArrowRight,
   ImageIcon,
 } from "lucide-react";
+import Reveal from "@/components/reveal";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Home,
@@ -137,14 +138,14 @@ export default function Showcase() {
   return (
     <section id="showcase" className="py-20 sm:py-28 lg:py-32 bg-white dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <Reveal className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
             Our Featured Projects
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Pre-built dashboards and systems ready to customize for your business.
           </p>
-        </div>
+        </Reveal>
 
         <div className="relative">
           {scrollPos > 0 && (

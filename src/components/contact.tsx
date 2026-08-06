@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Reveal from "@/components/reveal";
 
 interface ContactErrors {
   name?: string;
@@ -82,28 +83,31 @@ export default function Contact() {
   }
 
   const inputClass = (hasError: boolean) =>
-    `block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all ${
+    `block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:border-slate-700 ${
       hasError
-        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
-        : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20"
+        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20 dark:border-red-500/60"
+        : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-600"
     }`;
 
   return (
     <section
       id="contact"
-      className="py-20 sm:py-28 lg:py-32 bg-white"
+      className="py-20 sm:py-28 lg:py-32 bg-slate-50 dark:bg-slate-950"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+        <Reveal className="text-center mb-16">
+          <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+            Contact Us
+          </span>
+          <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
             Get in Touch
           </h2>
-          <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto dark:text-slate-400">
             Have a project in mind? We would love to hear about it. Fill out the
             form and we will get back to you within 1 hour.
           </p>
-        </div>
-        <div className="max-w-xl mx-auto">
+        </Reveal>
+        <Reveal className="max-w-xl mx-auto">
           <form
             className="space-y-6"
             noValidate
@@ -113,7 +117,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-slate-700 mb-1.5"
+                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
                 >
                   Full Name
                 </label>
@@ -137,7 +141,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-slate-700 mb-1.5"
+                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
                 >
                   Email Address
                 </label>
@@ -162,9 +166,9 @@ export default function Contact() {
             <div>
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
-              >
-                Phone Number
+                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
+                >
+                  Phone Number
               </label>
               <input
                 type="tel"
@@ -188,14 +192,14 @@ export default function Contact() {
             <div>
               <label
                 htmlFor="service"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
-              >
-                Service Interested In
+                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
+                >
+                  Service Interested In
               </label>
               <select
                 id="service"
                 name="service"
-                className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all"
+                className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600"
               >
                 <option value="">Select a service</option>
                 <option value="real-estate">Real Estate Dashboard</option>
@@ -210,9 +214,9 @@ export default function Contact() {
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-slate-700 mb-1.5"
-              >
-                Message
+                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
+                >
+                  Message
               </label>
               <textarea
                 id="message"
@@ -243,17 +247,17 @@ export default function Contact() {
                 : "Send Message"}
             </button>
             {status === "success" && (
-              <p className="text-sm text-emerald-600 text-center">
+              <p className="text-sm text-emerald-600 text-center dark:text-emerald-400">
                 Thanks! We will get back to you soon.
               </p>
             )}
             {status === "error" && (
-              <p className="text-sm text-red-600 text-center">
+              <p className="text-sm text-red-600 text-center dark:text-red-400">
                 Something went wrong. Please try again or email us directly.
               </p>
             )}
           </form>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

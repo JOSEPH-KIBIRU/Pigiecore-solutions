@@ -5,6 +5,7 @@ import "./globals.css";
 import { siteUrl } from "@/lib/site";
 import BackToTop from "@/components/back-to-top";
 import HashScroll from "@/components/hash-scroll";
+import Navbar from "@/components/navbar"; // Ensure Navbar is imported if not already
 
 const inter = Inter({
   subsets: ["latin"],
@@ -87,7 +88,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    // UPDATED: Added scroll-smooth and scroll-pt-[80px] (80px offset for your 64px navbar)
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} scroll-smooth scroll-pt-[80px]`}>
       <head>
         <Script
           id="theme-init"

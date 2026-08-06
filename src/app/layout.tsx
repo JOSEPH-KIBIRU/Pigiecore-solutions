@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { siteUrl } from "@/lib/site";
+import BackToTop from "@/components/back-to-top";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -97,6 +98,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col text-slate-900 font-sans transition-colors duration-300">
         {children}
+        <BackToTop />
         <Script
           id="tawkto"
           strategy="afterInteractive"

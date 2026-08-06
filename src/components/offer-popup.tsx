@@ -67,7 +67,7 @@ export default function OfferPopup() {
   const external = /^https?:\/\//i.test(href);
 
   return (
-    <div className="fixed bottom-6 right-6 z-[70] max-w-sm w-[calc(100vw-3rem)] sm:w-96 animate-fade-in-up"
+    <div className="fixed bottom-6 left-6 z-[70] max-w-sm w-[calc(100vw-3rem)] sm:w-96 animate-fade-in-up"
       role="dialog" aria-label="Special offer">
       <div
         className="relative rounded-2xl shadow-2xl p-6 text-white overflow-hidden"

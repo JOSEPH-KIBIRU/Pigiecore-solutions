@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { FAQS } from "@/lib/faq-data";
+import { FAQS, FAQ_GROUPS } from "@/lib/faq-data";
 
 export { FAQS };
 
 export default function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openKey, setOpenKey] = useState<string | null>(FAQS[0] ? "0" : null);
+
+  let index = 0;
 
   return (
     <section id="faq" className="py-20 sm:py-28 bg-white dark:bg-slate-950">
@@ -25,40 +27,55 @@ export default function Faq() {
           </p>
         </div>
 
-        <div className="space-y-4">
-          {FAQS.map((item, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <div
-                key={i}
-                className={`rounded-2xl border bg-slate-50 dark:bg-slate-900 transition-colors ${
-                  isOpen
-                    ? "border-sky-300 dark:border-sky-800"
-                    : "border-slate-200 dark:border-slate-800"
-                }`}
-              >
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
-                >
-                  <span className="text-base font-semibold text-slate-900 dark:text-white">
-                    {item.q}
-                  </span>
-                  <ChevronDown
-                    className={`w-5 h-5 shrink-0 text-sky-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
-                {isOpen && (
-                  <div className="px-6 pb-5 -mt-1">
-                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {item.a}
-                    </p>
-                  </div>
-                )}
+        {FAQ_GROUPS.map((group) => {
+          const items = FAQS.filter((f) => f.group === group);
+          if (!items.length) return null;
+          return (
+            <div key={group} className="mb-10">
+              <h3 className="mb-4 flex items-center gap-3">
+                <span className="text-base font-semibold text-slate-900 dark:text-white">
+                  {group}
+                </span>
+                <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800"></span>
+              </h3>
+              <div className="space-y-4">
+                {items.map((item) => {
+                  const key = String(index++);
+                  const isOpen = openKey === key;
+                  return (
+                    <div
+                      key={key}
+                      className={`rounded-2xl border bg-slate-50 dark:bg-slate-900 transition-colors ${
+                        isOpen
+                          ? "border-sky-300 dark:border-sky-800"
+                          : "border-slate-200 dark:border-slate-800"
+                      }`}
+                    >
+                      <button
+                        onClick={() => setOpenKey(isOpen ? null : key)}
+                        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
+                      >
+                        <span className="text-base font-semibold text-slate-900 dark:text-white">
+                          {item.q}
+                        </span>
+                        <ChevronDown
+                          className={`w-5 h-5 shrink-0 text-sky-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                      {isOpen && (
+                        <div className="px-6 pb-5 -mt-1">
+                          <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            {item.a}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

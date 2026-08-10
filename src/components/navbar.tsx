@@ -5,11 +5,11 @@ import { useState, useRef, useEffect } from "react";
 import Logo from "@/components/logo";
 
 const SERVICES = [
-  { label: "Software Development", href: "/services/software-development" },
-  { label: "SaaS Development", href: "/services/saas-development" },
+  { label: "Custom Software", href: "/services/software-development" },
+  { label: "SaaS Platforms", href: "/services/saas-development" },
   { label: "Web Applications", href: "/services/web-applications" },
   { label: "Business Automation", href: "/services/business-automation" },
-  { label: "API & Payment Integrations", href: "/services/api-payment-integrations" },
+  { label: "Payment & API Integrations", href: "/services/api-payment-integrations" },
 ];
 
 const SOLUTIONS = [

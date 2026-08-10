@@ -118,68 +118,74 @@ export default function Services() {
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-8">
-          {services.slice(0, 3).map((service, i) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
+          {services.slice(0, 4).map((service, i) => {
             const ColorIcon = service.icon;
             const c = colorMap[service.color];
             return (
-              <Reveal key={service.title} delay={i * 0.08}>
+              <Reveal key={service.title} delay={(i % 2) * 0.08}>
                 <Link
                   href={service.href}
-                  className={`group relative flex h-full flex-col ${c.bg} ${c.border} border rounded-2xl p-6 lg:p-8 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${c.hoverBorder} lg:col-span-2`}
+                  className={`group relative flex h-full flex-col ${c.bg} ${c.border} border rounded-3xl p-8 lg:p-10 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${c.hoverBorder}`}
                 >
                   <div
                     className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${c.glow} to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
                   />
                   <div
-                    className={`w-12 h-12 ${c.iconBg} ${c.iconText} rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6`}
+                    className={`absolute -right-16 -top-16 w-44 h-44 rounded-full bg-gradient-to-br ${c.glow} to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
+                  />
+                  <div
+                    className={`w-14 h-14 ${c.iconBg} ${c.iconText} rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6`}
                   >
-                    <ColorIcon className="w-6 h-6" />
+                    <ColorIcon className="w-7 h-7" />
                   </div>
-                  <h3 className="mt-5 text-lg font-bold text-slate-900 dark:text-white">
+                  <h3 className="mt-6 text-xl lg:text-2xl font-bold text-slate-900 dark:text-white">
                     {service.title}
                   </h3>
-                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
+                  <p className="mt-3 text-base text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
                     {service.description}
                   </p>
                   <span
-                    className={`mt-5 inline-flex items-center gap-1.5 text-sm font-semibold ${c.iconText} opacity-70 transition-all duration-300 group-hover:gap-2.5 group-hover:opacity-100`}
+                    className={`mt-6 inline-flex items-center gap-2 text-base font-semibold ${c.iconText} opacity-70 transition-all duration-300 group-hover:gap-3 group-hover:opacity-100`}
                   >
-                    Learn More <ArrowRight className="w-4 h-4" />
+                    Learn More <ArrowRight className="w-5 h-5" />
                   </span>
                 </Link>
               </Reveal>
             );
           })}
-          {services.slice(3).map((service, i) => {
+          {services.slice(4).map((service, i) => {
             const ColorIcon = service.icon;
             const c = colorMap[service.color];
             return (
-              <Reveal key={service.title} delay={(i + 1) * 0.08}>
+              <Reveal key={service.title} delay={0.08}>
                 <Link
                   href={service.href}
-                  className={`group relative flex h-full flex-col sm:flex-row sm:items-center ${c.bg} ${c.border} border rounded-2xl p-6 lg:p-8 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${c.hoverBorder} lg:col-span-3`}
+                  className={`group relative flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 ${c.bg} ${c.border} border rounded-3xl p-8 lg:p-10 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${c.hoverBorder} sm:col-span-2`}
                 >
                   <div
                     className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${c.glow} to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
                   />
                   <div
-                    className={`w-12 h-12 shrink-0 ${c.iconBg} ${c.iconText} rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6`}
+                    className={`absolute -right-16 -top-16 w-44 h-44 rounded-full bg-gradient-to-br ${c.glow} to-transparent blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
+                  />
+                  <div
+                    className={`w-14 h-14 shrink-0 ${c.iconBg} ${c.iconText} rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6`}
                   >
-                    <ColorIcon className="w-6 h-6" />
+                    <ColorIcon className="w-7 h-7" />
                   </div>
-                  <div className="mt-4 sm:mt-0 sm:ml-5 flex-1">
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                  <div className="flex-1">
+                    <h3 className="text-xl lg:text-2xl font-bold text-slate-900 dark:text-white">
                       {service.title}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="mt-2 text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
                       {service.description}
                     </p>
                   </div>
                   <span
-                    className={`mt-4 sm:mt-0 inline-flex items-center gap-1.5 text-sm font-semibold ${c.iconText} opacity-70 transition-all duration-300 group-hover:gap-2.5 group-hover:opacity-100`}
+                    className={`inline-flex items-center gap-2 text-base font-semibold ${c.iconText} opacity-70 transition-all duration-300 group-hover:gap-3 group-hover:opacity-100`}
                   >
-                    Learn More <ArrowRight className="w-4 h-4" />
+                    Learn More <ArrowRight className="w-5 h-5" />
                   </span>
                 </Link>
               </Reveal>

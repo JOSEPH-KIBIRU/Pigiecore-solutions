@@ -14,7 +14,7 @@ export default function Problem() {
     <section id="problem" className="py-20 sm:py-28 bg-slate-50 dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-14">
-          <span className="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-4 py-1.5 text-sm font-medium text-rose-600 dark:border-rose-800 dark:bg-rose-950/30 dark:text-rose-400">
+          <span className="inline-flex items-center rounded-full border border-teal-200 bg-teal-50 px-4 py-1.5 text-sm font-medium text-teal-700 dark:border-teal-800 dark:bg-teal-950/30 dark:text-teal-300">
             The Problem
           </span>
           <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
@@ -32,9 +32,9 @@ export default function Problem() {
             {PROBLEM_STEPS.map((step, i) => (
               <div
                 key={step.title}
-                className="relative flex flex-col items-center justify-center rounded-2xl border border-rose-100 bg-white p-6 text-center shadow-sm dark:border-rose-900/40 dark:bg-slate-800"
+                className="relative flex flex-col items-center justify-center rounded-2xl border border-teal-100 bg-white p-6 text-center shadow-sm dark:border-teal-900/40 dark:bg-slate-800"
               >
-                <step.icon className="w-8 h-8 text-rose-500 mb-3" />
+                <step.icon className="w-8 h-8 text-teal-500 mb-3" />
                 <div className="font-semibold text-slate-900 dark:text-white">
                   {step.title}
                 </div>
@@ -44,10 +44,10 @@ export default function Problem() {
                 </span>
               </div>
             ))}
-            <div className="relative flex flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 p-6 text-center text-white shadow-lg shadow-sky-500/25">
+            <div className="relative flex flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 p-6 text-center text-white shadow-lg shadow-teal-500/25">
               <Sparkles className="w-8 h-8 mb-3" />
               <div className="font-semibold">Pigiecore solution</div>
-              <div className="mt-1 text-sm text-sky-100">
+              <div className="mt-1 text-sm text-teal-50">
                 One connected system
               </div>
             </div>
@@ -57,7 +57,7 @@ export default function Problem() {
         <Reveal delay={0.1} className="text-center mt-10">
           <Link
             href="/#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600 hover:shadow-xl"
+            className="inline-flex items-center gap-2 rounded-full bg-teal-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-teal-500/25 transition-all hover:bg-teal-600 hover:shadow-xl"
           >
             Let&apos;s Solve Your Problem
           </Link>

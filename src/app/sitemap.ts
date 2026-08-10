@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { siteUrl } from "@/lib/site";
+import { SERVICE_ENTRIES } from "@/lib/service-content";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 1,
     },
+    ...SERVICE_ENTRIES.map((entry) => ({
+      url: `${siteUrl}/${entry.type}/${entry.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     {
       url: `${siteUrl}/about`,
       changeFrequency: "monthly",

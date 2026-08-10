@@ -1,9 +1,15 @@
 import Navbar from "@/components/navbar";
 import Hero from "@/components/hero";
+import Trust from "@/components/trust";
+import Problem from "@/components/problem";
 import Services from "@/components/services";
-import About from "@/components/about";
+import HowWeWork from "@/components/how-we-work";
 import Showcase from "@/components/showcase";
+import BomaPulseCase from "@/components/bomapulse-case";
+import Technology from "@/components/technology";
+import About from "@/components/about";
 import Testimonials from "@/components/testimonials";
+import Faq from "@/components/faq";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import OfferPopup from "@/components/offer-popup";
@@ -156,10 +162,16 @@ export default function Home() {
       <main className="flex flex-col flex-1">
         <Navbar />
         <Hero />
+        <Trust />
+        <Problem />
         <Services />
+        <HowWeWork />
         <Showcase />
+        <BomaPulseCase />
+        <Technology />
         <About />
         <Testimonials />
+        <Faq />
         <Contact />
         <Footer />
       </main>

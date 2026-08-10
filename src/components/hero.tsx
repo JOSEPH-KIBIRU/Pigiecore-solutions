@@ -49,27 +49,25 @@ export default function Hero() {
             <span>Pigiecore Solutions</span>
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl lg:leading-[1.1]">
-            We Build Software That
-            <span className="text-sky-500"> Grows </span>
-            Your Business
+            Custom Software &amp; Digital Solutions
+            <span className="text-sky-500"> Built for Your Business.</span>
           </h1>
-          <p className="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-8">
-            From automated dashboards to fleet management and booking systems —
-            Pigiecore Solutions crafts custom software that streamlines
-            operations and drives results.
+          <p className="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-8">
+            We design and build custom software, SaaS platforms, web applications
+            and business automation solutions for businesses in Kenya and beyond.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="#contact"
+              href="/#contact"
               className="inline-flex items-center justify-center rounded-full bg-sky-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600 hover:shadow-xl hover:shadow-sky-500/30"
             >
-              Start a Project
+              Start Your Project
             </Link>
             <Link
-              href="#services"
+              href="/#showcase"
               className="inline-flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-8 py-3.5 text-base font-semibold text-slate-900 dark:text-slate-100 transition-all hover:border-sky-500 hover:text-sky-500 dark:hover:text-sky-400"
             >
-              Our Services
+              View Our Work
             </Link>
           </div>
           <div className="mt-16 flex items-center justify-center gap-8 sm:gap-12 text-center">

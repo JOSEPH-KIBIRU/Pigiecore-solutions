@@ -91,8 +91,15 @@ export default function Showcase() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollPos, setScrollPos] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
-  const [templates, setTemplates] = useState<{ icon: React.ComponentType<{ className?: string }>; title: string; description: string; gradient: string; preview: string; image_url: string | null; url: string | null }[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const [templates, setTemplates] = useState<{
+    icon: React.ComponentType<{ className?: string }>;
+    title: string;
+    description: string;
+    gradient: string;
+    preview: string;
+    image_url: string | null;
+    url: string | null;
+  }[]>(() => fallbackTemplates.map((t) => ({ ...t, image_url: null, url: null })));
 
   useEffect(() => {
     fetch("/api/templates")
@@ -110,15 +117,9 @@ export default function Showcase() {
               url: t.url,
             }))
           );
-        } else {
-          setTemplates(fallbackTemplates.map((t) => ({ ...t, image_url: null, url: null })));
         }
-        setLoaded(true);
       })
-      .catch(() => {
-        setTemplates(fallbackTemplates.map((t) => ({ ...t, image_url: null, url: null })));
-        setLoaded(true);
-      });
+      .catch(() => {});
   }, []);
 
   function updateScrollState() {
@@ -132,8 +133,6 @@ export default function Showcase() {
     scrollRef.current?.scrollBy({ left: amount, behavior: "smooth" });
     setTimeout(updateScrollState, 300);
   }
-
-  if (!loaded) return null;
 
   return (
     <section id="showcase" className="py-20 sm:py-28 lg:py-32 bg-white dark:bg-slate-950">

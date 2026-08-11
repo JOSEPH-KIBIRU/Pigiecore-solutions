@@ -223,20 +223,15 @@ export default function Contact() {
                 >
                   Estimated Budget
                 </label>
-                <select
+                <input
+                  type="text"
                   id="budget"
                   name="budget"
                   value={values.budget}
                   onChange={(e) => setValues((v) => ({ ...v, budget: e.target.value }))}
-                  className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600"
-                >
-                  <option value="">Select a budget range</option>
-                  <option value="under-100k">Under KES 100,000</option>
-                  <option value="100k-250k">KES 100,000 – 250,000</option>
-                  <option value="250k-500k">KES 250,000 – 500,000</option>
-                  <option value="500k-1m">KES 500,000 – 1,000,000</option>
-                  <option value="1m-plus">KES 1,000,000+</option>
-                </select>
+                  className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:border-slate-600"
+                  placeholder="e.g. KES 150,000"
+                />
               </div>
               <div>
                 <label

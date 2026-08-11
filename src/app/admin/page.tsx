@@ -107,14 +107,6 @@ const CONTACT_SERVICES: Record<string, string> = {
   "other": "Other",
 };
 
-const BUDGET_LABELS: Record<string, string> = {
-  "under-100k": "Under KES 100,000",
-  "100k-250k": "KES 100,000 – 250,000",
-  "250k-500k": "KES 250,000 – 500,000",
-  "500k-1m": "KES 500,000 – 1,000,000",
-  "1m-plus": "KES 1,000,000+",
-};
-
 const TIMELINE_LABELS: Record<string, string> = {
   asap: "As soon as possible",
   "1-2-months": "1 – 2 months",
@@ -693,7 +685,7 @@ export default function AdminPage() {
                             )}
                             {sub.budget && (
                               <div className="text-xs text-slate-500 dark:text-slate-400">
-                                Estimated Budget: {BUDGET_LABELS[sub.budget] ?? sub.budget}
+                                Estimated Budget: {sub.budget}
                               </div>
                             )}
                             {sub.timeline && (

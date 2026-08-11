@@ -98,8 +98,6 @@ export default function About() {
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  const slide = slides[current];
-
   return (
     <section
       id="about"

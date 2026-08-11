@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 const STATS = [
-  { value: "5", label: "Kenyan Engineers" },
+  { value: "5", label: "Experienced Professionals" },
   { value: "6", label: "Product Lines" },
   { value: "100%", label: "Custom Built" },
   { value: "<24h", label: "Response Time" },
@@ -36,7 +36,7 @@ const DIFFERENTIATORS = [
     icon: Zap,
     title: "Sub-24 Hour Response",
     description:
-      "When you reach out or report an issue, a real engineer responds within a day — no ticket queues, no waiting weeks for answers.",
+      "When you reach out or report an issue, a real professional responds within a day — no ticket queues, no waiting weeks for answers.",
   },
   {
     icon: Code2,
@@ -74,7 +74,7 @@ export default function AboutPage() {
               Designed for Business.
             </h1>
             <p className="mt-4 text-lg text-sky-100/90 max-w-2xl mx-auto">
-              We're a team of 5 Kenyan engineers passionate about solving local
+              We're a team of passionate professionals dedicated to solving local
               business problems with software that actually works.
             </p>
           </div>
@@ -105,7 +105,7 @@ export default function AboutPage() {
             </h2>
             <div className="mt-6 space-y-5 text-lg text-slate-600 dark:text-slate-300 leading-8">
               <p>
-                Pigiecore Solutions is a team of <strong>5 Kenyan engineers</strong>{" "}
+                Pigiecore Solutions is a team of <strong>Experienced professionals</strong>{" "}
                 passionate about solving local business problems. We live where our
                 clients live — we've seen property managers juggling tenants across
                 spreadsheets, salons turning clients away because of double-booked

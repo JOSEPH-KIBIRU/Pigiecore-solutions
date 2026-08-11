@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Custom Software Development & ERP Solutions | Pigiecore",
+    title: "Custom Software & SaaS Development in Kenya | Pigiecore",
     description:
       "Custom software that automates real estate, logistics, salons, schools, and hospitals with modern dashboards.",
     images: ["/opengraph-image"],

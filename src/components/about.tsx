@@ -1,8 +1,39 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Target, Puzzle, Layers, MapPin, HeartHandshake } from "lucide-react";
+import Link from "next/link";
 import Reveal from "@/components/reveal";
+
+const reasons = [
+  {
+    icon: Target,
+    title: "Business-first development",
+    description: "We understand the business process before writing the software.",
+  },
+  {
+    icon: Puzzle,
+    title: "Custom-built",
+    description:
+      "Your software is designed around your workflows rather than forcing your business into a generic system.",
+  },
+  {
+    icon: Layers,
+    title: "Scalable architecture",
+    description: "We build systems that can evolve as your business grows.",
+  },
+  {
+    icon: MapPin,
+    title: "Local understanding",
+    description:
+      "We understand the Kenyan business environment and integrations such as M-Pesa.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Long-term partnership",
+    description: "We don't disappear after deployment.",
+  },
+];
 
 const slides = [
   {
@@ -77,43 +108,38 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <Reveal>
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-              Built by Engineers.
-              <br />
-              <span className="text-sky-500">Designed for Businesses.</span>
+            <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+              Why Pigiecore
+            </span>
+            <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
+              Why Businesses Choose Pigiecore
             </h2>
-            <p className="mt-6 text-lg text-slate-600 dark:text-slate-300 leading-8">
-              Pigiecore Solutions was founded with a simple belief: great
-              software should be accessible to every business regardless of size.
-              We work closely with our clients to understand their challenges and
-              deliver solutions that actually move the needle.
-            </p>
-            <div className="mt-8 grid grid-cols-2 gap-4">
-              <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl font-bold text-sky-500">6</div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                  Product Lines
-                </div>
-              </div>
-              <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl font-bold text-sky-500">100%</div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                  Custom Built
-                </div>
-              </div>
-              <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl font-bold text-sky-500">24/7</div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                  Support
-                </div>
-              </div>
-              <div className="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl font-bold text-sky-500">&lt;24h</div>
-                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                  Response Time
-                </div>
-              </div>
+            <div className="mt-8 space-y-6">
+              {reasons.map((reason) => {
+                const Icon = reason.icon;
+                return (
+                  <div key={reason.title} className="flex items-start gap-4">
+                    <div className="w-11 h-11 shrink-0 rounded-xl bg-sky-100 dark:bg-sky-500/20 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-900 dark:text-white">
+                        {reason.title}
+                      </div>
+                      <div className="mt-1 text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {reason.description}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
+            <Link
+              href="/#contact"
+              className="mt-9 inline-flex items-center gap-2 rounded-full bg-sky-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600 hover:shadow-xl"
+            >
+              Talk to Our Team <ArrowRight className="w-5 h-5" />
+            </Link>
           </Reveal>
 
           <Reveal delay={0.15}>

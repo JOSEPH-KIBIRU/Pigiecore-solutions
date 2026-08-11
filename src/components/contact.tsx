@@ -23,6 +23,9 @@ export default function Contact() {
     name: "",
     email: "",
     phone: "",
+    service: "",
+    budget: "",
+    timeline: "",
     message: "",
   });
 
@@ -59,7 +62,9 @@ export default function Contact() {
       name: values.name,
       email: values.email,
       phone: values.phone || null,
-      service: (e.target as HTMLFormElement).service?.value ?? null,
+      service: values.service || null,
+      budget: values.budget || null,
+      timeline: values.timeline || null,
       message: values.message,
     };
 
@@ -72,7 +77,7 @@ export default function Contact() {
 
       if (res.ok) {
         setStatus("success");
-        setValues({ name: "", email: "", phone: "", message: "" });
+        setValues({ name: "", email: "", phone: "", service: "", budget: "", timeline: "", message: "" });
         (e.target as HTMLFormElement).reset();
       } else {
         setStatus("error");
@@ -100,11 +105,10 @@ export default function Contact() {
             Contact Us
           </span>
           <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            Get in Touch
+            What are you looking to build?
           </h2>
           <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto dark:text-slate-400">
-            Have a project in mind? We would love to hear about it. Fill out the
-            form and we will get back to you within 1 hour.
+            Tell us about your project and we will get back to you within 1 hour.
           </p>
         </Reveal>
         <Reveal className="max-w-xl mx-auto">
@@ -194,22 +198,67 @@ export default function Contact() {
                 htmlFor="service"
                   className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
                 >
-                  Service Interested In
+                  What do you need?
               </label>
               <select
                 id="service"
                 name="service"
+                value={values.service}
+                onChange={(e) => setValues((v) => ({ ...v, service: e.target.value }))}
                 className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600"
               >
-                <option value="">Select a service</option>
-                <option value="real-estate">Real Estate Dashboard</option>
-                <option value="website">Website Development</option>
-                <option value="logistics">Logistics & Fleet Management</option>
-                <option value="salon">Salon & Barber Booking</option>
-                <option value="school">School Management System</option>
-                <option value="hospital">Hospital Management System</option>
+                <option value="">Select a project type</option>
+                <option value="custom-software">Custom business software</option>
+                <option value="saas-platform">SaaS platform</option>
+                <option value="web-application">Web application</option>
+                <option value="automation-integration">Automation/integration</option>
                 <option value="other">Other</option>
               </select>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="budget"
+                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
+                >
+                  Estimated Budget
+                </label>
+                <select
+                  id="budget"
+                  name="budget"
+                  value={values.budget}
+                  onChange={(e) => setValues((v) => ({ ...v, budget: e.target.value }))}
+                  className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600"
+                >
+                  <option value="">Select a budget range</option>
+                  <option value="under-100k">Under KES 100,000</option>
+                  <option value="100k-250k">KES 100,000 – 250,000</option>
+                  <option value="250k-500k">KES 250,000 – 500,000</option>
+                  <option value="500k-1m">KES 500,000 – 1,000,000</option>
+                  <option value="1m-plus">KES 1,000,000+</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  htmlFor="timeline"
+                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
+                >
+                  Timeline
+                </label>
+                <select
+                  id="timeline"
+                  name="timeline"
+                  value={values.timeline}
+                  onChange={(e) => setValues((v) => ({ ...v, timeline: e.target.value }))}
+                  className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600"
+                >
+                  <option value="">Select a timeline</option>
+                  <option value="asap">As soon as possible</option>
+                  <option value="1-2-months">1 – 2 months</option>
+                  <option value="3-6-months">3 – 6 months</option>
+                  <option value="6-plus-months">6+ months</option>
+                </select>
+              </div>
             </div>
             <div>
               <label
@@ -243,8 +292,8 @@ export default function Contact() {
               {status === "loading"
                 ? "Sending..."
                 : status === "success"
-                ? "Sent!"
-                : "Send Message"}
+                ? "Enquiry Submitted!"
+                : "Submit Project Enquiry"}
             </button>
             {status === "success" && (
               <p className="text-sm text-emerald-600 text-center dark:text-emerald-400">

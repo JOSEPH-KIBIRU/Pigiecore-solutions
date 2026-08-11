@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, service, message } = body;
+    const { name, email, phone, service, budget, timeline, message } = body;
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -20,6 +20,8 @@ export async function POST(request: Request) {
       email,
       phone: phone ?? null,
       service: service ?? null,
+      budget: budget ?? null,
+      timeline: timeline ?? null,
       message,
     });
 

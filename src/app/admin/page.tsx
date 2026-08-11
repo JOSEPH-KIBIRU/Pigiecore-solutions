@@ -47,6 +47,8 @@ interface Submission {
   email: string;
   phone: string | null;
   service: string | null;
+  budget: string | null;
+  timeline: string | null;
   message: string;
   status: string | null;
   remarks: string | null;
@@ -97,8 +99,36 @@ const GRADIENT_PRESETS = [
   { value: "from-teal-400 via-cyan-500 to-sky-600", label: "Teal", from: "teal-500", to: "cyan-600" },
 ];
 
+const CONTACT_SERVICES: Record<string, string> = {
+  "custom-software": "Custom business software",
+  "saas-platform": "SaaS platform",
+  "web-application": "Web application",
+  "automation-integration": "Automation/integration",
+  "other": "Other",
+};
+
+const BUDGET_LABELS: Record<string, string> = {
+  "under-100k": "Under KES 100,000",
+  "100k-250k": "KES 100,000 – 250,000",
+  "250k-500k": "KES 250,000 – 500,000",
+  "500k-1m": "KES 500,000 – 1,000,000",
+  "1m-plus": "KES 1,000,000+",
+};
+
+const TIMELINE_LABELS: Record<string, string> = {
+  asap: "As soon as possible",
+  "1-2-months": "1 – 2 months",
+  "3-6-months": "3 – 6 months",
+  "6-plus-months": "6+ months",
+};
+
 function serviceLabel(value: string | null) {
-  return CATEGORIES.find((c) => c.value === value)?.label ?? value ?? "\u2014";
+  return (
+    CONTACT_SERVICES[value ?? ""] ??
+    CATEGORIES.find((c) => c.value === value)?.label ??
+    value ??
+    "\u2014"
+  );
 }
 
 function formatDate(iso: string) {
@@ -355,7 +385,9 @@ export default function AdminPage() {
       s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       s.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (s.phone ?? "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (s.service ?? "").toLowerCase().includes(searchQuery.toLowerCase())
+      (s.service ?? "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (s.budget ?? "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (s.timeline ?? "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const monthCount = submissions.filter((s) => {
@@ -657,6 +689,16 @@ export default function AdminPage() {
                             {sub.phone && (
                               <div className="text-xs text-slate-500 dark:text-slate-400">
                                 Phone: <a href={`tel:${sub.phone}`} className="text-sky-500 hover:text-sky-600">{sub.phone}</a>
+                              </div>
+                            )}
+                            {sub.budget && (
+                              <div className="text-xs text-slate-500 dark:text-slate-400">
+                                Estimated Budget: {BUDGET_LABELS[sub.budget] ?? sub.budget}
+                              </div>
+                            )}
+                            {sub.timeline && (
+                              <div className="text-xs text-slate-500 dark:text-slate-400">
+                                Timeline: {TIMELINE_LABELS[sub.timeline] ?? sub.timeline}
                               </div>
                             )}
                             <div className="flex flex-wrap items-center gap-2">

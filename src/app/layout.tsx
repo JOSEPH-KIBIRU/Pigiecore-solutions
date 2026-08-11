@@ -111,18 +111,19 @@ export default function RootLayout({
         <BackToTop />
         <HashScroll />
         <Script
-          id="tawkto"
+          id="botpress-webchat"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
               (function(){
                 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
                 s1.async=true;
-                s1.src="https://embed.tawk.to/6a6ba3592539311d47e43818/1juq7c6ch";
-                s1.charset="UTF-8";
-                s1.setAttribute("crossorigin","*");
+                s1.src="https://cdn.botpress.cloud/webchat/v5.0/inject.js";
+                var s2=document.createElement("script");
+                s2.async=true;
+                s2.src="https://files.bpcontent.cloud/2026/08/11/17/20260811170458-KNDJ0DR9.js";
                 s0.parentNode.insertBefore(s1,s0);
+                s0.parentNode.insertBefore(s2,s0);
               })();
             `,
           }}

@@ -10,6 +10,7 @@ import Technology from "@/components/technology";
 import About from "@/components/about";
 import Testimonials from "@/components/testimonials";
 import Faq from "@/components/faq";
+import FinalCta from "@/components/final-cta";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import OfferPopup from "@/components/offer-popup";
@@ -172,6 +173,7 @@ export default function Home() {
         <About />
         <Testimonials />
         <Faq />
+        <FinalCta />
         <Contact />
         <Footer />
       </main>

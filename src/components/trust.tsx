@@ -2,7 +2,7 @@ import { Users, ShieldCheck, Timer, Headphones } from "lucide-react";
 import Reveal from "@/components/reveal";
 
 const ITEMS = [
-  { icon: Users, title: "5 Kenyan Engineers", subtitle: "Local team, local understanding" },
+  { icon: Users, title: "Experienced team", subtitle: "Local team, local understanding" },
   { icon: ShieldCheck, title: "100% Custom Built", subtitle: "No generic templates" },
   { icon: Timer, title: "<24h Response", subtitle: "Sub-24-hour support" },
   { icon: Headphones, title: "24/7 Support", subtitle: "We stay after launch" },

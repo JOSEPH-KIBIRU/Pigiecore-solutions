@@ -16,7 +16,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Custom Software Development & ERP Solutions | Pigiecore",
+    default: "Custom Software & SaaS Development in Kenya | Pigiecore",
     template: "%s | Pigiecore Solutions",
   },
   description:
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Pigiecore Solutions",
-    title: "Custom Software Development & ERP Solutions | Pigiecore",
+    title: "Custom Software & SaaS Development in Kenya | Pigiecore",
     description:
       "Custom software for real estate, logistics, salons, schools, and hospitals — automating your operations with modern dashboards and web applications.",
     locale: "en_US",

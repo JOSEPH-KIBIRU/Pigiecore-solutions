@@ -1,4 +1,4 @@
-import { BarChart3, CreditCard, Smartphone, Plus } from "lucide-react";
+import { BarChart3, CreditCard, Smartphone, Plus, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Reveal from "@/components/reveal";
 
@@ -43,7 +43,8 @@ export default function BomaPulseCase() {
                 href="/#contact"
                 className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-sky-600"
               >
-                <Plus className="w-4 h-4" /> Build Your Version
+                <Plus className="w-4 h-4" /> Build a Similar Solution
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

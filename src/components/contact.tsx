@@ -79,6 +79,10 @@ export default function Contact() {
         setStatus("success");
         setValues({ name: "", email: "", phone: "", service: "", budget: "", timeline: "", message: "" });
         (e.target as HTMLFormElement).reset();
+      } else if (res.status === 429) {
+        const data = await res.json().catch(() => null);
+        setStatus("error");
+        setErrors((er) => ({ ...er, message: data?.error || "Too many submissions. Please try again later." }));
       } else {
         setStatus("error");
       }

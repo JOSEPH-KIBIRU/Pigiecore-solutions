@@ -1,7 +1,16 @@
 import { getServerClient } from "@/lib/supabase-server";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  const rl = rateLimit(request, "contact-form", 5, 10 * 60 * 1000);
+  if (rl.limited) {
+    return NextResponse.json(
+      { error: "Too many submissions. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
+  }
+
   try {
     const body = await request.json();
     const { name, email, phone, service, budget, timeline, message } = body;

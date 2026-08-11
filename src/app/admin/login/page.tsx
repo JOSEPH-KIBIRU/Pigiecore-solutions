@@ -31,6 +31,18 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
+      const rl = await fetch("/api/login-check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      if (rl.status === 429) {
+        const data = await rl.json().catch(() => null);
+        setError(data?.error || "Too many login attempts. Please try again later.");
+        setLoading(false);
+        return;
+      }
+
       await signIn(email, password);
       window.location.href = "/admin";
     } catch (err: unknown) {

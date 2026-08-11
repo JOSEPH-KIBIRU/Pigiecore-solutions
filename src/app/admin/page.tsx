@@ -248,6 +248,17 @@ export default function AdminPage() {
     if (Object.keys(nextErrors).length > 0) return;
 
     try {
+      const rl = await fetch("/api/login-check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: loginEmail.trim() }),
+      });
+      if (rl.status === 429) {
+        const data = await rl.json().catch(() => null);
+        setLoginError(data?.error || "Too many login attempts. Please try again later.");
+        return;
+      }
+
       await signIn(loginEmail, loginPassword);
       const u = await getCurrentUser();
       if (u) {

@@ -1,4 +1,5 @@
 import { getServerClient } from "@/lib/supabase-server";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -11,6 +12,14 @@ export async function POST(request: Request) {
   } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const rl = rateLimit(request, `send-invoice:${user.id}`, 10, 60 * 60 * 1000);
+  if (rl.limited) {
+    return NextResponse.json(
+      { error: "Too many emails sent. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
   }
 
   if (!process.env.RESEND_API_KEY) {

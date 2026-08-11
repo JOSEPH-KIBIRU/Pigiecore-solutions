@@ -1,4 +1,5 @@
 import { getServerClient } from "@/lib/supabase-server";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 
 export const maxDuration = 60;
@@ -169,6 +170,14 @@ async function callGemini(key: string, topic: string, context: string, concise =
 }
 
 export async function POST(request: Request) {
+  const rl = rateLimit(request, "generate-article", 3, 60 * 60 * 1000);
+  if (rl.limited) {
+    return NextResponse.json(
+      { error: "Too many article requests. Please wait and try again." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
+  }
+
   const supabase = await getServerClient();
   const {
     data: { user },

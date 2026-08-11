@@ -64,7 +64,7 @@ export default function Hero() {
               Start Your Project
             </Link>
             <Link
-              href="/#showcase"
+              href="/#selected-work"
               className="inline-flex items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-8 py-3.5 text-base font-semibold text-slate-900 dark:text-slate-100 transition-all hover:border-sky-500 hover:text-sky-500 dark:hover:text-sky-400"
             >
               View Our Work

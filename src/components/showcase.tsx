@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import {
   Home,
   Globe,
@@ -23,6 +24,15 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Hospital,
 };
 
+const PAGE_LINKS: Record<string, string> = {
+  "real-estate": "/solutions/property-management",
+  website: "/services/web-applications",
+  logistics: "/solutions/fleet-management",
+  salon: "/services/software-development",
+  school: "/solutions/school-management",
+  hospital: "/solutions/healthcare",
+};
+
 const fallbackTemplates = [
   {
     icon: Home,
@@ -31,6 +41,7 @@ const fallbackTemplates = [
       "Property listings, market analytics, lead tracking, and investment ROI calculators in a single dashboard.",
     gradient: "from-sky-500 to-blue-600",
     preview: "bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600",
+    href: "/solutions/property-management",
   },
   {
     icon: Globe,
@@ -39,6 +50,7 @@ const fallbackTemplates = [
       "Custom responsive websites with CMS, SEO optimization, analytics, and fast hosting.",
     gradient: "from-violet-500 to-purple-600",
     preview: "bg-gradient-to-br from-violet-400 via-purple-500 to-fuchsia-600",
+    href: "/services/web-applications",
   },
   {
     icon: Truck,
@@ -47,6 +59,7 @@ const fallbackTemplates = [
       "Real-time GPS tracking, route optimization, delivery scheduling, and fleet maintenance logs.",
     gradient: "from-emerald-500 to-teal-600",
     preview: "bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600",
+    href: "/solutions/fleet-management",
   },
   {
     icon: Scissors,
@@ -55,6 +68,7 @@ const fallbackTemplates = [
       "Online appointments, staff scheduling, payment processing, client profiles, and inventory.",
     gradient: "from-amber-500 to-orange-600",
     preview: "bg-gradient-to-br from-amber-400 via-orange-500 to-red-500",
+    href: "/services/software-development",
   },
   {
     icon: GraduationCap,
@@ -63,6 +77,7 @@ const fallbackTemplates = [
       "Student records, class scheduling, attendance tracking, grade books, and parent portals.",
     gradient: "from-rose-500 to-pink-600",
     preview: "bg-gradient-to-br from-rose-400 via-pink-500 to-purple-600",
+    href: "/solutions/school-management",
   },
   {
     icon: Hospital,
@@ -71,6 +86,7 @@ const fallbackTemplates = [
       "Patient records, appointment booking, billing, pharmacy, lab reports, and staff scheduling.",
     gradient: "from-teal-500 to-cyan-600",
     preview: "bg-gradient-to-br from-teal-400 via-cyan-500 to-sky-600",
+    href: "/solutions/healthcare",
   },
 ];
 
@@ -99,6 +115,7 @@ export default function Showcase() {
     preview: string;
     image_url: string | null;
     url: string | null;
+    href: string;
   }[]>(() => fallbackTemplates.map((t) => ({ ...t, image_url: null, url: null })));
 
   useEffect(() => {
@@ -115,6 +132,7 @@ export default function Showcase() {
               preview: `bg-gradient-to-br ${t.preview_gradient}`,
               image_url: t.image_url,
               url: t.url,
+              href: PAGE_LINKS[t.category] ?? "/#contact",
             }))
           );
         }
@@ -138,11 +156,15 @@ export default function Showcase() {
     <section id="showcase" className="py-20 sm:py-28 lg:py-32 bg-white dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-12">
+          <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+            Our Solutions
+          </span>
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            Our Featured Projects
+            Solutions We Build
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Pre-built dashboards and systems ready to customize for your business.
+            Explore the types of business systems Pigiecore can design and
+            develop.
           </p>
         </Reveal>
 
@@ -215,9 +237,12 @@ export default function Showcase() {
                           View Project →
                         </a>
                       ) : (
-                        <span className="mt-4 inline-flex items-center text-sm text-slate-400 dark:text-slate-500">
-                          Coming Soon
-                        </span>
+                        <Link
+                          href={template.href}
+                          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-500 hover:text-sky-600 transition-colors dark:text-sky-400 dark:hover:text-sky-300"
+                        >
+                          Learn More →
+                        </Link>
                       )}
                     </div>
                   </div>

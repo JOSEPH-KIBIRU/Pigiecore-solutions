@@ -89,7 +89,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#showcase" className="text-sm hover:text-sky-400 transition-colors">
+                <Link href="/#selected-work" className="text-sm hover:text-sky-400 transition-colors">
                   Our Work
                 </Link>
               </li>

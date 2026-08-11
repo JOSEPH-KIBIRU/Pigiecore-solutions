@@ -166,7 +166,7 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/#showcase" className={linkClass}>
+            <Link href="/#selected-work" className={linkClass}>
               Our Work
             </Link>
             <Link href="/about" className={linkClass}>
@@ -275,7 +275,7 @@ export default function Navbar() {
                 ))}
               </div>
             </div>
-            <Link href="/#showcase" onClick={() => setMobileMenuOpen(false)}
+            <Link href="/#selected-work" onClick={() => setMobileMenuOpen(false)}
               className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
               Our Work
             </Link>

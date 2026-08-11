@@ -41,6 +41,21 @@ function formatDate(iso: string) {
   });
 }
 
+function sourceChip(url: string) {
+  const clean = url.replace(/[.,;:!?]+$/, "");
+  const label = clean.replace(/^https?:\/\//, "").split("/")[0];
+  return (
+    <a
+      href={clean}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center align-baseline mx-1 rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-500 hover:border-sky-300 hover:text-sky-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:text-sky-400"
+    >
+      {label}
+    </a>
+  );
+}
+
 function renderInline(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
@@ -56,6 +71,16 @@ function renderInline(text: string) {
         <a key={i} href={m[2]} target="_blank" rel="noopener noreferrer" className="text-sky-500 hover:text-sky-600 underline underline-offset-2">
           {m[1]}
         </a>
+      );
+    }
+    const segments = part.split(/(https?:\/\/[^\s]+)/g);
+    if (segments.length > 1) {
+      return segments.map((seg, j) =>
+        /^https?:\/\//.test(seg) ? (
+          <span key={`${i}-${j}`}>{sourceChip(seg)}</span>
+        ) : (
+          <span key={`${i}-${j}`}>{seg}</span>
+        )
       );
     }
     return <span key={i}>{part}</span>;
@@ -94,9 +119,21 @@ function renderContent(text: string) {
       const items = trimmed.split(/\n/).map((l) => l.replace(/^[-*]\s+/, "")).filter(Boolean);
       return (
         <ul key={i} className="my-4 space-y-2 pl-5 list-disc">
-          {items.map((item, j) => (
-            <li key={j}>{renderInline(item)}</li>
-          ))}
+          {items.map((item, j) => {
+            const srcMatch = item.match(/^(.*?)\s*-\s+(https?:\/\/\S+)$/);
+            return (
+              <li key={j}>
+                {srcMatch ? (
+                  <>
+                    {renderInline(srcMatch[1])}
+                    {sourceChip(srcMatch[2])}
+                  </>
+                ) : (
+                  renderInline(item)
+                )}
+              </li>
+            );
+          })}
         </ul>
       );
     }
@@ -198,7 +235,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <p className="mt-4 text-lg text-slate-500 dark:text-slate-400 leading-relaxed">{post.excerpt}</p>
         )}
 
-        <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-lg text-slate-700 dark:text-slate-300 leading-relaxed tracking-wide">
+        <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-lg text-slate-700 dark:text-slate-300 leading-relaxed tracking-wide break-words overflow-hidden">
           {post.content ? renderContent(post.content) : null}
         </div>
 

@@ -14,7 +14,7 @@ interface NewsItem {
   source: string;
 }
 
-const AGGREGATOR_URL = /(?:^|\.)news\.google\.com\/rss|(?:^|\.)bing\.com\/news\/apiclick/i;
+const AGGREGATOR_URL = /news\.google\.com\/rss|bing\.com\/news\/apiclick/i;
 
 function resolveLink(link: string): string {
   if (!link) return "";

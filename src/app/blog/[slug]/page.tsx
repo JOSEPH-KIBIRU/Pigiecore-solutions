@@ -41,7 +41,7 @@ function formatDate(iso: string) {
   });
 }
 
-const AGGREGATOR_URL = /(?:^|\.)news\.google\.com\/rss|(?:^|\.)bing\.com\/news\/apiclick/i;
+const AGGREGATOR_URL = /news\.google\.com\/rss|bing\.com\/news\/apiclick/i;
 
 function sourceChip(url: string) {
   const clean = url.replace(/[.,;:!?]+$/, "");

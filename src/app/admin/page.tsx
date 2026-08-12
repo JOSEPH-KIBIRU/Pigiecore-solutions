@@ -146,6 +146,9 @@ const emptyTemplate = {
   sort_order: 0,
 };
 
+const IDLE_TIMEOUT_MS = 120000;
+const WARN_BEFORE_MS = 30000;
+
 export default function AdminPage() {
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [loading, setLoading] = useState(true);
@@ -154,6 +157,8 @@ export default function AdminPage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loginFieldErrors, setLoginFieldErrors] = useState<Record<string, string>>({});
+  const [showLogoutWarn, setShowLogoutWarn] = useState(false);
+  const [logoutCountdown, setLogoutCountdown] = useState<number | null>(null);
 
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [subLoading, setSubLoading] = useState(false);
@@ -172,15 +177,52 @@ export default function AdminPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const inactivityRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const warnActiveRef = useRef(false);
+
+  function clearCountdown() {
+    if (countdownRef.current) {
+      clearInterval(countdownRef.current);
+      countdownRef.current = null;
+    }
+  }
+
+  async function doLogout() {
+    warnActiveRef.current = false;
+    clearCountdown();
+    setShowLogoutWarn(false);
+    setLogoutCountdown(null);
+    await signOut().catch(() => {});
+    setUser(null);
+    setSubmissions([]);
+    setTemplates([]);
+  }
+
+  function cancelLogout() {
+    warnActiveRef.current = false;
+    clearCountdown();
+    setShowLogoutWarn(false);
+    setLogoutCountdown(null);
+    resetInactivityTimer();
+  }
 
   function resetInactivityTimer() {
     if (inactivityRef.current) clearTimeout(inactivityRef.current);
-    inactivityRef.current = setTimeout(async () => {
-      await signOut();
-      setUser(null);
-      setSubmissions([]);
-      setTemplates([]);
-    }, 120000);
+    inactivityRef.current = setTimeout(() => {
+      warnActiveRef.current = true;
+      setShowLogoutWarn(true);
+      setLogoutCountdown(Math.round(WARN_BEFORE_MS / 1000));
+      countdownRef.current = setInterval(() => {
+        setLogoutCountdown((c) => {
+          if (c === null || c <= 1) {
+            clearCountdown();
+            doLogout();
+            return null;
+          }
+          return c - 1;
+        });
+      }, 1000);
+    }, IDLE_TIMEOUT_MS - WARN_BEFORE_MS);
   }
 
   useEffect(() => {
@@ -193,12 +235,19 @@ export default function AdminPage() {
         resetInactivityTimer();
       }
     });
+    return () => {
+      if (inactivityRef.current) clearTimeout(inactivityRef.current);
+      clearCountdown();
+    };
   }, []);
 
   useEffect(() => {
     if (!user) return;
     const events = ["mousedown", "keydown", "scroll", "touchstart", "mousemove"] as const;
-    function handleActivity() { resetInactivityTimer(); }
+    function handleActivity() {
+      if (warnActiveRef.current) cancelLogout();
+      else resetInactivityTimer();
+    }
     events.forEach((e) => window.addEventListener(e, handleActivity));
     return () => events.forEach((e) => window.removeEventListener(e, handleActivity));
   }, [user]);
@@ -999,6 +1048,35 @@ export default function AdminPage() {
           )}
         </div>
       </div>
+
+      {showLogoutWarn && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-900 dark:border dark:border-slate-800">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+              Session expiring soon
+            </h3>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+              You have been inactive. You will be signed out in{" "}
+              <span className="font-semibold text-red-500">{logoutCountdown}s</span> unless you
+              continue working.
+            </p>
+            <div className="mt-5 flex items-center justify-between gap-3">
+              <button
+                onClick={cancelLogout}
+                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-sky-500/25"
+              >
+                Stay Signed In
+              </button>
+              <button
+                onClick={doLogout}
+                className="inline-flex items-center justify-center rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+              >
+                Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

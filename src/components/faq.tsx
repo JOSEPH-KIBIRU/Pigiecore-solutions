@@ -36,9 +36,8 @@ export default function Faq() {
                 <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800"></span>
               </h3>
               <Accordion.Root
-                type="single"
-                collapsible
-                defaultValue={groupIndex === 0 ? "0" : undefined}
+                type="multiple"
+                defaultValue={items.map((_, i) => String(i))}
                 className="space-y-4"
               >
                 {items.map((item, i) => (

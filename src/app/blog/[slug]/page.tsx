@@ -41,8 +41,11 @@ function formatDate(iso: string) {
   });
 }
 
+const AGGREGATOR_URL = /(?:^|\.)news\.google\.com\/rss|(?:^|\.)bing\.com\/news\/apiclick/i;
+
 function sourceChip(url: string) {
   const clean = url.replace(/[.,;:!?]+$/, "");
+  if (AGGREGATOR_URL.test(clean)) return null;
   const label = clean.replace(/^https?:\/\//, "").split("/")[0];
   return (
     <a
@@ -67,6 +70,9 @@ function renderInline(text: string) {
     }
     const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (m) {
+      if (AGGREGATOR_URL.test(m[2].replace(/[.,;:!?]+$/, ""))) {
+        return <span key={i}>{m[1]}</span>;
+      }
       return (
         <a key={i} href={m[2]} target="_blank" rel="noopener noreferrer" className="text-sky-500 hover:text-sky-600 underline underline-offset-2">
           {m[1]}

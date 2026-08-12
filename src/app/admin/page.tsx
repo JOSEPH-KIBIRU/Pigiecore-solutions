@@ -180,7 +180,7 @@ export default function AdminPage() {
       setUser(null);
       setSubmissions([]);
       setTemplates([]);
-    }, 60000);
+    }, 120000);
   }
 
   useEffect(() => {
@@ -265,6 +265,7 @@ export default function AdminPage() {
         setUser(u);
         fetchSubmissions();
         fetchTemplates();
+        resetInactivityTimer();
       }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Something went wrong";

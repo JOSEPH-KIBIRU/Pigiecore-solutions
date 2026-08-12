@@ -650,7 +650,7 @@ export default function AdminPage() {
                   <div className="p-12 text-center text-slate-500 dark:text-slate-400">Loading enquiries...</div>
                 ) : filteredSubmissions.length === 0 ? (
                   <div className="p-12 text-center text-slate-500 dark:text-slate-400">
-                    {searchQuery ? "No matches found." : "No enquiries yet. Make sure the contact_submissions table exists in Supabase."}
+                    {searchQuery ? "No matches found." : "No enquiries yet. Make sure the contact_submissions table exists in PostgreSQL."}
                   </div>
                 ) : (
                   <div className="divide-y divide-slate-100 dark:divide-slate-800">

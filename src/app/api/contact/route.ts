@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error("Supabase insert error:", error.message);
+      console.error("PostgreSQL insert error:", error.message);
       return NextResponse.json(
         { error: "Failed to save submission" },
         { status: 500 }

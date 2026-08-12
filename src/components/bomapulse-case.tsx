@@ -23,7 +23,7 @@ const TABS = [
   {
     label: "Architecture",
     content:
-      "A modern web stack with a clean separation of concerns: a Next.js and TypeScript frontend, a Supabase/PostgreSQL backend with row-level security for multi-user access, and a thin API layer. The M-Pesa Daraja integration runs on webhooks so payments reconcile in real time, while scheduled jobs handle reminders and report generation.",
+      "A modern web stack with a clean separation of concerns: a Next.js and TypeScript frontend, a PostgreSQL backend with row-level security for multi-user access, and a thin API layer. The M-Pesa Daraja integration runs on webhooks so payments reconcile in real time, while scheduled jobs handle reminders and report generation.",
   },
   {
     label: "Features",
@@ -33,7 +33,7 @@ const TABS = [
   {
     label: "Technology",
     content:
-      "Next.js, TypeScript, Tailwind CSS, Supabase (PostgreSQL), M-Pesa Daraja API, Vercel, and Docker.",
+      "Next.js, TypeScript, Tailwind CSS, PostgreSQL, M-Pesa Daraja API, Vercel, and Docker.",
   },
   {
     label: "Outcome",

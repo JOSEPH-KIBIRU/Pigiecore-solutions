@@ -7,7 +7,6 @@ const TECH = [
   "Tailwind CSS",
   "Node.js",
   "PostgreSQL",
-  "Supabase",
   "M-Pesa API",
   "Vercel",
   "Docker",

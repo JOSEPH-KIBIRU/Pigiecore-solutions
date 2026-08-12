@@ -94,7 +94,10 @@ function renderInline(text: string) {
 }
 
 function renderContent(text: string) {
-  const blocks = text.split(/\n{2,}/);
+  const cleaned = text
+    .replace(/\s*-\s*(?:https?:\/\/)?news\.google\.com\/rss\/articles\/\S+/gi, "")
+    .replace(/\s*-\s*(?:https?:\/\/)?(?:www\.)?bing\.com\/news\/apiclick\S+/gi, "");
+  const blocks = cleaned.split(/\n{2,}/);
   return blocks.map((block, i) => {
     const trimmed = block.trim();
     if (!trimmed) return null;

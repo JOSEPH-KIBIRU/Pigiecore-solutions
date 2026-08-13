@@ -65,7 +65,7 @@ async function sendNotification(d: EnquiryDetails) {
       )
       .join("");
 
-    await resend.emails.send({
+    const res = await resend.emails.send({
       from: FROM_EMAIL,
       to: [NOTIFY_EMAIL],
       replyTo: d.email,
@@ -84,6 +84,11 @@ async function sendNotification(d: EnquiryDetails) {
         </div>
       `,
     });
+    if ((res as { error?: unknown }).error) {
+      console.error("Contact notification email rejected by Resend:", JSON.stringify((res as { error?: unknown }).error));
+    } else {
+      console.info("Contact notification email sent to", NOTIFY_EMAIL);
+    }
   } catch (err) {
     console.error("Failed to send contact notification email:", err);
   }

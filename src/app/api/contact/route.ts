@@ -3,7 +3,7 @@ import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const NOTIFY_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || "info@pigiecore.co.ke";
+const NOTIFY_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || "support@pigiecore.co.ke";
 const FROM_EMAIL = process.env.EMAIL_FROM || "Pigiecore Solutions <onboarding@resend.dev>";
 
 const SERVICE_LABELS: Record<string, string> = {

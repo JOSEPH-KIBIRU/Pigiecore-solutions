@@ -40,10 +40,10 @@ export default function LegalPage({
           <p className="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed">
             If you have any questions about this policy, reach us at{" "}
             <a
-              href="mailto:info@pigiecore.co.ke"
+              href="mailto:support@pigiecore.co.ke"
               className="text-sky-500 hover:text-sky-400"
             >
-              info@pigiecore.co.ke
+              support@pigiecore.co.ke
             </a>{" "}
             or call{" "}
             <a

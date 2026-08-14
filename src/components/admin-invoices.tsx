@@ -361,7 +361,7 @@ export default function AdminInvoices() {
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor("#94a3b8");
-    pdf.text("Pigiecore Solutions  \u00b7  info@pigiecore.co.ke  \u00b7  0798118515 / 0708769459", left + pageW / 2, y, { align: "center" });
+    pdf.text("Pigiecore Solutions  \u00b7  support@pigiecore.co.ke  \u00b7  0798118515 / 0708769459", left + pageW / 2, y, { align: "center" });
     pdf.setTextColor("#cbd5e1");
     pdf.text("Thank you for your business!", left + pageW / 2, y + 5, { align: "center" });
 

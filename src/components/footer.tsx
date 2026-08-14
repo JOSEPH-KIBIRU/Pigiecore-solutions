@@ -117,10 +117,10 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="text-sm">
                 <a
-                  href="mailto:info@pigiecore.co.ke"
+                  href="mailto:support@pigiecore.co.ke"
                   className="hover:text-sky-400 transition-colors"
                 >
-                  info@pigiecore.co.ke
+                  support@pigiecore.co.ke
                 </a>
               </li>
               <li className="text-sm">

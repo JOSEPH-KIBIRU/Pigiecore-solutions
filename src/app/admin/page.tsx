@@ -38,6 +38,7 @@ import {
   Newspaper,
   Quote as QuoteIcon,
   Megaphone,
+  Menu,
 } from "lucide-react";
 
 interface Submission {
@@ -114,6 +115,16 @@ const TIMELINE_LABELS: Record<string, string> = {
   "6-plus-months": "6+ months",
 };
 
+const NAV_ITEMS = [
+  { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { key: "templates", label: "Templates", icon: ImageIcon },
+  { key: "invoices", label: "Invoices", icon: FileText },
+  { key: "users", label: "Users", icon: UserIcon },
+  { key: "blog", label: "Blog", icon: Newspaper },
+  { key: "testimonials", label: "Testimonials", icon: QuoteIcon },
+  { key: "offers", label: "Hero Offers", icon: Megaphone },
+] as const;
+
 function serviceLabel(value: string | null) {
   return (
     CONTACT_SERVICES[value ?? ""] ??
@@ -159,6 +170,7 @@ export default function AdminPage() {
   const [loginFieldErrors, setLoginFieldErrors] = useState<Record<string, string>>({});
   const [showLogoutWarn, setShowLogoutWarn] = useState(false);
   const [logoutCountdown, setLogoutCountdown] = useState<number | null>(null);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [subLoading, setSubLoading] = useState(false);
@@ -531,62 +543,19 @@ export default function AdminPage() {
           </Link>
         </div>
         <nav className="flex-1 p-4 space-y-1">
-          <button onClick={() => setActiveTab("dashboard")}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
-              activeTab === "dashboard"
-                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            }`}>
-            <LayoutDashboard className="w-5 h-5" /> Dashboard
-          </button>
-          <button onClick={() => setActiveTab("templates")}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
-              activeTab === "templates"
-                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            }`}>
-            <ImageIcon className="w-5 h-5" /> Templates
-          </button>
-          <button onClick={() => setActiveTab("invoices")}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
-              activeTab === "invoices"
-                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            }`}>
-            <FileText className="w-5 h-5" /> Invoices
-          </button>
-          <button onClick={() => setActiveTab("users")}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
-              activeTab === "users"
-                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            }`}>
-            <UserIcon className="w-5 h-5" /> Users
-          </button>
-          <button onClick={() => setActiveTab("blog")}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
-              activeTab === "blog"
-                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            }`}>
-            <Newspaper className="w-5 h-5" /> Blog
-          </button>
-          <button onClick={() => setActiveTab("testimonials")}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
-              activeTab === "testimonials"
-                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            }`}>
-            <QuoteIcon className="w-5 h-5" /> Testimonials
-          </button>
-          <button onClick={() => setActiveTab("offers")}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
-              activeTab === "offers"
-                ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
-            }`}>
-            <Megaphone className="w-5 h-5" /> Hero Offers
-          </button>
+          {NAV_ITEMS.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button key={item.key} onClick={() => setActiveTab(item.key)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
+                  activeTab === item.key
+                    ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
+                    : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+                }`}>
+                <Icon className="w-5 h-5" /> {item.label}
+              </button>
+            );
+          })}
         </nav>
         <div className="p-4 border-t border-slate-200 dark:border-slate-800">
           <div className="text-sm text-slate-500 dark:text-slate-400 mb-2 truncate">{user.email}</div>
@@ -605,39 +574,40 @@ export default function AdminPage() {
             </div>
             <span className="font-bold text-slate-900 dark:text-white text-sm">PigieCore</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <button onClick={() => setActiveTab("dashboard")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "dashboard" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
-              Dashboard
-            </button>
-            <button onClick={() => setActiveTab("templates")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "templates" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
-              Templates
-            </button>
-            <button onClick={() => setActiveTab("invoices")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "invoices" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
-              Invoices
-            </button>
-            <button onClick={() => setActiveTab("users")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "users" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
-              Users
-            </button>
-            <button onClick={() => setActiveTab("blog")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "blog" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
-              Blog
-            </button>
-            <button onClick={() => setActiveTab("testimonials")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "testimonials" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
-              Reviews
-            </button>
-            <button onClick={() => setActiveTab("offers")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === "offers" ? "bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-400" : "text-slate-500"}`}>
-              Offers
-            </button>
-            <button onClick={async () => { await signOut(); setUser(null); }}
-              className="text-xs text-slate-400 hover:text-red-500 ml-2">Sign Out</button>
-          </div>
+          <button
+            onClick={() => setMobileNavOpen((v) => !v)}
+            aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileNavOpen}
+            className="inline-flex items-center justify-center w-10 h-10 rounded-xl text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"
+          >
+            {mobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
+        {mobileNavOpen && (
+          <nav className="lg:hidden bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 px-3 pb-4 space-y-1">
+            {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button key={item.key}
+                  onClick={() => { setActiveTab(item.key); setMobileNavOpen(false); }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
+                    activeTab === item.key
+                      ? "bg-sky-50 text-sky-600 dark:bg-sky-950/30 dark:text-sky-400"
+                      : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+                  }`}>
+                  <Icon className="w-5 h-5" /> {item.label}
+                </button>
+              );
+            })}
+            <div className="pt-3 mt-1 border-t border-slate-200 dark:border-slate-800 px-4 flex items-center justify-between">
+              <span className="text-sm text-slate-500 dark:text-slate-400 truncate max-w-[60%]">{user.email}</span>
+              <button onClick={async () => { await signOut(); setUser(null); setMobileNavOpen(false); }}
+                className="text-sm text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition-colors">
+                Sign Out
+              </button>
+            </div>
+          </nav>
+        )}
 
         <div className="p-4 sm:p-6 lg:p-8">
           {activeTab === "dashboard" && (

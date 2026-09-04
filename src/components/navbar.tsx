@@ -17,6 +17,7 @@ const SOLUTIONS = [
   { label: "Fleet Management", href: "/solutions/fleet-management" },
   { label: "School Management", href: "/solutions/school-management" },
   { label: "Healthcare", href: "/solutions/healthcare" },
+  { label: "Office Manager", href: "/solutions/office-management" },
   { label: "Custom Business Systems", href: "/solutions/custom-business-systems" },
 ];
 

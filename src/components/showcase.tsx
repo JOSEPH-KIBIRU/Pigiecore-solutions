@@ -9,6 +9,7 @@ import {
   Scissors,
   GraduationCap,
   Hospital,
+  Briefcase,
   ArrowLeft,
   ArrowRight,
   ImageIcon,
@@ -22,6 +23,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Scissors,
   GraduationCap,
   Hospital,
+  Briefcase,
 };
 
 const PAGE_LINKS: Record<string, string> = {
@@ -31,6 +33,7 @@ const PAGE_LINKS: Record<string, string> = {
   salon: "/services/software-development",
   school: "/solutions/school-management",
   hospital: "/solutions/healthcare",
+  "office-manager": "/solutions/office-management",
 };
 
 const fallbackTemplates = [
@@ -87,6 +90,15 @@ const fallbackTemplates = [
     gradient: "from-teal-500 to-cyan-600",
     preview: "bg-gradient-to-br from-teal-400 via-cyan-500 to-sky-600",
     href: "/solutions/healthcare",
+  },
+  {
+    icon: Briefcase,
+    title: "Office Manager",
+    description:
+      "Leave requests, tasks, meeting room booking, asset tracking, and visitor logs in one system.",
+    gradient: "from-indigo-500 to-purple-600",
+    preview: "bg-gradient-to-br from-indigo-400 via-purple-500 to-purple-600",
+    href: "/solutions/office-management",
   },
 ];
 

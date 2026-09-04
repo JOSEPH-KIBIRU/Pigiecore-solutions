@@ -312,6 +312,35 @@ export const SERVICE_ENTRIES: ServiceEntry[] = [
       { type: "services", slug: "business-automation" },
     ],
   },
+  {
+    type: "solutions",
+    slug: "office-management",
+    name: "Office Manager",
+    icon: "briefcase",
+    eyebrow: "Solutions",
+    h1: "Office Management Software",
+    tagline:
+      "Leave requests, tasks, meeting rooms, assets, and visitors — the whole office in one system.",
+    intro: [
+      "Office administration runs on requests — leave, leave approvals, room bookings, purchases, and visitors — usually chased through email and chat. Our office manager platform turns those requests into structured, trackable workflows.",
+      "It centralises staff leave and attendance, tasks and assignments, meeting room booking, and asset and expense tracking, so the office runs smoothly without endless follow-ups.",
+    ],
+    features: [
+      { title: "Leave & Attendance", description: "Staff apply online, managers approve in one click, and balances update automatically." },
+      { title: "Tasks & Assignments", description: "Assign work, set due dates, and see what is open across the team." },
+      { title: "Meeting & Room Booking", description: "Book meeting rooms and resources with calendar views and conflict-free scheduling." },
+      { title: "Assets & Expenses", description: "Track company assets, maintenance, and office expenses in a single register." },
+    ],
+    faqs: [
+      { q: "Can staff access it from their phones?", a: "Yes — leave requests, tasks, and bookings work from any phone or computer." },
+      { q: "Can it replace our spreadsheets and email chains?", a: "That is the point. Requests and approvals live in one place with a clear audit trail." },
+      { q: "Is it suitable for a small office?", a: "Definitely — it is built to scale from a handful of staff to larger teams and branches." },
+    ],
+    related: [
+      { type: "solutions", slug: "custom-business-systems" },
+      { type: "services", slug: "business-automation" },
+    ],
+  },
 ];
 
 export function getAllSlugs(type: EntryType): string[] {

@@ -30,6 +30,7 @@ import {
   Scissors,
   GraduationCap,
   Hospital,
+  Briefcase,
   ImageIcon,
   FileText,
   Upload,
@@ -78,6 +79,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Scissors,
   GraduationCap,
   Hospital,
+  Briefcase,
 };
 
 const CATEGORIES = [
@@ -87,9 +89,10 @@ const CATEGORIES = [
   { value: "salon", label: "Salon & Barber" },
   { value: "school", label: "School Management" },
   { value: "hospital", label: "Hospital Management" },
+  { value: "office-manager", label: "Office Manager" },
 ];
 
-const ICON_OPTIONS = ["Home", "Globe", "Truck", "Scissors", "GraduationCap", "Hospital"];
+const ICON_OPTIONS = ["Home", "Globe", "Truck", "Scissors", "GraduationCap", "Hospital", "Briefcase"];
 
 const GRADIENT_PRESETS = [
   { value: "from-sky-400 via-blue-500 to-indigo-600", label: "Sky Blue", from: "sky-500", to: "blue-600" },

@@ -10,6 +10,7 @@ import {
   GraduationCap,
   HeartPulse,
   Settings,
+  Briefcase,
   Check,
   ArrowRight,
 } from "lucide-react";
@@ -27,6 +28,7 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   graduationcap: GraduationCap,
   heartpulse: HeartPulse,
   settings: Settings,
+  briefcase: Briefcase,
 };
 
 export default function ServicePage({ entry }: { entry: ServiceEntry }) {

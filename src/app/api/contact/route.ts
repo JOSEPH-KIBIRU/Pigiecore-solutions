@@ -1,5 +1,6 @@
 import { getServerClient } from "@/lib/supabase-server";
 import { rateLimit } from "@/lib/rate-limit";
+import { assertSameOrigin } from "@/lib/security";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -95,6 +96,9 @@ async function sendNotification(d: EnquiryDetails) {
 }
 
 export async function POST(request: Request) {
+  const blocked = assertSameOrigin(request);
+  if (blocked) return blocked;
+
   const rl = rateLimit(request, "contact-form", 5, 10 * 60 * 1000);
   if (rl.limited) {
     return NextResponse.json(

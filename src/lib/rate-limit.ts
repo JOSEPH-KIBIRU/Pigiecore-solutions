@@ -34,10 +34,12 @@ export function rateLimit(
   request: Request,
   key: string,
   limit: number,
-  windowMs: number
+  windowMs: number,
+  identifier?: string
 ): RateLimitResult {
   prune();
-  const id = `${key}:${getIp(request)}`;
+  const ident = identifier || getIp(request);
+  const id = `${key}:${ident}`;
   const now = Date.now();
   const bucket = store.get(id);
 

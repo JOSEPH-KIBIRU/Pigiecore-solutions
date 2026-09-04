@@ -1,4 +1,4 @@
-import { getServerClient } from "@/lib/supabase-server";
+import { assertSameOrigin, requireAdmin } from "@/lib/security";
 import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
@@ -6,15 +6,12 @@ import { Resend } from "resend";
 const FROM_EMAIL = process.env.EMAIL_FROM || "Pigiecore Solutions <onboarding@resend.dev>";
 
 export async function POST(request: Request) {
-  const supabase = await getServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const blocked = assertSameOrigin(request);
+  if (blocked) return blocked;
+  const auth = await requireAdmin();
+  if (auth.response) return auth.response;
 
-  const rl = rateLimit(request, `send-invoice:${user.id}`, 10, 60 * 60 * 1000);
+  const rl = rateLimit(request, "send-invoice", 10, 60 * 60 * 1000, auth.user!.id);
   if (rl.limited) {
     return NextResponse.json(
       { error: "Too many emails sent. Please try again later." },

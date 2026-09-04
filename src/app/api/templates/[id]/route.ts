@@ -1,19 +1,33 @@
 import { getServerClient } from "@/lib/supabase-server";
+import { assertSameOrigin, requireAdmin } from "@/lib/security";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
+
+async function adminGuard(request: Request) {
+  const blocked = assertSameOrigin(request);
+  if (blocked) return { response: blocked as NextResponse };
+  const auth = await requireAdmin();
+  if (auth.response) return auth;
+  const rl = rateLimit(request, "templates:write", 60, 10 * 60 * 1000, auth.user!.id);
+  if (rl.limited) {
+    return {
+      response: NextResponse.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+      ) as NextResponse,
+    };
+  }
+  return auth;
+}
 
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const guard = await adminGuard(request);
+  if (guard.response) return guard.response;
   const { id } = await params;
   const supabase = await getServerClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
 
   try {
     const body = await request.json();
@@ -48,18 +62,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const guard = await adminGuard(request);
+  if (guard.response) return guard.response;
   const { id } = await params;
   const supabase = await getServerClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
 
   const { error } = await supabase
     .from("templates")

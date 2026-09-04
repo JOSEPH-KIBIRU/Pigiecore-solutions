@@ -1,14 +1,22 @@
 import { getServerClient } from "@/lib/supabase-server";
+import { assertSameOrigin, requireAdmin } from "@/lib/security";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const supabase = await getServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const blocked = assertSameOrigin(request);
+  if (blocked) return blocked;
+  const auth = await requireAdmin();
+  if (auth.response) return auth.response;
+  const rl = rateLimit(request, "testimonials:write", 60, 10 * 60 * 1000, auth.user!.id);
+  if (rl.limited) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
   }
+
+  const supabase = await getServerClient();
 
   const { id } = await params;
   try {
@@ -44,14 +52,13 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const blocked = assertSameOrigin(request);
+  if (blocked) return blocked;
+  const auth = await requireAdmin();
+  if (auth.response) return auth.response;
+
   const supabase = await getServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
 
   const { id } = await params;
   const { error } = await supabase.from("testimonials").delete().eq("id", id);

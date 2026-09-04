@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { rateLimit } from "@/lib/rate-limit";
+import { assertSameOrigin } from "@/lib/security";
 
 export async function POST(request: Request) {
+  const blocked = assertSameOrigin(request);
+  if (blocked) return blocked;
+
   const body = await request.json().catch(() => null);
   const email = (body?.email as string | undefined)?.toLowerCase().trim() || "unknown";
 

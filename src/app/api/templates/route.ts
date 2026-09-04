@@ -1,4 +1,6 @@
 import { getServerClient } from "@/lib/supabase-server";
+import { assertSameOrigin, requireAdmin } from "@/lib/security";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -18,14 +20,21 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const supabase = await getServerClient();
+  const blocked = assertSameOrigin(request);
+  if (blocked) return blocked;
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const auth = await requireAdmin();
+  if (auth.response) return auth.response;
+
+  const rl = rateLimit(request, "templates:write", 60, 10 * 60 * 1000, auth.user!.id);
+  if (rl.limited) {
+    return NextResponse.json(
+      { error: "Too many requests. Please slow down." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+    );
   }
+
+  const supabase = await getServerClient();
 
   try {
     const body = await request.json();

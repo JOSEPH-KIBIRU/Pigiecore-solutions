@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
-import { getServerClient } from "@/lib/supabase-server";
+import { assertSameOrigin, requireAdmin } from "@/lib/security";
+import { rateLimit } from "@/lib/rate-limit";
 
 function getAdminClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -13,19 +14,19 @@ function getAdminClient() {
   });
 }
 
-async function requireUser() {
-  const supabase = await getServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
-}
-
 export async function POST(request: Request) {
   try {
-    const current = await requireUser();
-    if (!current) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const blocked = assertSameOrigin(request);
+    if (blocked) return blocked;
+    const auth = await requireAdmin();
+    if (auth.response) return auth.response;
+
+    const rl = rateLimit(request, "users:manage", 30, 10 * 60 * 1000, auth.user!.id);
+    if (rl.limited) {
+      return NextResponse.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+      );
     }
 
     const body = await request.json();
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
       email,
       password,
       email_confirm: true,
+      app_metadata: { role: "admin" },
     });
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
@@ -62,10 +64,8 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const current = await requireUser();
-    if (!current) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    const auth = await requireAdmin();
+    if (auth.response) return auth.response;
 
     const admin = getAdminClient();
     const { data, error } = await admin.auth.admin.listUsers({ page: 1, perPage: 100 });
@@ -88,11 +88,20 @@ export async function GET() {
 
 export async function DELETE(request: Request) {
   try {
-    const current = await requireUser();
-    if (!current) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const blocked = assertSameOrigin(request);
+    if (blocked) return blocked;
+    const auth = await requireAdmin();
+    if (auth.response) return auth.response;
+
+    const rl = rateLimit(request, "users:manage", 30, 10 * 60 * 1000, auth.user!.id);
+    if (rl.limited) {
+      return NextResponse.json(
+        { error: "Too many requests. Please slow down." },
+        { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+      );
     }
 
+    const current = auth.user!;
     const { id } = await request.json();
     if (!id) {
       return NextResponse.json({ error: "User id is required" }, { status: 400 });

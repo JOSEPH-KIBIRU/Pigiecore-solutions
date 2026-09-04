@@ -1,4 +1,6 @@
 import { getServerClient } from "@/lib/supabase-server";
+import { assertSameOrigin, requireAdmin } from "@/lib/security";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 
 function slugify(text: string) {
@@ -11,13 +13,12 @@ function slugify(text: string) {
 }
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const blocked = assertSameOrigin(request);
+  if (blocked) return blocked;
+  const auth = await requireAdmin();
+  if (auth.response) return auth.response;
+
   const supabase = await getServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
 
   const { id } = await params;
   try {
@@ -54,14 +55,13 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const blocked = assertSameOrigin(request);
+  if (blocked) return blocked;
+  const auth = await requireAdmin();
+  if (auth.response) return auth.response;
+
   const supabase = await getServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
 
   const { id } = await params;
   const { error } = await supabase.from("blog_posts").delete().eq("id", id);

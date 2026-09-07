@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { siteUrl } from "@/lib/site";
 import BackToTop from "@/components/back-to-top";
@@ -113,6 +114,7 @@ export default function RootLayout({
         {children}
         <BackToTop />
         <HashScroll />
+        <Analytics />
         <Script
           id="botpress-webchat"
           strategy="afterInteractive"

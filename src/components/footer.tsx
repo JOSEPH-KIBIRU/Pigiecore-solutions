@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "@/components/logo";
 import { MessageCircle } from "lucide-react";
+import NewsletterForm from "@/components/newsletter-form";
 
 const SERVICE_LINKS = [
   { label: "Custom Software", href: "/services/software-development" },
@@ -35,6 +36,15 @@ export default function Footer() {
               Custom software solutions that help businesses automate, scale,
               and succeed.
             </p>
+            <div className="mt-6">
+              <p className="text-sm font-semibold text-white">
+                Software tips for growing businesses
+              </p>
+              <p className="mt-1 text-xs text-slate-400">
+                Occasional insights on automation and tech. No spam.
+              </p>
+              <NewsletterForm />
+            </div>
           </div>
           <div>
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">

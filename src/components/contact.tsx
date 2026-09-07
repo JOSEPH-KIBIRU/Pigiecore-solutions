@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Reveal from "@/components/reveal";
 import { Mail, Phone, Clock, MapPin, Send, MessageCircle } from "lucide-react";
+import { track } from "@vercel/analytics";
 
 interface ContactErrors {
   name?: string;
@@ -109,6 +110,7 @@ export default function Contact() {
 
       if (res.ok) {
         setStatus("success");
+        track("contact_submitted", { service: values.service || "general" });
         setValues({ name: "", email: "", phone: "", service: "", budget: "", timeline: "", message: "" });
         (e.target as HTMLFormElement).reset();
       } else if (res.status === 429) {

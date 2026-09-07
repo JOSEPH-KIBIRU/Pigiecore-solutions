@@ -17,7 +17,7 @@ import {
 import Reveal from "@/components/reveal";
 import { SERVICE_ENTRIES, type ServiceEntry } from "@/lib/service-content";
 
-const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+export const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   code: Code2,
   cloud: Cloud,
   globe: Globe,

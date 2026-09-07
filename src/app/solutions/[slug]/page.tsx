@@ -71,7 +71,7 @@ export default async function SolutionDetailPage({ params }: Params) {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-          { "@type": "ListItem", position: 2, name: "Solutions", item: `${siteUrl}/#services` },
+          { "@type": "ListItem", position: 2, name: "Solutions", item: `${siteUrl}/solutions` },
           { "@type": "ListItem", position: 3, name: entry.name, item: `${siteUrl}/solutions/${entry.slug}` },
         ],
       },

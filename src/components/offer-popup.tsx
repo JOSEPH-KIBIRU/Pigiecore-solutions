@@ -25,7 +25,7 @@ export default function OfferPopup() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/api/offers", { cache: "no-store" });
+        const res = await fetch("/api/offers");
         if (!res.ok) return;
         const data: Offer[] = await res.json();
         if (!data.length) return;

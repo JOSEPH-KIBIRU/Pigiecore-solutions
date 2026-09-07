@@ -224,6 +224,8 @@ export default function Showcase() {
                         <img
                           src={template.image_url}
                           alt={template.title}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-contain rounded-lg max-h-[170px]"
                         />
                       ) : (

@@ -137,6 +137,14 @@ export default function Navbar() {
                       {item.label}
                     </Link>
                   ))}
+                  <div className="mt-1 border-t border-slate-100 dark:border-slate-800"></div>
+                  <Link
+                    href="/services"
+                    onClick={() => setOpenDropdown(null)}
+                    className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-sky-500 hover:bg-slate-50 dark:hover:bg-slate-800"
+                  >
+                    All Services <span>&rarr;</span>
+                  </Link>
                 </div>
               )}
             </div>
@@ -163,6 +171,14 @@ export default function Navbar() {
                       {item.label}
                     </Link>
                   ))}
+                  <div className="mt-1 border-t border-slate-100 dark:border-slate-800"></div>
+                  <Link
+                    href="/solutions"
+                    onClick={() => setOpenDropdown(null)}
+                    className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-sky-500 hover:bg-slate-50 dark:hover:bg-slate-800"
+                  >
+                    All Solutions <span>&rarr;</span>
+                  </Link>
                 </div>
               )}
             </div>

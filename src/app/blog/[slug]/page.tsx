@@ -1,4 +1,4 @@
-import { getServerClient } from "@/lib/supabase-server";
+import { supabasePublic } from "@/lib/supabase-public";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,7 +10,7 @@ import BlogShare from "@/components/blog-share";
 import { estimateReadingTime, formatReadingTime } from "@/lib/reading-time";
 import { findRelated } from "@/lib/related-content";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 interface BlogPost {
   id: number;
@@ -25,8 +25,17 @@ interface BlogPost {
   updated_at: string | null;
 }
 
+export async function generateStaticParams() {
+  const supabase = supabasePublic();
+  const { data } = await supabase
+    .from("blog_posts")
+    .select("slug")
+    .eq("published", true);
+  return (data ?? []).map((post) => ({ slug: post.slug }));
+}
+
 async function getPost(slug: string): Promise<BlogPost | null> {
-  const supabase = await getServerClient();
+  const supabase = supabasePublic();
   const { data } = await supabase
     .from("blog_posts")
     .select("*")
@@ -256,9 +265,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </Link>
 
         {post.cover_image_url && (
-          <div className="rounded-2xl overflow-hidden mb-8">
+          <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-8 bg-slate-100 dark:bg-slate-800">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={post.cover_image_url} alt={post.title} className="w-full object-cover max-h-[420px]" />
+            <img
+              src={post.cover_image_url}
+              alt={post.title}
+              className="w-full h-full object-cover"
+            />
           </div>
         )}
 

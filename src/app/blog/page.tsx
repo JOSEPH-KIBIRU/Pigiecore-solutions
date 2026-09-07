@@ -1,4 +1,4 @@
-import { getServerClient } from "@/lib/supabase-server";
+import { supabasePublic } from "@/lib/supabase-public";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, Clock, Rss, ArrowRight } from "lucide-react";
@@ -7,7 +7,7 @@ import Footer from "@/components/footer";
 import { estimateReadingTime, formatReadingTime } from "@/lib/reading-time";
 import { siteUrl } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Insights & Blog — Software, Automation & Business Tips",
@@ -56,7 +56,7 @@ function formatDate(iso: string) {
 }
 
 export default async function BlogPage() {
-  const supabase = await getServerClient();
+  const supabase = supabasePublic();
   const { data, error } = await supabase
     .from("blog_posts")
     .select("*")
@@ -112,6 +112,8 @@ export default async function BlogPage() {
                     <img
                       src={post.cover_image_url}
                       alt={post.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>

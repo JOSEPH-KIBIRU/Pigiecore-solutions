@@ -169,6 +169,8 @@ export default function About() {
                       <img
                         src={s.image}
                         alt={s.title}
+                        loading="lazy"
+                        decoding="async"
                         className="absolute inset-0 w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"></div>

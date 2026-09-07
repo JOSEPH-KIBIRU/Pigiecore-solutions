@@ -6,6 +6,7 @@ import "./globals.css";
 import { siteUrl } from "@/lib/site";
 import BackToTop from "@/components/back-to-top";
 import HashScroll from "@/components/hash-scroll";
+import FloatingWhatsApp from "@/components/floating-whatsapp";
 import Navbar from "@/components/navbar"; // Ensure Navbar is imported if not already
 
 const inter = Inter({
@@ -113,6 +114,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col text-slate-900 font-sans transition-colors duration-300">
         {children}
         <BackToTop />
+        <FloatingWhatsApp />
         <HashScroll />
         <Analytics />
         <Script

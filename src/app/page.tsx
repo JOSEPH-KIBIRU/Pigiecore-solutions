@@ -15,6 +15,7 @@ import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import OfferPopup from "@/components/offer-popup";
 import { siteUrl } from "@/lib/site";
+import { FAQS } from "@/lib/faq-data";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -149,6 +150,18 @@ const jsonLd = {
         "Complete school operating system with student records, timetables, attendance, grade books, communications, and parent portals.",
       url: `${siteUrl}/#services`,
       publisher: { "@id": `${siteUrl}/#organization` },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${siteUrl}/#faq`,
+      mainEntity: FAQS.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: f.a,
+        },
+      })),
     },
   ],
 };

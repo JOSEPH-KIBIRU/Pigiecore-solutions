@@ -190,23 +190,54 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = await getPost(slug);
   if (!post) notFound();
 
+  const authorName = post.author || "Pigiecore Solutions";
+  const postUrl = `${siteUrl}/blog/${post.slug}`;
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt || undefined,
-    image: post.cover_image_url || undefined,
-    datePublished: post.published_at || post.created_at,
-    author: { "@type": "Organization", name: post.author || "Pigiecore Solutions" },
-    publisher: {
-      "@type": "Organization",
-      name: "Pigiecore Solutions",
-      logo: { "@type": "ImageObject", url: `${siteUrl}/icon.svg` },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${siteUrl}/blog/${post.slug}`,
-    },
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        headline: post.title,
+        description: post.excerpt || undefined,
+        image: post.cover_image_url || undefined,
+        datePublished: post.published_at || post.created_at,
+        dateModified: post.updated_at || undefined,
+        author: { "@type": "Person", name: authorName },
+        publisher: {
+          "@type": "Organization",
+          name: "Pigiecore Solutions",
+          logo: { "@type": "ImageObject", url: `${siteUrl}/icon.svg` },
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": postUrl,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Insights",
+            item: `${siteUrl}/blog`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: postUrl,
+          },
+        ],
+      },
+    ],
   };
 
   return (

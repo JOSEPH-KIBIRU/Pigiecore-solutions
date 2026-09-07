@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Reveal from "@/components/reveal";
-import { Mail, Phone, Clock, MapPin, Send } from "lucide-react";
+import { Mail, Phone, Clock, MapPin, Send, MessageCircle } from "lucide-react";
 
 interface ContactErrors {
   name?: string;
@@ -20,6 +20,12 @@ const CONTACT_CHANNELS = [
     label: "Email us",
     value: "support@pigiecore.co.ke",
     href: "mailto:support@pigiecore.co.ke",
+  },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: "Chat with us instantly",
+    href: "https://wa.me/254798118515",
   },
   {
     icon: Phone,
@@ -173,6 +179,8 @@ export default function Contact() {
                     {item.href ? (
                       <a
                         href={item.href}
+                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         className="group flex items-center gap-4 transition-colors"
                       >
                         {content}

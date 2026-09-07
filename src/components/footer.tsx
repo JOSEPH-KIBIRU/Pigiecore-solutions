@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "@/components/logo";
+import { MessageCircle } from "lucide-react";
 
 const SERVICE_LINKS = [
   { label: "Custom Software", href: "/services/software-development" },
@@ -129,6 +130,16 @@ export default function Footer() {
               </li>
               <li className="text-sm">
                 <a href="tel:+254708769459" className="hover:text-sky-400 transition-colors">0708769459</a>
+              </li>
+              <li className="text-sm">
+                <a
+                  href="https://wa.me/254798118515"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" /> Chat on WhatsApp
+                </a>
               </li>
             </ul>
           </div>

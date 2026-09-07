@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Reveal from "@/components/reveal";
+import { Mail, Phone, Clock, MapPin, Send } from "lucide-react";
 
 interface ContactErrors {
   name?: string;
@@ -12,6 +13,31 @@ interface ContactErrors {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\d{9,15}$/;
+
+const CONTACT_CHANNELS = [
+  {
+    icon: Mail,
+    label: "Email us",
+    value: "support@pigiecore.co.ke",
+    href: "mailto:support@pigiecore.co.ke",
+  },
+  {
+    icon: Phone,
+    label: "Call us",
+    value: "+254 798 118515  ·  +254 708 769459",
+    href: "tel:+254798118515",
+  },
+  {
+    icon: Clock,
+    label: "Response time",
+    value: "Within 1 hour, Monday – Saturday",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Nairobi, Kenya",
+  },
+];
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
@@ -98,214 +124,242 @@ export default function Contact() {
         : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-600"
     }`;
 
+  const selectClass =
+    "block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600";
+
+  const fieldLabel =
+    "block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300";
+
   return (
     <section
       id="contact"
-      className="py-20 sm:py-28 lg:py-32 bg-slate-50 dark:bg-slate-950 scroll-mt-20 sm:scroll-mt-28 lg:scroll-mt-32"
+      className="py-20 sm:py-28 lg:py-32 bg-slate-50 dark:bg-slate-950 scroll-mt-20 sm:scroll-mt-28 lg:scroll-mt-32 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal className="text-center mb-16">
-          <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
-            Contact Us
-          </span>
-          <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
-            What are you looking to build?
-          </h2>
-          <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto dark:text-slate-400">
-            Tell us about your project and we will get back to you within 1 hour.
-          </p>
-        </Reveal>
-        <Reveal className="max-w-xl mx-auto">
-          <form
-            className="space-y-6"
-            noValidate
-            onSubmit={handleSubmit}
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <Reveal>
+            <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+              Contact Us
+            </span>
+            <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15] dark:text-white">
+              What are you looking to build?
+            </h2>
+            <p className="mt-5 text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+              Tell us about your project and we will get back to you within 1
+              hour. Free consultation, no obligation — just a clear conversation
+              about your goals.
+            </p>
+
+            <ul className="mt-10 space-y-5">
+              {CONTACT_CHANNELS.map((item) => {
+                const Icon = item.icon;
+                const content = (
+                  <>
+                    <span className="w-11 h-11 shrink-0 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-sky-500 dark:bg-slate-900 dark:border-slate-800 dark:text-sky-400">
+                      <Icon className="w-5 h-5" />
+                    </span>
+                    <span>
+                      <span className="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                        {item.label}
+                      </span>
+                      <span className="mt-0.5 block text-slate-900 dark:text-white">
+                        {item.value}
+                      </span>
+                    </span>
+                  </>
+                );
+                return (
+                  <li key={item.label}>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        className="group flex items-center gap-4 transition-colors"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <div className="flex items-center gap-4">{content}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </Reveal>
+
+          <Reveal>
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xl shadow-slate-200/60 lg:sticky lg:top-24 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none">
+              <form className="space-y-5" noValidate onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="name" className={fieldLabel}>
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={values.name}
+                      onChange={(e) => {
+                        setValues((v) => ({ ...v, name: e.target.value }));
+                        if (errors.name) setErrors((er) => ({ ...er, name: undefined }));
+                      }}
+                      className={inputClass(!!errors.name)}
+                      placeholder="Your name"
+                      aria-invalid={!!errors.name}
+                    />
+                    {errors.name && (
+                      <p className="mt-1.5 text-sm text-red-500">{errors.name}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label htmlFor="email" className={fieldLabel}>
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={values.email}
+                      onChange={(e) => {
+                        setValues((v) => ({ ...v, email: e.target.value }));
+                        if (errors.email) setErrors((er) => ({ ...er, email: undefined }));
+                      }}
+                      className={inputClass(!!errors.email)}
+                      placeholder="your.email@company.com"
+                      aria-invalid={!!errors.email}
+                    />
+                    {errors.email && (
+                      <p className="mt-1.5 text-sm text-red-500">{errors.email}</p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="phone" className={fieldLabel}>
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    inputMode="numeric"
+                    value={values.phone}
+                    onChange={(e) => {
+                      const digits = e.target.value.replace(/\D/g, "");
+                      setValues((v) => ({ ...v, phone: digits }));
+                      if (errors.phone) setErrors((er) => ({ ...er, phone: undefined }));
+                    }}
+                    className={inputClass(!!errors.phone)}
+                    placeholder="0712345678"
+                    aria-invalid={!!errors.phone}
+                  />
+                  {errors.phone && (
+                    <p className="mt-1.5 text-sm text-red-500">{errors.phone}</p>
+                  )}
+                </div>
+                <div>
+                  <label htmlFor="service" className={fieldLabel}>
+                    What do you need?
+                  </label>
+                  <select
+                    id="service"
+                    name="service"
+                    value={values.service}
+                    onChange={(e) => setValues((v) => ({ ...v, service: e.target.value }))}
+                    className={selectClass}
+                  >
+                    <option value="">Select a project type</option>
+                    <option value="custom-software">Custom business software</option>
+                    <option value="saas-platform">SaaS platform</option>
+                    <option value="web-application">Web application</option>
+                    <option value="automation-integration">Automation/integration</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="budget" className={fieldLabel}>
+                      Estimated Budget
+                    </label>
+                    <input
+                      type="text"
+                      id="budget"
+                      name="budget"
+                      value={values.budget}
+                      onChange={(e) => setValues((v) => ({ ...v, budget: e.target.value }))}
+                      className={inputClass(false)}
+                      placeholder="e.g. KES 150,000"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="timeline" className={fieldLabel}>
+                      Timeline
+                    </label>
+                    <select
+                      id="timeline"
+                      name="timeline"
+                      value={values.timeline}
+                      onChange={(e) => setValues((v) => ({ ...v, timeline: e.target.value }))}
+                      className={selectClass}
+                    >
+                      <option value="">Select a timeline</option>
+                      <option value="asap">As soon as possible</option>
+                      <option value="1-2-months">1 – 2 months</option>
+                      <option value="3-6-months">3 – 6 months</option>
+                      <option value="6-plus-months">6+ months</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="message" className={fieldLabel}>
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    value={values.message}
+                    onChange={(e) => {
+                      setValues((v) => ({ ...v, message: e.target.value }));
+                      if (errors.message) setErrors((er) => ({ ...er, message: undefined }));
+                    }}
+                    className={`${inputClass(!!errors.message)} resize-none`}
+                    placeholder="Tell us about your project..."
+                    aria-invalid={!!errors.message}
+                  ></textarea>
+                  {errors.message && (
+                    <p className="mt-1.5 text-sm text-red-500">{errors.message}</p>
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:from-sky-600 hover:to-blue-700 hover:shadow-xl hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={values.name}
-                  onChange={(e) => {
-                    setValues((v) => ({ ...v, name: e.target.value }));
-                    if (errors.name) setErrors((er) => ({ ...er, name: undefined }));
-                  }}
-                  className={inputClass(!!errors.name)}
-                  placeholder="Your name"
-                  aria-invalid={!!errors.name}
-                />
-                {errors.name && (
-                  <p className="mt-1.5 text-sm text-red-500">{errors.name}</p>
+                  {status === "loading"
+                    ? "Sending..."
+                    : status === "success"
+                    ? "Enquiry Submitted!"
+                    : (
+                      <>
+                        Submit Project Enquiry
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
+                </button>
+                {status === "success" && (
+                  <p className="text-sm text-emerald-600 text-center dark:text-emerald-400">
+                    Thanks! We will get back to you soon.
+                  </p>
                 )}
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={values.email}
-                  onChange={(e) => {
-                    setValues((v) => ({ ...v, email: e.target.value }));
-                    if (errors.email) setErrors((er) => ({ ...er, email: undefined }));
-                  }}
-                  className={inputClass(!!errors.email)}
-                  placeholder="your.email@company.com"
-                  aria-invalid={!!errors.email}
-                />
-                {errors.email && (
-                  <p className="mt-1.5 text-sm text-red-500">{errors.email}</p>
+                {status === "error" && (
+                  <p className="text-sm text-red-600 text-center dark:text-red-400">
+                    Something went wrong. Please try again or email us directly.
+                  </p>
                 )}
-              </div>
+              </form>
             </div>
-            <div>
-              <label
-                htmlFor="phone"
-                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
-                >
-                  Phone Number
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                inputMode="numeric"
-                value={values.phone}
-                onChange={(e) => {
-                  const digits = e.target.value.replace(/\D/g, "");
-                  setValues((v) => ({ ...v, phone: digits }));
-                  if (errors.phone) setErrors((er) => ({ ...er, phone: undefined }));
-                }}
-                className={inputClass(!!errors.phone)}
-                placeholder="0712345678"
-                aria-invalid={!!errors.phone}
-              />
-              {errors.phone && (
-                <p className="mt-1.5 text-sm text-red-500">{errors.phone}</p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="service"
-                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
-                >
-                  What do you need?
-              </label>
-              <select
-                id="service"
-                name="service"
-                value={values.service}
-                onChange={(e) => setValues((v) => ({ ...v, service: e.target.value }))}
-                className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600"
-              >
-                <option value="">Select a project type</option>
-                <option value="custom-software">Custom business software</option>
-                <option value="saas-platform">SaaS platform</option>
-                <option value="web-application">Web application</option>
-                <option value="automation-integration">Automation/integration</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="budget"
-                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
-                >
-                  Estimated Budget
-                </label>
-                <input
-                  type="text"
-                  id="budget"
-                  name="budget"
-                  value={values.budget}
-                  onChange={(e) => setValues((v) => ({ ...v, budget: e.target.value }))}
-                  className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:border-slate-600"
-                  placeholder="e.g. KES 150,000"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="timeline"
-                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
-                >
-                  Timeline
-                </label>
-                <select
-                  id="timeline"
-                  name="timeline"
-                  value={values.timeline}
-                  onChange={(e) => setValues((v) => ({ ...v, timeline: e.target.value }))}
-                  className="block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600"
-                >
-                  <option value="">Select a timeline</option>
-                  <option value="asap">As soon as possible</option>
-                  <option value="1-2-months">1 – 2 months</option>
-                  <option value="3-6-months">3 – 6 months</option>
-                  <option value="6-plus-months">6+ months</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="message"
-                  className="block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300"
-                >
-                  Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                value={values.message}
-                onChange={(e) => {
-                  setValues((v) => ({ ...v, message: e.target.value }));
-                  if (errors.message) setErrors((er) => ({ ...er, message: undefined }));
-                }}
-                className={`${inputClass(!!errors.message)} resize-none`}
-                placeholder="Tell us about your project..."
-                aria-invalid={!!errors.message}
-              ></textarea>
-              {errors.message && (
-                <p className="mt-1.5 text-sm text-red-500">{errors.message}</p>
-              )}
-            </div>
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="w-full inline-flex items-center justify-center rounded-full bg-sky-500 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600 hover:shadow-xl hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {status === "loading"
-                ? "Sending..."
-                : status === "success"
-                ? "Enquiry Submitted!"
-                : "Submit Project Enquiry"}
-            </button>
-            {status === "success" && (
-              <p className="text-sm text-emerald-600 text-center dark:text-emerald-400">
-                Thanks! We will get back to you soon.
-              </p>
-            )}
-            {status === "error" && (
-              <p className="text-sm text-red-600 text-center dark:text-red-400">
-                Something went wrong. Please try again or email us directly.
-              </p>
-            )}
-          </form>
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

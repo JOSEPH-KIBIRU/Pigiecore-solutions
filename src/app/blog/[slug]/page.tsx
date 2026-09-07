@@ -2,10 +2,13 @@ import { getServerClient } from "@/lib/supabase-server";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Calendar, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import { siteUrl } from "@/lib/site";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import BlogShare from "@/components/blog-share";
+import { estimateReadingTime, formatReadingTime } from "@/lib/reading-time";
+import { findRelated } from "@/lib/related-content";
 
 export const dynamic = "force-dynamic";
 
@@ -192,6 +195,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const authorName = post.author || "Pigiecore Solutions";
   const postUrl = `${siteUrl}/blog/${post.slug}`;
+  const readMinutes = estimateReadingTime(post.content);
+  const related = findRelated(post.title, post.content);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -265,6 +270,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           )}
           <span>&middot;</span>
           <span>{post.author || "Pigiecore Solutions"}</span>
+          <span>&middot;</span>
+          <span className="inline-flex items-center gap-1.5">
+            <Clock className="w-4 h-4" /> {formatReadingTime(readMinutes)}
+          </span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
@@ -278,6 +287,37 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-lg text-slate-700 dark:text-slate-300 leading-relaxed tracking-wide break-words overflow-hidden">
           {post.content ? renderContent(post.content) : null}
         </div>
+
+        <div className="mt-8 flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
+          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+            Liked this article?
+          </p>
+          <BlogShare title={post.title} url={postUrl} />
+        </div>
+
+        {related.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">
+              Keep exploring
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {related.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 transition-all hover:border-sky-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-sky-700"
+                >
+                  <span className="block text-sm font-semibold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400">
+                    {item.label}
+                  </span>
+                  <span className="mt-1 text-xs text-sky-500 font-medium">
+                    Learn more &rarr;
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
           <p className="text-sm text-slate-600 dark:text-slate-400">

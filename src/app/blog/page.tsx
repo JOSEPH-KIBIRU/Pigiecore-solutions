@@ -1,9 +1,11 @@
 import { getServerClient } from "@/lib/supabase-server";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Calendar, ArrowRight } from "lucide-react";
+import { Calendar, Clock, Rss, ArrowRight } from "lucide-react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { estimateReadingTime, formatReadingTime } from "@/lib/reading-time";
+import { siteUrl } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +29,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/blog",
+    types: {
+      "application/rss+xml": `${siteUrl}/feed.xml`,
+    },
   },
 };
 
@@ -64,7 +69,13 @@ export default async function BlogPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-        <div className="bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
+        <div className="relative bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
+          <a
+            href="/feed.xml"
+            className="absolute top-6 right-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white hover:bg-white/25 transition-colors"
+          >
+            <Rss className="w-4 h-4" /> RSS Feed
+          </a>
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-100 mb-4">
               Insights
@@ -117,6 +128,9 @@ export default async function BlogPage() {
                       </span>
                     )}
                     <span>{post.author || "Pigiecore Solutions"}</span>
+                    <span className="inline-flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5" /> {formatReadingTime(estimateReadingTime(post.content))}
+                    </span>
                   </div>
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                     {post.title}

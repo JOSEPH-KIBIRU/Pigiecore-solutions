@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+const GLOW_FILTER =
+  '<filter id="pg-glow" x="-40%" y="-40%" width="180%" height="180%">' +
+  '<feGaussianBlur stdDeviation="28" />' +
+  "</filter>";
+
 const GRADIENTS = {
   magenta:
     '<linearGradient id="pg-rb-1" x1="0%" y1="0%" x2="100%" y2="100%">' +
@@ -29,33 +34,33 @@ const GRADIENTS = {
 const BANDS = [
   {
     url: "url(#pg-rb-1)",
-    d: "M -80 40 C 140 -30, 320 120, 470 60 C 640 -10, 800 210, 960 130",
-    w: 112,
-    glowW: 152,
-    opacity: 0.92,
-  },
-  {
-    url: "url(#pg-rb-2)",
-    d: "M 20 360 C 260 300, 420 480, 640 430 C 820 390, 880 240, 1040 300",
-    w: 82,
-    glowW: 118,
-    opacity: 0.88,
-  },
-  {
-    url: "url(#pg-rb-3)",
-    d: "M 70 520 C 300 480, 470 610, 660 580 C 820 556, 900 470, 1040 500",
-    w: 56,
-    glowW: 92,
-    opacity: 0.9,
-  },
-  {
-    url: "url(#pg-rb-4)",
-    d: "M 120 700 C 320 640, 460 780, 680 740 C 860 708, 940 600, 1060 640",
-    w: 30,
-    glowW: 62,
-    opacity: 0.95,
-  },
-];
+      d: "M -80 40 C 140 -30, 320 120, 470 60 C 640 -10, 800 210, 960 130",
+      w: 112,
+      glowW: 168,
+      opacity: 0.95,
+    },
+    {
+      url: "url(#pg-rb-2)",
+      d: "M 20 360 C 260 300, 420 480, 640 430 C 820 390, 880 240, 1040 300",
+      w: 82,
+      glowW: 130,
+      opacity: 0.9,
+    },
+    {
+      url: "url(#pg-rb-3)",
+      d: "M 70 520 C 300 480, 470 610, 660 580 C 820 556, 900 470, 1040 500",
+      w: 56,
+      glowW: 104,
+      opacity: 0.92,
+    },
+    {
+      url: "url(#pg-rb-4)",
+      d: "M 120 700 C 320 640, 460 780, 680 740 C 860 708, 940 600, 1060 640",
+      w: 30,
+      glowW: 70,
+      opacity: 0.96,
+    },
+  ];
 
 export default function Hero() {
   return (
@@ -74,15 +79,37 @@ export default function Hero() {
         aria-hidden
         className="animate-drift-slow pointer-events-none absolute right-[-30%] top-[30%] z-0 w-[110%] opacity-30 dark:opacity-45 sm:right-[-16%] sm:top-[20%] sm:w-[80%] sm:opacity-45 sm:dark:opacity-60 md:right-[-8%] md:top-[14%] md:w-[56%] md:opacity-70 md:dark:opacity-85 lg:right-[-3%] lg:top-[8%] lg:w-[52%] lg:opacity-90 lg:dark:opacity-100"
       >
-        <div className="animate-sway-slow w-full">
+        <div className="animate-sway-slow relative w-full">
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <div
+              className="absolute left-[26%] top-[2%] h-[50%] w-[46%] rounded-full bg-[radial-gradient(closest-side,rgba(236,72,153,0.55),rgba(236,72,153,0.14),transparent)] blur-2xl animate-breathe"
+              style={{ animationDelay: "0s" }}
+            ></div>
+            <div
+              className="absolute left-[40%] top-[26%] h-[48%] w-[42%] rounded-full bg-[radial-gradient(closest-side,rgba(59,130,246,0.5),rgba(59,130,246,0.12),transparent)] blur-2xl animate-breathe"
+              style={{ animationDelay: "2.5s" }}
+            ></div>
+            <div
+              className="absolute right-[2%] bottom-[4%] h-[44%] w-[38%] rounded-full bg-[radial-gradient(closest-side,rgba(124,58,237,0.5),rgba(124,58,237,0.12),transparent)] blur-2xl animate-breathe"
+              style={{ animationDelay: "5s" }}
+            ></div>
+            <div
+              className="absolute left-[12%] bottom-[16%] h-[34%] w-[40%] rounded-full bg-[radial-gradient(closest-side,rgba(6,182,212,0.45),rgba(6,182,212,0.1),transparent)] blur-xl animate-breathe"
+              style={{ animationDelay: "7s" }}
+            ></div>
+          </div>
           <svg
-            className="animate-hue-drift h-auto w-full"
+            className="animate-hue-drift relative h-auto w-full"
             viewBox="0 0 1000 840"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={{ overflow: "visible" }}
           >
-            <defs dangerouslySetInnerHTML={{ __html: Object.values(GRADIENTS).join("") }} />
+            <defs
+              dangerouslySetInnerHTML={{
+                __html: GLOW_FILTER + Object.values(GRADIENTS).join(""),
+              }}
+            />
             {BANDS.map((band, i) => (
               <g key={i}>
                 <path
@@ -90,8 +117,8 @@ export default function Hero() {
                   stroke={band.url}
                   strokeWidth={band.glowW}
                   strokeLinecap="round"
-                  opacity={0.22}
-                  style={{ filter: "blur(34px)" }}
+                  opacity={0.5}
+                  filter="url(#pg-glow)"
                 />
                 <path
                   d={band.d}

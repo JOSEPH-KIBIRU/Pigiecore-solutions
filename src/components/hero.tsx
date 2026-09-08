@@ -8,10 +8,11 @@ const FILTERS =
   '<feGaussianBlur stdDeviation="8" />' +
   "</filter>";
 
-// Large C-arc anchored at the top-right: its top and right ends run off the
-// page edges and crop, so only the sweeping inside curve is visible.
+// Big "⊂"-style arc in the top-right: the bend/curve sits near the top-right
+// corner, its open ends aim left (into the page), and the lower part is
+// cropped after the bend so only the sweeping curve shows.
 const TUBE_D =
-  "M 140 60 C 760 40 1000 240 1000 560 C 1000 760 760 860 420 860";
+  "M 520 120 C 900 180 1030 420 960 660 C 900 880 700 940 470 880";
 
 const CORE_STROKES = [
   { w: 150, color: "#1d4ed8", opacity: 0.8 },
@@ -35,20 +36,19 @@ export default function Hero() {
         <div className="absolute right-[-15%] top-[5%] h-[60%] w-[60%] bg-[radial-gradient(closest-side,rgba(34,211,238,0.05),transparent)]"></div>
       </div>
 
-      {/* Big glowing C-arc entering from the top-right corner */}
+      {/* Big "⊂"-style arc: bend in the top-right corner, ends pointing left */}
       <div
         aria-hidden
-        className="animate-drift-slow pointer-events-none absolute right-[-60%] top-[4%] z-0 w-[190%] opacity-25 sm:right-[-34%] sm:top-[2%] sm:w-[130%] sm:opacity-40 md:right-[-14%] md:top-[0%] md:w-[92%] md:opacity-70 lg:right-[-6%] lg:top-[-4%] lg:w-[66%] lg:opacity-100 xl:w-[58%]"
+        className="animate-drift-slow pointer-events-none absolute right-[-60%] top-[6%] z-0 w-[190%] opacity-25 sm:right-[-34%] sm:top-[4%] sm:w-[130%] sm:opacity-40 md:right-[-14%] md:top-[4%] md:w-[92%] md:opacity-70 lg:right-[-2%] lg:top-[2%] lg:w-[64%] lg:opacity-100 xl:w-[56%]"
       >
         <div className="animate-sway-slow w-full">
-          <div className="-scale-x-100 w-full">
-            <svg
-              className="block h-auto w-full"
-              viewBox="0 0 1100 900"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ overflow: "visible" }}
-            >
+          <svg
+            className="block h-auto w-full"
+            viewBox="0 0 1100 900"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ overflow: "visible" }}
+          >
             <defs dangerouslySetInnerHTML={{ __html: FILTERS }} />
             {/* Glowing light trail echoes */}
             {TRAIL_ECHOES.map((t, i) => (
@@ -91,8 +91,7 @@ export default function Hero() {
                 opacity={s.opacity}
               />
             ))}
-            </svg>
-          </div>
+          </svg>
         </div>
       </div>
 

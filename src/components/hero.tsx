@@ -14,6 +14,42 @@ export default function Hero() {
         <div className="absolute left-1/2 top-[-12rem] h-[42rem] w-[170%] -translate-x-1/2 rounded-[100%] bg-[radial-gradient(closest-side,rgba(56,189,248,0.30),rgba(129,140,248,0.14),rgba(34,211,238,0.08),transparent)] blur-3xl animate-hue-drift" />
       </div>
 
+      {/* Glowing colour-changing curve on the right */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 hidden overflow-visible lg:block">
+        <div className="absolute -top-16 -right-8 animate-hue-drift">
+          <svg
+            width="440"
+            height="440"
+            viewBox="0 0 600 600"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="pg-hero-curve" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#38bdf8" />
+                <stop offset="45%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="#22d3ee" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M540 40 C 470 150, 560 260, 480 360 C 430 420, 470 480, 560 540"
+              stroke="url(#pg-hero-curve)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              opacity="0.9"
+            />
+            <path
+              d="M540 40 C 470 150, 560 260, 480 360 C 430 420, 470 480, 560 540"
+              stroke="url(#pg-hero-curve)"
+              strokeWidth="16"
+              strokeLinecap="round"
+              opacity="0.18"
+              style={{ filter: "blur(14px)" }}
+            />
+          </svg>
+        </div>
+      </div>
+
       {/* Floating light orbs */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -top-10 -left-24 w-80 h-80 rounded-full bg-violet-400/25 dark:bg-violet-500/20 blur-3xl animate-float" />

@@ -8,11 +8,11 @@ const FILTERS =
   '<feGaussianBlur stdDeviation="8" />' +
   "</filter>";
 
-// Big "⊂"-style arc in the top-right: the bend/curve sits near the top-right
-// corner, its open ends aim left (into the page), and the lower part is
-// cropped after the bend so only the sweeping curve shows.
+// Big right-facing "⊃"-style arc on the right edge: its curve bulges into the
+// page and its open ends (tips) point toward the right. It never reaches the
+// top of the hero — it sits along the right side.
 const TUBE_D =
-  "M 520 120 C 900 180 1030 420 960 660 C 900 880 700 940 470 880";
+  "M 940 140 C 600 150 400 420 540 700 C 640 880 820 900 940 840";
 
 const CORE_STROKES = [
   { w: 150, color: "#1d4ed8", opacity: 0.8 },
@@ -36,15 +36,15 @@ export default function Hero() {
         <div className="absolute right-[-15%] top-[5%] h-[60%] w-[60%] bg-[radial-gradient(closest-side,rgba(34,211,238,0.05),transparent)]"></div>
       </div>
 
-      {/* Big "⊂"-style arc: bend in the top-right corner, ends pointing left */}
+      {/* Big right-facing "⊃"-style arc along the right edge (not touching top) */}
       <div
         aria-hidden
-        className="animate-drift-slow pointer-events-none absolute right-[-60%] top-[6%] z-0 w-[190%] opacity-25 sm:right-[-34%] sm:top-[4%] sm:w-[130%] sm:opacity-40 md:right-[-14%] md:top-[4%] md:w-[92%] md:opacity-70 lg:right-[-2%] lg:top-[2%] lg:w-[64%] lg:opacity-100 xl:w-[56%]"
+        className="animate-drift-slow pointer-events-none absolute right-[-60%] top-[18%] z-0 w-[180%] opacity-25 sm:right-[-34%] sm:top-[16%] sm:w-[125%] sm:opacity-40 md:right-[-12%] md:top-[14%] md:w-[86%] md:opacity-70 lg:right-[-2%] lg:top-[14%] lg:w-[60%] lg:opacity-100 xl:w-[54%]"
       >
         <div className="animate-sway-slow w-full">
           <svg
             className="block h-auto w-full"
-            viewBox="0 0 1100 900"
+            viewBox="0 0 1000 1000"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={{ overflow: "visible" }}

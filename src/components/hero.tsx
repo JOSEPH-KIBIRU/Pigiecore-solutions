@@ -8,10 +8,10 @@ const FILTERS =
   '<feGaussianBlur stdDeviation="8" />' +
   "</filter>";
 
-// Tall C-shaped tube hugging the right edge, opening outward (away from the
-// centred copy), positioned so the words sit above it.
+// Large C-arc anchored at the top-right: its top and right ends run off the
+// page edges and crop, so only the sweeping inside curve is visible.
 const TUBE_D =
-  "M 470 70 C 200 110 100 250 105 400 C 110 550 220 660 490 655";
+  "M 140 60 C 760 40 1000 240 1000 560 C 1000 760 760 860 420 860";
 
 const CORE_STROKES = [
   { w: 150, color: "#1d4ed8", opacity: 0.8 },
@@ -35,15 +35,15 @@ export default function Hero() {
         <div className="absolute right-[-15%] top-[5%] h-[60%] w-[60%] bg-[radial-gradient(closest-side,rgba(34,211,238,0.05),transparent)]"></div>
       </div>
 
-      {/* Glowing C-tube, pinned to the far-right edge below the copy */}
+      {/* Big glowing C-arc entering from the top-right corner */}
       <div
         aria-hidden
-        className="animate-drift-slow pointer-events-none absolute right-[-55%] top-[30%] z-0 w-[165%] opacity-20 sm:right-[-30%] sm:top-[26%] sm:w-[125%] sm:opacity-35 md:right-[-12%] md:top-[34%] md:w-[80%] md:opacity-65 lg:right-[0%] lg:top-[44%] lg:w-[30%] lg:opacity-95 xl:w-[27%]"
+        className="animate-drift-slow pointer-events-none absolute right-[-60%] top-[4%] z-0 w-[190%] opacity-25 sm:right-[-34%] sm:top-[2%] sm:w-[130%] sm:opacity-40 md:right-[-14%] md:top-[0%] md:w-[92%] md:opacity-70 lg:right-[-6%] lg:top-[-4%] lg:w-[66%] lg:opacity-100 xl:w-[58%]"
       >
         <div className="animate-sway-slow w-full">
           <svg
             className="block h-auto w-full"
-            viewBox="0 0 600 760"
+            viewBox="0 0 1100 900"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={{ overflow: "visible" }}

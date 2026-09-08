@@ -159,6 +159,15 @@ body {
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
 
+@keyframes hue-drift {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(40deg); }
+}
+
+.animate-hue-drift {
+  animation: hue-drift 16s ease-in-out infinite;
+}
+
 @keyframes accordion-down {
   from { height: 0; }
   to { height: var(--radix-accordion-content-height); }

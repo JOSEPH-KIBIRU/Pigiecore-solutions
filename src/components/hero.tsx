@@ -7,10 +7,29 @@ const codeSnippets = [
 export default function Hero() {
   return (
     <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-50 dark:bg-slate-950">
-      <div className="absolute inset-0 bg-[radial-gradient(#64748b_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.25] dark:opacity-[0.12]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(#64748b_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.2] dark:opacity-[0.1]"></div>
 
-      <div className="absolute top-20 left-1/4 w-72 h-72 bg-sky-400/20 rounded-full blur-3xl animate-float"></div>
-      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-300/10 rounded-full blur-3xl"></div>
+      {/* Soft aurora light sweep across the top */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-[-12rem] h-[42rem] w-[170%] -translate-x-1/2 rounded-[100%] bg-[radial-gradient(closest-side,rgba(56,189,248,0.30),rgba(129,140,248,0.14),rgba(34,211,238,0.08),transparent)] blur-3xl animate-hue-drift" />
+      </div>
+
+      {/* Floating light orbs */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-10 -left-24 w-80 h-80 rounded-full bg-violet-400/25 dark:bg-violet-500/20 blur-3xl animate-float" />
+        <div
+          className="absolute -top-24 right-[8%] w-96 h-96 rounded-full bg-sky-400/25 dark:bg-sky-500/20 blur-3xl animate-float"
+          style={{ animationDelay: "1.5s", animationDuration: "9s" }}
+        />
+        <div
+          className="absolute bottom-[-6rem] left-1/4 w-[30rem] h-[30rem] rounded-full bg-cyan-300/20 dark:bg-cyan-500/10 blur-3xl animate-float"
+          style={{ animationDelay: "3s", animationDuration: "11s" }}
+        />
+        <div
+          className="absolute bottom-24 right-[-6rem] w-72 h-72 rounded-full bg-blue-400/15 dark:bg-indigo-500/15 blur-3xl animate-float"
+          style={{ animationDelay: "2.2s", animationDuration: "10s" }}
+        />
+      </div>
 
       <div className="absolute top-32 left-8 text-2xl font-mono text-sky-500/40 dark:text-sky-400/30 rotate-12 hidden lg:block">
         &lt;code&gt;
@@ -50,7 +69,9 @@ export default function Hero() {
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl lg:leading-[1.1]">
             Custom Software &amp; Digital Solutions
-            <span className="text-sky-500"> Built for Your Business.</span>
+            <span className="bg-gradient-to-r from-sky-500 via-blue-500 to-violet-500 bg-clip-text text-transparent">
+              {" "}Built for Your Business.
+            </span>
           </h1>
           <p className="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-8">
             We design and build custom software, SaaS platforms, web applications

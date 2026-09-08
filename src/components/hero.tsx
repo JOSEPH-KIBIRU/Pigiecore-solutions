@@ -1,140 +1,85 @@
 import Link from "next/link";
 
+const RIBBON_GRADIENT =
+  '<linearGradient id="pg-s-ribbon" x1="0%" y1="100%" x2="100%" y2="0%">' +
+  '<stop offset="0%" stopColor="#22d3ee" />' +
+  '<stop offset="33%" stopColor="#3b82f6" />' +
+  '<stop offset="66%" stopColor="#8b5cf6" />' +
+  '<stop offset="100%" stopColor="#ec4899" />' +
+  "</linearGradient>";
+
 const GLOW_FILTER =
-  '<filter id="pg-glow" x="-40%" y="-40%" width="180%" height="180%">' +
-  '<feGaussianBlur stdDeviation="28" />' +
+  '<filter id="pg-s-glow" x="-30%" y="-30%" width="160%" height="160%">' +
+  '<feGaussianBlur stdDeviation="18" />' +
   "</filter>";
 
-const GRADIENTS = {
-  magenta:
-    '<linearGradient id="pg-rb-1" x1="0%" y1="0%" x2="100%" y2="100%">' +
-    '<stop offset="0%" stopColor="#ec4899" />' +
-    '<stop offset="55%" stopColor="#f472b6" />' +
-    '<stop offset="100%" stopColor="#fda4af" />' +
-    "</linearGradient>",
-  blue:
-    '<linearGradient id="pg-rb-2" x1="100%" y1="0%" x2="0%" y2="100%">' +
-    '<stop offset="0%" stopColor="#2563eb" />' +
-    '<stop offset="50%" stopColor="#3b82f6" />' +
-    '<stop offset="100%" stopColor="#60a5fa" />' +
-    "</linearGradient>",
-  violet:
-    '<linearGradient id="pg-rb-3" x1="0%" y1="100%" x2="100%" y2="0%">' +
-    '<stop offset="0%" stopColor="#7c3aed" />' +
-    '<stop offset="50%" stopColor="#8b5cf6" />' +
-    '<stop offset="100%" stopColor="#a78bfa" />' +
-    "</linearGradient>",
-  cyan:
-    '<linearGradient id="pg-rb-4" x1="0%" y1="0%" x2="100%" y2="100%">' +
-    '<stop offset="0%" stopColor="#06b6d4" />' +
-    '<stop offset="100%" stopColor="#67e8f9" />' +
-    "</linearGradient>",
-};
-
-const BANDS = [
-  {
-    url: "url(#pg-rb-1)",
-      d: "M -80 40 C 140 -30, 320 120, 470 60 C 640 -10, 800 210, 960 130",
-      w: 112,
-      glowW: 168,
-      opacity: 0.95,
-    },
-    {
-      url: "url(#pg-rb-2)",
-      d: "M 20 360 C 260 300, 420 480, 640 430 C 820 390, 880 240, 1040 300",
-      w: 82,
-      glowW: 130,
-      opacity: 0.9,
-    },
-    {
-      url: "url(#pg-rb-3)",
-      d: "M 70 520 C 300 480, 470 610, 660 580 C 820 556, 900 470, 1040 500",
-      w: 56,
-      glowW: 104,
-      opacity: 0.92,
-    },
-    {
-      url: "url(#pg-rb-4)",
-      d: "M 120 700 C 320 640, 460 780, 680 740 C 860 708, 940 600, 1060 640",
-      w: 30,
-      glowW: 70,
-      opacity: 0.96,
-    },
-  ];
+// Single thick S-ribbon: a long horizontal run along the bottom that sweeps
+// up into an elegant S on the right side of the hero.
+const RIBBON_D =
+  "M -40 460 C 160 470 320 540 470 460 C 610 386 560 235 700 170 C 780 132 820 150 880 90";
 
 export default function Hero() {
   return (
-    <section className="relative pt-24 pb-24 sm:pt-28 sm:pb-32 lg:pt-36 lg:pb-36 overflow-hidden bg-slate-50 dark:bg-slate-950">
+    <section className="relative pt-24 pb-24 sm:pt-28 sm:pb-32 lg:pt-36 lg:pb-40 overflow-hidden bg-slate-50 dark:bg-slate-950">
       {/* Subtle dot grid */}
       <div className="absolute inset-0 bg-[radial-gradient(#64748b_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.18] dark:opacity-[0.08]"></div>
 
-      {/* Ambient glow, contained near the hero */}
+      {/* Ambient tone (very subtle, not the glow) */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-48 left-[-12%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(124,58,237,0.12),transparent)] blur-2xl"></div>
-        <div className="absolute top-[8%] right-[-10%] h-[42rem] w-[42rem] rounded-full bg-[radial-gradient(closest-side,rgba(187,76,240,0.16),transparent)] blur-2xl animate-breathe dark:opacity-90"></div>
+        <div className="absolute right-[-12%] top-[10%] h-[46rem] w-[46rem] rounded-full bg-[radial-gradient(closest-side,rgba(139,92,246,0.1),transparent)] blur-2xl"></div>
       </div>
 
-      {/* Abstract flowing light-ribbon visual (right side) */}
+      {/* Single glowing S-ribbon on the right / lower half */}
       <div
         aria-hidden
-        className="animate-drift-slow pointer-events-none absolute right-[-30%] top-[30%] z-0 w-[110%] opacity-30 dark:opacity-45 sm:right-[-16%] sm:top-[20%] sm:w-[80%] sm:opacity-45 sm:dark:opacity-60 md:right-[-8%] md:top-[14%] md:w-[56%] md:opacity-70 md:dark:opacity-85 lg:right-[-3%] lg:top-[8%] lg:w-[52%] lg:opacity-90 lg:dark:opacity-100"
+        className="pointer-events-none absolute bottom-[-12%] right-[-26%] z-0 w-[130%] opacity-30 dark:opacity-45 sm:right-[-18%] sm:bottom-[-14%] sm:w-[95%] sm:opacity-45 sm:dark:opacity-60 md:right-[-12%] md:bottom-[-18%] md:w-[72%] md:opacity-70 md:dark:opacity-80 lg:right-[-4%] lg:bottom-[-20%] lg:w-[58%] lg:opacity-95 lg:dark:opacity-100"
       >
-        <div className="animate-sway-slow relative w-full">
-          <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div
-              className="absolute left-[26%] top-[2%] h-[50%] w-[46%] rounded-full bg-[radial-gradient(closest-side,rgba(236,72,153,0.55),rgba(236,72,153,0.14),transparent)] blur-2xl animate-breathe"
-              style={{ animationDelay: "0s" }}
-            ></div>
-            <div
-              className="absolute left-[40%] top-[26%] h-[48%] w-[42%] rounded-full bg-[radial-gradient(closest-side,rgba(59,130,246,0.5),rgba(59,130,246,0.12),transparent)] blur-2xl animate-breathe"
-              style={{ animationDelay: "2.5s" }}
-            ></div>
-            <div
-              className="absolute right-[2%] bottom-[4%] h-[44%] w-[38%] rounded-full bg-[radial-gradient(closest-side,rgba(124,58,237,0.5),rgba(124,58,237,0.12),transparent)] blur-2xl animate-breathe"
-              style={{ animationDelay: "5s" }}
-            ></div>
-            <div
-              className="absolute left-[12%] bottom-[16%] h-[34%] w-[40%] rounded-full bg-[radial-gradient(closest-side,rgba(6,182,212,0.45),rgba(6,182,212,0.1),transparent)] blur-xl animate-breathe"
-              style={{ animationDelay: "7s" }}
-            ></div>
+        <div className="animate-drift-slow w-full">
+          <div className="animate-sway-slow w-full">
+            <svg
+              className="animate-hue-drift block h-auto w-full"
+              viewBox="0 0 920 560"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ overflow: "visible" }}
+            >
+              <defs
+                dangerouslySetInnerHTML={{
+                  __html: GLOW_FILTER + RIBBON_GRADIENT,
+                }}
+              />
+              {/* Self-glow halo hugging the ribbon */}
+              <path
+                d={RIBBON_D}
+                stroke="url(#pg-s-ribbon)"
+                strokeWidth="168"
+                strokeLinecap="round"
+                opacity="0.65"
+                filter="url(#pg-s-glow)"
+              />
+              {/* Core ribbon */}
+              <path
+                d={RIBBON_D}
+                stroke="url(#pg-s-ribbon)"
+                strokeWidth="92"
+                strokeLinecap="round"
+                opacity="0.98"
+              />
+              {/* Bright centre line for luminosity */}
+              <path
+                d={RIBBON_D}
+                stroke="#ffffff"
+                strokeWidth="14"
+                strokeLinecap="round"
+                opacity="0.18"
+              />
+            </svg>
           </div>
-          <svg
-            className="animate-hue-drift relative h-auto w-full"
-            viewBox="0 0 1000 840"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ overflow: "visible" }}
-          >
-            <defs
-              dangerouslySetInnerHTML={{
-                __html: GLOW_FILTER + Object.values(GRADIENTS).join(""),
-              }}
-            />
-            {BANDS.map((band, i) => (
-              <g key={i}>
-                <path
-                  d={band.d}
-                  stroke={band.url}
-                  strokeWidth={band.glowW}
-                  strokeLinecap="round"
-                  opacity={0.5}
-                  filter="url(#pg-glow)"
-                />
-                <path
-                  d={band.d}
-                  stroke={band.url}
-                  strokeWidth={band.w}
-                  strokeLinecap="round"
-                  opacity={band.opacity}
-                />
-              </g>
-            ))}
-          </svg>
         </div>
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="w-full lg:w-[56%]">
+        <div className="w-full lg:w-[54%]">
           <div className="animate-fade-in-up text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800 px-4 py-1.5 text-sm font-medium text-sky-700 dark:text-sky-300 mb-8">
               <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>

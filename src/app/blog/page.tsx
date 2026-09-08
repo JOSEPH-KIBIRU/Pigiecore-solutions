@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description:
       "Practical guides on building software that grows your business.",
     type: "website",
-    url: "https://pigiecore.co.ke/blog",
+    url: `${siteUrl}/blog`,
   },
   alternates: {
     canonical: "/blog",

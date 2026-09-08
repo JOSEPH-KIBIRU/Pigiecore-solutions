@@ -1,23 +1,28 @@
 import Link from "next/link";
 
 const GRADIENTS = {
-  primary:
+  magenta:
     '<linearGradient id="pg-rb-1" x1="0%" y1="0%" x2="100%" y2="100%">' +
-    '<stop offset="0%" stopColor="#312e81" />' +
-    '<stop offset="35%" stopColor="#7c3aed" />' +
-    '<stop offset="68%" stopColor="#BB4CF0" />' +
-    '<stop offset="100%" stopColor="#ec4899" />' +
+    '<stop offset="0%" stopColor="#ec4899" />' +
+    '<stop offset="55%" stopColor="#f472b6" />' +
+    '<stop offset="100%" stopColor="#fda4af" />' +
     "</linearGradient>",
-  electric:
+  blue:
     '<linearGradient id="pg-rb-2" x1="100%" y1="0%" x2="0%" y2="100%">' +
-    '<stop offset="0%" stopColor="#0284c7" />' +
-    '<stop offset="50%" stopColor="#4f46e5" />' +
-    '<stop offset="100%" stopColor="#8b5cf6" />' +
+    '<stop offset="0%" stopColor="#2563eb" />' +
+    '<stop offset="50%" stopColor="#3b82f6" />' +
+    '<stop offset="100%" stopColor="#60a5fa" />' +
+    "</linearGradient>",
+  violet:
+    '<linearGradient id="pg-rb-3" x1="0%" y1="100%" x2="100%" y2="0%">' +
+    '<stop offset="0%" stopColor="#7c3aed" />' +
+    '<stop offset="50%" stopColor="#8b5cf6" />' +
+    '<stop offset="100%" stopColor="#a78bfa" />' +
     "</linearGradient>",
   cyan:
-    '<linearGradient id="pg-rb-3" x1="0%" y1="0%" x2="100%" y2="100%">' +
-    '<stop offset="0%" stopColor="#67e8f9" />' +
-    '<stop offset="100%" stopColor="#7dd3fc" />' +
+    '<linearGradient id="pg-rb-4" x1="0%" y1="0%" x2="100%" y2="100%">' +
+    '<stop offset="0%" stopColor="#06b6d4" />' +
+    '<stop offset="100%" stopColor="#67e8f9" />' +
     "</linearGradient>",
 };
 
@@ -25,22 +30,29 @@ const BANDS = [
   {
     url: "url(#pg-rb-1)",
     d: "M -80 40 C 140 -30, 320 120, 470 60 C 640 -10, 800 210, 960 130",
-    w: 116,
+    w: 112,
     glowW: 152,
-    opacity: 0.9,
+    opacity: 0.92,
   },
   {
     url: "url(#pg-rb-2)",
     d: "M 20 360 C 260 300, 420 480, 640 430 C 820 390, 880 240, 1040 300",
-    w: 86,
-    glowW: 120,
-    opacity: 0.85,
+    w: 82,
+    glowW: 118,
+    opacity: 0.88,
   },
   {
     url: "url(#pg-rb-3)",
-    d: "M 120 620 C 320 560, 460 700, 680 660 C 860 628, 940 520, 1060 560",
-    w: 34,
-    glowW: 66,
+    d: "M 70 520 C 300 480, 470 610, 660 580 C 820 556, 900 470, 1040 500",
+    w: 56,
+    glowW: 92,
+    opacity: 0.9,
+  },
+  {
+    url: "url(#pg-rb-4)",
+    d: "M 120 700 C 320 640, 460 780, 680 740 C 860 708, 940 600, 1060 640",
+    w: 30,
+    glowW: 62,
     opacity: 0.95,
   },
 ];
@@ -60,7 +72,7 @@ export default function Hero() {
       {/* Abstract flowing light-ribbon visual (right side) */}
       <div
         aria-hidden
-        className="animate-drift-slow pointer-events-none absolute right-[-30%] top-[30%] z-0 w-[110%] opacity-30 sm:right-[-16%] sm:top-[20%] sm:w-[80%] sm:opacity-45 md:right-[-8%] md:top-[14%] md:w-[56%] md:opacity-70 lg:right-[-3%] lg:top-[8%] lg:w-[52%] lg:opacity-90"
+        className="animate-drift-slow pointer-events-none absolute right-[-30%] top-[30%] z-0 w-[110%] opacity-30 dark:opacity-45 sm:right-[-16%] sm:top-[20%] sm:w-[80%] sm:opacity-45 sm:dark:opacity-60 md:right-[-8%] md:top-[14%] md:w-[56%] md:opacity-70 md:dark:opacity-85 lg:right-[-3%] lg:top-[8%] lg:w-[52%] lg:opacity-90 lg:dark:opacity-100"
       >
         <div className="animate-sway-slow w-full">
           <svg

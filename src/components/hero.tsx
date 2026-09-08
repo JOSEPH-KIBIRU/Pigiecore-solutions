@@ -41,13 +41,14 @@ export default function Hero() {
         className="animate-drift-slow pointer-events-none absolute right-[-60%] top-[4%] z-0 w-[190%] opacity-25 sm:right-[-34%] sm:top-[2%] sm:w-[130%] sm:opacity-40 md:right-[-14%] md:top-[0%] md:w-[92%] md:opacity-70 lg:right-[-6%] lg:top-[-4%] lg:w-[66%] lg:opacity-100 xl:w-[58%]"
       >
         <div className="animate-sway-slow w-full">
-          <svg
-            className="block h-auto w-full"
-            viewBox="0 0 1100 900"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            style={{ overflow: "visible" }}
-          >
+          <div className="-scale-x-100 w-full">
+            <svg
+              className="block h-auto w-full"
+              viewBox="0 0 1100 900"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ overflow: "visible" }}
+            >
             <defs dangerouslySetInnerHTML={{ __html: FILTERS }} />
             {/* Glowing light trail echoes */}
             {TRAIL_ECHOES.map((t, i) => (
@@ -90,7 +91,8 @@ export default function Hero() {
                 opacity={s.opacity}
               />
             ))}
-          </svg>
+            </svg>
+          </div>
         </div>
       </div>
 

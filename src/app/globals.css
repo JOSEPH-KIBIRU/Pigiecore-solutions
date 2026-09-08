@@ -168,6 +168,48 @@ body {
   animation: hue-drift 16s ease-in-out infinite;
 }
 
+@keyframes drift-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(14px, -18px, 0); }
+}
+
+.animate-drift-slow {
+  animation: drift-slow 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes sway-slow {
+  0%, 100% { transform: scale(1) rotate(0.5deg); }
+  50% { transform: scale(1.045) rotate(-1.5deg); }
+}
+
+.animate-sway-slow {
+  animation: sway-slow 14s ease-in-out infinite;
+  transform-origin: 62% 40%;
+  will-change: transform;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.85; }
+}
+
+.animate-breathe {
+  animation: breathe 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hue-drift,
+  .animate-drift-slow,
+  .animate-sway-slow,
+  .animate-breathe,
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-fade-in-up {
+    animation: none !important;
+  }
+}
+
 @keyframes accordion-down {
   from { height: 0; }
   to { height: var(--radix-accordion-content-height); }

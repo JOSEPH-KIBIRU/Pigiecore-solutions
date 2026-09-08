@@ -9,9 +9,9 @@ const FILTERS =
   "</filter>";
 
 // Tall C-shaped tube hugging the right edge: a large open arc (like a curved
-// bracket) rising high on the right side of the hero.
+// bracket) rising high on the right side of the hero, opening outward.
 const TUBE_D =
-  "M 130 70 C 400 110 500 250 495 400 C 490 550 380 660 110 655";
+  "M 470 70 C 200 110 100 250 105 400 C 110 550 220 660 490 655";
 
 const CORE_STROKES = [
   { w: 150, color: "#1d4ed8", opacity: 0.8 },

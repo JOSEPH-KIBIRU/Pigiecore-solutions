@@ -8,10 +8,10 @@ const FILTERS =
   '<feGaussianBlur stdDeviation="8" />' +
   "</filter>";
 
-// Smooth sweeping S-curve tube: long horizontal run near the bottom that
-// curls up into an S on the right half of the hero.
+// Tall C-shaped tube hugging the right edge: a large open arc (like a curved
+// bracket) rising high on the right side of the hero.
 const TUBE_D =
-  "M -40 460 C 160 470 320 540 470 460 C 610 386 560 235 700 170 C 780 132 820 150 880 90";
+  "M 130 70 C 400 110 500 250 495 400 C 490 550 380 660 110 655";
 
 const CORE_STROKES = [
   { w: 150, color: "#1d4ed8", opacity: 0.8 },
@@ -35,15 +35,15 @@ export default function Hero() {
         <div className="absolute right-[-15%] top-[5%] h-[60%] w-[60%] bg-[radial-gradient(closest-side,rgba(34,211,238,0.05),transparent)]"></div>
       </div>
 
-      {/* Glowing neon S-tube on the lower right */}
+      {/* Glowing C-tube on the right edge */}
       <div
         aria-hidden
-        className="animate-drift-slow pointer-events-none absolute bottom-[4%] right-[-26%] z-0 w-[130%] opacity-45 sm:right-[-18%] sm:bottom-[4%] sm:w-[95%] sm:opacity-60 md:right-[-12%] md:bottom-[2%] md:w-[74%] md:opacity-80 lg:right-[-3%] lg:bottom-[0%] lg:w-[58%] lg:opacity-100"
+        className="animate-drift-slow pointer-events-none absolute right-[-40%] top-[14%] z-0 w-[150%] opacity-25 sm:right-[-26%] sm:top-[12%] sm:w-[110%] sm:opacity-40 md:right-[-12%] md:top-[10%] md:w-[78%] md:opacity-70 lg:right-[-2%] lg:top-[6%] lg:w-[46%] lg:opacity-100"
       >
         <div className="animate-sway-slow w-full">
           <svg
             className="block h-auto w-full"
-            viewBox="0 0 920 560"
+            viewBox="0 0 600 760"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             style={{ overflow: "visible" }}

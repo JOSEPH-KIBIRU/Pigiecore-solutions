@@ -38,7 +38,7 @@ export default function Hero() {
       {/* Glowing neon S-tube on the lower right */}
       <div
         aria-hidden
-        className="animate-drift-slow pointer-events-none absolute bottom-[-12%] right-[-26%] z-0 w-[130%] opacity-40 sm:right-[-18%] sm:bottom-[-14%] sm:w-[95%] sm:opacity-55 md:right-[-12%] md:bottom-[-16%] md:w-[74%] md:opacity-75 lg:right-[-3%] lg:bottom-[-18%] lg:w-[58%] lg:opacity-100"
+        className="animate-drift-slow pointer-events-none absolute bottom-[4%] right-[-26%] z-0 w-[130%] opacity-45 sm:right-[-18%] sm:bottom-[4%] sm:w-[95%] sm:opacity-60 md:right-[-12%] md:bottom-[2%] md:w-[74%] md:opacity-80 lg:right-[-3%] lg:bottom-[0%] lg:w-[58%] lg:opacity-100"
       >
         <div className="animate-sway-slow w-full">
           <svg

@@ -17,19 +17,22 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const entry = getEntry("services", slug);
   if (!entry) return { title: "Service Not Found" };
   const url = `${siteUrl}/services/${entry.slug}`;
+  const localizedTitle = `${entry.h1} in Kenya`;
   return {
-    title: entry.h1,
+    title: localizedTitle,
     description: entry.tagline,
     keywords: [
       entry.name.toLowerCase(),
-      "custom software Kenya",
-      "software development Kenya",
+      "Kenya",
+      "Nairobi",
       "Pigiecore",
       entry.slug.replace(/-/g, " "),
+      `software development company Kenya`,
+      `custom software Kenya`,
     ],
     alternates: { canonical: `/services/${entry.slug}` },
     openGraph: {
-      title: entry.h1,
+      title: localizedTitle,
       description: entry.tagline,
       type: "website",
       url,

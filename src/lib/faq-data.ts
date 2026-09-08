@@ -13,6 +13,11 @@ export const FAQ_GROUPS = [
 export const FAQS: FaqItem[] = [
   {
     group: "General & Services",
+    q: "Is Pigiecore a software development company based in Kenya?",
+    a: "Yes — we are a Nairobi-based software development company in Kenya serving clients across East Africa and beyond. We build custom software, web applications, mobile-ready systems, and business automation tailored to how Kenyan businesses operate, including M-Pesa and SMS integrations.",
+  },
+  {
+    group: "General & Services",
     q: "What software solutions does Pigiecore Solutions offer?",
     a: "We build custom software for real estate management, business and company websites, logistics and fleet management, salon and barber booking, school management, and hospital management — plus tailored dashboards to automate your specific operations.",
   },
@@ -25,6 +30,11 @@ export const FAQS: FaqItem[] = [
     group: "General & Services",
     q: "Do you work with clients outside Kenya?",
     a: "Yes. We are based in Kenya but deliver software to clients across Africa and beyond. We work remotely with online meetings, ticketing, and project tracking to keep you involved from start to finish.",
+  },
+  {
+    group: "Timelines, Pricing & Process",
+    q: "How much does a website or software project cost in Kenya?",
+    a: "Simple business websites typically range from KSh 50,000–150,000, custom dashboards and management systems from KSh 150,000 upwards, and mobile apps from about KSh 300,000. Every project is quoted individually after we understand your scope — we give a clear fixed quote before we start, with no hidden charges.",
   },
   {
     group: "Timelines, Pricing & Process",

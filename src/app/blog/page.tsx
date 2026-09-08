@@ -10,18 +10,20 @@ import { siteUrl } from "@/lib/site";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Insights & Blog — Software, Automation & Business Tips",
+  title: "Software Blog Kenya — Insights on Development & Automation",
   description:
-    "Insights, guides, and tips on custom software, business automation, and technology from Pigiecore Solutions.",
+    "Guides on custom software development in Kenya, business automation, app costs, and technology insights from Pigiecore Solutions, a software development company in Nairobi.",
   keywords: [
-    "software blog",
+    "software blog Kenya",
+    "software development Kenya",
+    "custom software Nairobi",
     "business automation",
-    "custom software Kenya",
-    "web development insights",
+    "website cost Kenya",
+    "app development cost Kenya",
     "Pigiecore blog",
   ],
   openGraph: {
-    title: "Insights & Blog — Software, Automation & Business Tips",
+    title: "Software Blog Kenya — Insights on Development & Automation",
     description:
       "Practical guides on building software that grows your business.",
     type: "website",

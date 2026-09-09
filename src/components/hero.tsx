@@ -44,7 +44,7 @@ export default function Hero() {
                 It blurs the stroke, then merges the blur behind the solid original stroke.
               */}
               <filter id="pure-glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="30" result="blur" />
+                <feGaussianBlur stdDeviation="50" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
@@ -59,7 +59,7 @@ export default function Hero() {
             */}
             <path
               d={TUBE_D}
-              strokeWidth="90"
+              strokeWidth="150"
               strokeLinecap="round"
               filter="url(#pure-glow)"
               className="animate-color-shift"

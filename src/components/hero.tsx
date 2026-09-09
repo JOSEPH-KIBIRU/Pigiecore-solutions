@@ -1,4 +1,5 @@
 import Link from "next/link";
+import RotatingWord from "@/components/rotating-word";
 
 // The exact same path to keep the orientation facing right
 const TUBE_D = "M 940 140 C 600 150 400 420 540 700 C 640 880 820 900 940 840";
@@ -77,8 +78,18 @@ export default function Hero() {
           </div>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:leading-[1.1] xl:text-6xl">
             Custom Software &amp; Digital Solutions
-            <span className="bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text text-transparent">
-              {" "}Built for Your Business.
+            <span className="block bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text text-transparent">
+              Built for{" "}
+              <RotatingWord
+                words={[
+                  "Your Business.",
+                  "Your Startup.",
+                  "Your School.",
+                  "Your Clinic.",
+                  "Your Salon.",
+                  "Your Fleet.",
+                ]}
+              />
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">

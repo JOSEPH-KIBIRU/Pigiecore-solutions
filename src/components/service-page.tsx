@@ -11,6 +11,8 @@ import {
   HeartPulse,
   Settings,
   Briefcase,
+  Smartphone,
+  Search,
   Check,
   ArrowRight,
 } from "lucide-react";
@@ -29,6 +31,8 @@ export const ICONS: Record<string, React.ComponentType<{ className?: string }>> 
   heartpulse: HeartPulse,
   settings: Settings,
   briefcase: Briefcase,
+  smartphone: Smartphone,
+  search: Search,
 };
 
 export default function ServicePage({ entry }: { entry: ServiceEntry }) {

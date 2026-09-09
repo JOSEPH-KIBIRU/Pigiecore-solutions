@@ -164,6 +164,67 @@ export const SERVICE_ENTRIES: ServiceEntry[] = [
     ],
     related: [
       { type: "services", slug: "business-automation" },
+      { type: "services", slug: "web-applications" },
+      { type: "solutions", slug: "custom-business-systems" },
+    ],
+  },
+  {
+    type: "services",
+    slug: "mobile-app-development",
+    name: "Mobile App Development",
+    icon: "smartphone",
+    eyebrow: "Services",
+    h1: "Mobile App Development",
+    tagline:
+      "iOS, Android, and cross-platform apps that put your business in your customers' pockets.",
+    intro: [
+      "More Kenyans reach the internet on a phone than any other device. A mobile app turns that daily habit into bookings, sales, and engagement for your business.",
+      "We build fast, user-friendly mobile apps — native and cross-platform — with offline support, push notifications, and M-Pesa payment flows built in from day one.",
+    ],
+    features: [
+      { title: "iOS & Android", description: "Native and React Native apps that feel at home on both platforms." },
+      { title: "Mobile Payments", description: "M-Pesa and card payment flows designed for a smooth checkout." },
+      { title: "Push & Offline", description: "Notifications and offline-first data so users stay connected on any network." },
+      { title: "App Store Launch", description: "Store listings, review cycles, and analytics to launch and grow." },
+    ],
+    faqs: [
+      { q: "How much does a mobile app cost in Kenya?", a: "Simple apps typically start from about KSh 300,000 and complex apps scale with features. We give a fixed quote after scoping." },
+      { q: "Do you build for both Android and iPhone?", a: "Yes. We build native or cross-platform apps so you reach users on both stores without doubling cost." },
+      { q: "Can the app connect to our existing website or system?", a: "Absolutely — we connect the app to your backend with APIs, so data stays in sync across web and mobile." },
+    ],
+    related: [
+      { type: "services", slug: "web-applications" },
+      { type: "services", slug: "api-payment-integrations" },
+      { type: "solutions", slug: "custom-business-systems" },
+    ],
+  },
+  {
+    type: "services",
+    slug: "seo-web-maintenance",
+    name: "SEO & Web Maintenance",
+    icon: "search",
+    eyebrow: "Services",
+    h1: "SEO & Web Maintenance",
+    tagline:
+      "Keep your site fast, secure, and found on Google — with care plans that never let it go stale.",
+    intro: [
+      "A website is never really 'finished'. Search rankings slip, software ages, security threats appear, and content goes out of date. Our SEO and maintenance plans keep your site performing and discoverable.",
+      "We handle technical and on-page SEO, uptime, backups, and security updates, plus content and performance improvements that help you rank and convert.",
+    ],
+    features: [
+      { title: "Technical SEO", description: "Site speed, indexing, sitemaps, and schema fixes that help Google find and rank you." },
+      { title: "On-Page SEO", description: "Keyword-focused titles, meta descriptions, and content structure for the searches that matter." },
+      { title: "Security & Backups", description: "Updates, malware monitoring, and daily backups so your site stays safe." },
+      { title: "Monthly Care", description: "Uptime checks, performance reviews, and content updates on a plan that fits." },
+    ],
+    faqs: [
+      { q: "How long does SEO take to show results?", a: "Most sites see movement in 2–3 months; meaningful ranking gains typically take 3–6 months of consistent work." },
+      { q: "What does a web maintenance plan include?", a: "Security updates, backups, uptime monitoring, performance checks, and agreed content updates — with a fixed monthly fee." },
+      { q: "Do you also fix an existing site or only new ones?", a: "We improve existing sites too — auditing and fixing SEO, speed, and security issues on sites we didn't build." },
+    ],
+    related: [
+      { type: "services", slug: "web-applications" },
+      { type: "services", slug: "business-automation" },
       { type: "solutions", slug: "custom-business-systems" },
     ],
   },

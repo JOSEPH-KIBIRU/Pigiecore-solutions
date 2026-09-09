@@ -8,7 +8,9 @@ const SERVICES = [
   { label: "Custom Software", href: "/services/software-development" },
   { label: "SaaS Platforms", href: "/services/saas-development" },
   { label: "Web Applications", href: "/services/web-applications" },
+  { label: "Mobile App Development", href: "/services/mobile-app-development" },
   { label: "Business Automation", href: "/services/business-automation" },
+  { label: "SEO & Web Maintenance", href: "/services/seo-web-maintenance" },
   { label: "Payment & API Integrations", href: "/services/api-payment-integrations" },
 ];
 

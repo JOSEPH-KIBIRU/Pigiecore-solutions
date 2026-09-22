@@ -156,9 +156,9 @@ export default function PigiecoreTechnology() {
         </div>
 
         {/* Technology showcase */}
-        <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          {/* LEFT — Animated technologies */}
-          <div className="grid grid-cols-3 gap-4">
+        <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          {/* Animated technologies — right */}
+          <div className="grid grid-cols-3 gap-4 lg:order-2">
             <TechColumn items={columnOne} duration={24} />
 
             <TechColumn items={columnTwo} reverse duration={28} />
@@ -166,8 +166,8 @@ export default function PigiecoreTechnology() {
             <TechColumn items={columnThree} duration={26} />
           </div>
 
-          {/* RIGHT — Message */}
-          <div className="relative lg:pl-12">
+          {/* Message — left */}
+          <div className="relative lg:order-1 lg:pr-12">
             <div className="max-w-xl">
               <span className="text-sm font-medium text-[#9d95ff]">
                 Technology meets business

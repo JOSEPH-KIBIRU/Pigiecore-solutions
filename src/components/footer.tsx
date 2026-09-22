@@ -24,7 +24,7 @@ const SOLUTION_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 dark:bg-slate-950 text-slate-400 py-12 lg:py-16">
+    <footer className="bg-[#101114] text-white/55 py-14 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           <div className="lg:col-span-1">
@@ -42,7 +42,7 @@ export default function Footer() {
               <p className="text-sm font-semibold text-white">
                 Software tips for growing businesses
               </p>
-              <p className="mt-1 text-xs text-slate-400">
+              <p className="mt-1 text-xs text-white/50">
                 Occasional insights on automation and tech. No spam.
               </p>
               <NewsletterForm />
@@ -156,20 +156,20 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col items-center justify-center gap-3 text-center">
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col items-center justify-center gap-3 text-center">
           <p className="text-sm">
             &copy; {new Date().getFullYear()} Pigiecore Solutions. All rights
             reserved.
           </p>
           <div className="flex items-center justify-center gap-6">
-            <Link href="/privacy-policy" className="text-sm text-slate-400 hover:text-[#9d95ff] transition-colors">
+            <Link href="/privacy-policy" className="text-sm text-white/50 hover:text-[#9d95ff] transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-sm text-slate-400 hover:text-[#9d95ff] transition-colors">
+            <Link href="/terms" className="text-sm text-white/50 hover:text-[#9d95ff] transition-colors">
               Terms &amp; Conditions
             </Link>
           </div>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-white/40">
             Built with <span className="text-red-400">❤️</span> &amp; care at Pigiecore
           </p>
         </div>

@@ -5,7 +5,6 @@ import {
   Bot,
   Check,
   Code2,
-  Cpu,
   CreditCard,
   Database,
   Globe2,
@@ -235,8 +234,6 @@ const solutionCards = [
     icon: CreditCard,
   },
 ];
-
-const stack = ["Next.js", "TypeScript", "React", "Node.js", "PostgreSQL", "Supabase", "M-Pesa", "AWS"];
 
 const process = [
   ["01", "Discover", "We map the workflow, constraints and outcomes before touching a screen."],
@@ -561,11 +558,6 @@ export default function Home() {
               <div><Zap size={18} /><span>Performance is a feature</span></div>
             </div>
           </div>
-        </section>
-
-        <section className="section-shell stack-section">
-          <div className="stack-copy"><Pill>Built with</Pill><h2>A modern stack, chosen for the job.</h2><p>No technology theatre. The right tools, used deliberately.</p></div>
-          <div className="stack-grid">{stack.map((item) => <div key={item} className="stack-item"><span className="stack-icon"><Cpu size={16} /></span><span>{item}</span><ArrowUpRight size={14} /></div>)}</div>
         </section>
 
         <PigiecoreTechnology />

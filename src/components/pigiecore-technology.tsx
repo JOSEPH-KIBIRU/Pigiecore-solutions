@@ -20,21 +20,21 @@ import {
 import { TbBrandOpenai } from "react-icons/tb";
 
 const technologies = [
-  { name: "Next.js", icon: SiNextdotjs },
-  { name: "React", icon: SiReact },
-  { name: "TypeScript", icon: SiTypescript },
-  { name: "Node.js", icon: SiNodedotjs },
-  { name: "PostgreSQL", icon: SiPostgresql },
-  { name: "Supabase", icon: SiSupabase },
-  { name: "Tailwind CSS", icon: SiTailwindcss },
-  { name: "Docker", icon: SiDocker },
-  { name: "Vercel", icon: SiVercel },
-  { name: "JavaScript", icon: SiJavascript },
-  { name: "Express", icon: SiExpress },
-  { name: "Prisma", icon: SiPrisma },
-  { name: "MongoDB", icon: SiMongodb },
-  { name: "Redis", icon: SiRedis },
-  { name: "OpenAI", icon: TbBrandOpenai },
+  { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
+  { name: "React", icon: SiReact, color: "#61DAFB" },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+  { name: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+  { name: "Supabase", icon: SiSupabase, color: "#3FCF8E" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "Docker", icon: SiDocker, color: "#2496ED" },
+  { name: "Vercel", icon: SiVercel, color: "#ffffff" },
+  { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+  { name: "Express", icon: SiExpress, color: "#ffffff" },
+  { name: "Prisma", icon: SiPrisma, color: "#5A67D8" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+  { name: "Redis", icon: SiRedis, color: "#FF4438" },
+  { name: "OpenAI", icon: TbBrandOpenai, color: "#10A37F" },
 ];
 
 const columnOne = technologies.slice(0, 5);
@@ -51,11 +51,11 @@ function TechCard({
   return (
     <div
       className="
-        group flex items-center gap-4
+        group flex items-center gap-3
         rounded-2xl
         border border-white/[0.08]
         bg-white/[0.035]
-        px-5 py-4
+        px-4 py-3.5
         backdrop-blur-xl
         transition-all duration-300
         hover:-translate-y-1
@@ -75,21 +75,13 @@ function TechCard({
         "
       >
         <Icon
-          className="
-            h-6 w-6
-            text-white/70
-            transition-colors duration-300
-            group-hover:text-white
-          "
+          className="h-6 w-6 transition-transform duration-300 group-hover:scale-110"
+          style={{ color: technology.color }}
         />
       </div>
 
-      <span className="text-[15px] font-medium text-white/70 transition-colors group-hover:text-white">
+      <span className="ml-auto text-[14px] font-medium text-white/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:text-white/80">
         {technology.name}
-      </span>
-
-      <span className="ml-auto text-white/20 transition-colors group-hover:text-white/50">
-        →
       </span>
     </div>
   );
@@ -107,15 +99,15 @@ function TechColumn({
   const duplicated = [...items, ...items];
 
   return (
-    <div className="relative h-[520px] overflow-hidden">
+    <div className="relative h-[400px] overflow-hidden">
       {/* Fade top */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-gradient-to-b from-[#050505] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-[#101114] to-transparent" />
 
       {/* Fade bottom */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-28 bg-gradient-to-t from-[#050505] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-[#101114] to-transparent" />
 
       <motion.div
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-3.5"
         animate={{
           y: reverse ? ["-50%", "0%"] : ["0%", "-50%"],
         }}
@@ -138,37 +130,33 @@ function TechColumn({
 
 export default function PigiecoreTechnology() {
   return (
-    <section className="relative overflow-hidden bg-[#050505] py-28 text-white">
+    <section className="relative overflow-hidden bg-[#101114] py-20 text-white">
       {/* Background glow */}
-      <div className="pointer-events-none absolute left-1/4 top-1/3 h-[400px] w-[400px] rounded-full bg-blue-500/[0.08] blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/4 top-1/3 h-[380px] w-[380px] rounded-full bg-[#6b5cff]/[0.1] blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Heading */}
-        <div className="mx-auto mb-20 max-w-3xl text-center">
+        <div className="mx-auto mb-12 max-w-3xl text-center">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.8)]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#9d95ff] shadow-[0_0_12px_rgba(107,92,255,0.8)]" />
 
             <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/50">
-              Our Technology
+              Built with
             </span>
           </div>
 
-          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            Built with the
-            <span className="block text-white/40">
-              technology of tomorrow.
-            </span>
+          <h2 className="text-[clamp(30px,4vw,50px)] font-semibold leading-[1.05] tracking-[-0.04em]">
+            A modern stack,
+            <span className="block text-white/40">chosen for the job.</span>
           </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/50 sm:text-lg">
-            We combine modern frameworks, powerful cloud infrastructure and
-            intelligent APIs to build software that is fast, scalable and
-            built around the needs of your business.
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/50">
+            No technology theatre. The right tools, used deliberately.
           </p>
         </div>
 
         {/* Technology showcase */}
-        <div className="grid items-center gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           {/* LEFT — Animated technologies */}
           <div className="grid grid-cols-3 gap-4">
             <TechColumn items={columnOne} duration={24} />
@@ -181,7 +169,7 @@ export default function PigiecoreTechnology() {
           {/* RIGHT — Message */}
           <div className="relative lg:pl-12">
             <div className="max-w-xl">
-              <span className="text-sm font-medium text-blue-400">
+              <span className="text-sm font-medium text-[#9d95ff]">
                 Technology meets business
               </span>
 
@@ -219,7 +207,7 @@ export default function PigiecoreTechnology() {
                       px-4 py-3
                     "
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#9d95ff]" />
 
                     <span className="text-sm text-white/60">{item}</span>
                   </div>
@@ -228,7 +216,7 @@ export default function PigiecoreTechnology() {
 
               {/* Bottom statement */}
               <div className="mt-10 flex items-center gap-4">
-                <div className="h-px w-12 bg-blue-400/60" />
+                <div className="h-px w-12 bg-[#6b5cff]/60" />
 
                 <span className="text-sm text-white/35">
                   Powered by Pigiecore

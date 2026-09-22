@@ -22,7 +22,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import OfferPopup from "@/components/offer-popup";
 import Contact from "@/components/contact";
-import Showcase from "@/components/showcase";
+import FeaturedProjects from "@/components/featured-projects";
 import BomaPulseCase from "@/components/bomapulse-case";
 import PigiecoreTechnology from "@/components/pigiecore-technology";
 import { SystemCanvas } from "@/components/redesign/system-canvas";
@@ -545,7 +545,7 @@ export default function Home() {
           </div>
         </section>
 
-        <Showcase />
+        <FeaturedProjects />
         <BomaPulseCase />
 
         <section id="about" className="section-shell about-section">

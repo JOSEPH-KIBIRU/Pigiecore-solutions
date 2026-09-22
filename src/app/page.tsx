@@ -25,6 +25,7 @@ import OfferPopup from "@/components/offer-popup";
 import Contact from "@/components/contact";
 import Showcase from "@/components/showcase";
 import BomaPulseCase from "@/components/bomapulse-case";
+import PigiecoreTechnology from "@/components/pigiecore-technology";
 import { SystemCanvas } from "@/components/redesign/system-canvas";
 import { siteUrl } from "@/lib/site";
 import "./redesign/redesign.css";
@@ -566,6 +567,8 @@ export default function Home() {
           <div className="stack-copy"><Pill>Built with</Pill><h2>A modern stack, chosen for the job.</h2><p>No technology theatre. The right tools, used deliberately.</p></div>
           <div className="stack-grid">{stack.map((item) => <div key={item} className="stack-item"><span className="stack-icon"><Cpu size={16} /></span><span>{item}</span><ArrowUpRight size={14} /></div>)}</div>
         </section>
+
+        <PigiecoreTechnology />
 
         <section id="contact-cta" className="cta-section">
           <div className="cta-grid-lines" />

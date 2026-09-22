@@ -145,7 +145,7 @@ export default function PigiecoreTechnology() {
             </span>
           </div>
 
-          <h2 className="text-[clamp(30px,4vw,50px)] font-semibold leading-[1.05] tracking-[-0.04em]">
+          <h2 className="text-[clamp(38px,5vw,66px)] font-semibold leading-[1.02] tracking-[-0.05em]">
             A modern stack,
             <span className="block text-white/40">chosen for the job.</span>
           </h2>

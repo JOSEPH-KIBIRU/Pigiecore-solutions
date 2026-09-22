@@ -152,7 +152,7 @@ export default function FeaturedProjects() {
               </span>
             </div>
 
-            <h2 className="max-w-3xl text-[clamp(30px,4vw,50px)] font-semibold leading-[1.05] tracking-[-0.04em]">
+            <h2 className="max-w-3xl text-[clamp(34px,4.6vw,58px)] font-semibold leading-[1.02] tracking-[-0.05em]">
               Software built for
               <span className="block text-white/40">real-world businesses.</span>
             </h2>

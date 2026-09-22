@@ -288,3 +288,42 @@
   line-height: 1.02;
   letter-spacing: -0.05em;
 }
+
+/* ------------------------------------------------------------------
+   Consistency pass: make restored sections + shared chrome match the
+   redesign typography (semibold, tight tracking) and palette.
+------------------------------------------------------------------ */
+.redesign-root h1,
+.redesign-root h2,
+.redesign-root h3 {
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+/* Tighten the gap under the fixed navbar */
+.redesign-root .hero {
+  padding-top: 28px;
+}
+
+/* Extra utility mappings so the contact form / case study blend in */
+.redesign-root .border-slate-300 { border-color: var(--line); }
+.redesign-root .text-slate-400 { color: var(--muted); }
+.redesign-root .bg-slate-100 { background-color: rgba(16, 17, 18, 0.04); }
+.redesign-root .hover\:border-slate-300:hover { border-color: var(--line); }
+.redesign-root input::placeholder,
+.redesign-root textarea::placeholder { color: rgba(109, 109, 114, 0.7); }
+.redesign-root input:focus,
+.redesign-root select:focus,
+.redesign-root textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(107, 92, 255, 0.18);
+}
+.redesign-root .focus\:border-sky-500:focus,
+.redesign-root .focus\:border-cyan-500:focus { border-color: var(--accent); }
+.redesign-root .focus\:ring-sky-500\/20:focus,
+.redesign-root .focus\:ring-cyan-500\/20:focus { box-shadow: 0 0 0 3px rgba(107, 92, 255, 0.18); }
+.redesign-root .from-cyan-500 { --tw-gradient-from: var(--accent); }
+.redesign-root .to-blue-600 { --tw-gradient-to: #4b3fd6; }
+.redesign-root .bg-cyan-400 { background-color: var(--accent); }
+.redesign-root .text-cyan-200,
+.redesign-root .text-cyan-300 { color: #cfc9ff; }

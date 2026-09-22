@@ -101,7 +101,7 @@ export default function Navbar() {
   };
 
   const linkClass =
-    "text-sm text-slate-600 hover:text-sky-500 transition-colors dark:text-slate-300 dark:hover:text-sky-400";
+    "text-sm text-slate-600 hover:text-[#6b5cff] transition-colors dark:text-slate-300 dark:hover:text-[#9d95ff]";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200 dark:bg-slate-950 dark:border-slate-800">
@@ -134,7 +134,7 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setOpenDropdown(null)}
-                      className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-sky-500 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-sky-400"
+                      className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-[#9d95ff]"
                     >
                       {item.label}
                     </Link>
@@ -143,7 +143,7 @@ export default function Navbar() {
                   <Link
                     href="/services"
                     onClick={() => setOpenDropdown(null)}
-                    className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-sky-500 hover:bg-slate-50 dark:hover:bg-slate-800"
+                    className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#6b5cff] hover:bg-slate-50 dark:hover:bg-slate-800"
                   >
                     All Services <span>&rarr;</span>
                   </Link>
@@ -168,7 +168,7 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setOpenDropdown(null)}
-                      className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-sky-500 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-sky-400"
+                      className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-[#9d95ff]"
                     >
                       {item.label}
                     </Link>
@@ -177,7 +177,7 @@ export default function Navbar() {
                   <Link
                     href="/solutions"
                     onClick={() => setOpenDropdown(null)}
-                    className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-sky-500 hover:bg-slate-50 dark:hover:bg-slate-800"
+                    className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-[#6b5cff] hover:bg-slate-50 dark:hover:bg-slate-800"
                   >
                     All Solutions <span>&rarr;</span>
                   </Link>
@@ -206,13 +206,13 @@ export default function Navbar() {
             </button>
             <Link
               href="/admin"
-              className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-sky-500 hover:text-sky-500 dark:border-slate-600 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:text-sky-400"
+              className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-[#6b5cff] hover:text-[#6b5cff] dark:border-slate-600 dark:text-slate-200 dark:hover:border-[#9d95ff] dark:hover:text-[#9d95ff]"
             >
               Login
             </Link>
             <Link
               href="/#contact"
-              className="inline-flex items-center justify-center rounded-full bg-sky-500 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-sky-600"
+              className="inline-flex items-center justify-center rounded-full bg-[#6b5cff] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#5b4de0]"
             >
               Start Your Project
             </Link>
@@ -269,7 +269,7 @@ export default function Navbar() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 py-4 space-y-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
             <Link href="/" onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+              className="block px-4 py-2 text-sm text-slate-600 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:text-[#9d95ff]">
               Home
             </Link>
             <div>
@@ -277,7 +277,7 @@ export default function Navbar() {
               <div className="space-y-1">
                 {SERVICES.map((item) => (
                   <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}
-                    className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+                    className="block px-4 py-2 text-sm text-slate-600 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:text-[#9d95ff]">
                     {item.label}
                   </Link>
                 ))}
@@ -288,31 +288,31 @@ export default function Navbar() {
               <div className="space-y-1">
                 {SOLUTIONS.map((item) => (
                   <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}
-                    className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+                    className="block px-4 py-2 text-sm text-slate-600 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:text-[#9d95ff]">
                     {item.label}
                   </Link>
                 ))}
               </div>
             </div>
             <Link href="/#selected-work" onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+              className="block px-4 py-2 text-sm text-slate-600 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:text-[#9d95ff]">
               Our Work
             </Link>
             <Link href="/about" onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+              className="block px-4 py-2 text-sm text-slate-600 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:text-[#9d95ff]">
               About
             </Link>
             <Link href="/blog" onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+              className="block px-4 py-2 text-sm text-slate-600 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:text-[#9d95ff]">
               Blog
             </Link>
             <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}
-              className="block px-4 py-2 text-sm text-slate-600 hover:text-sky-500 dark:text-slate-300 dark:hover:text-sky-400">
+              className="block px-4 py-2 text-sm text-slate-600 hover:text-[#6b5cff] dark:text-slate-300 dark:hover:text-[#9d95ff]">
               Contact
             </Link>
             <div className="pt-2 px-4">
               <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-center rounded-full bg-sky-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-sky-600">
+                className="block w-full text-center rounded-full bg-[#6b5cff] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#5b4de0]">
                 Start Your Project
               </Link>
             </div>

@@ -57,7 +57,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm hover:text-sky-400 transition-colors"
+                    className="text-sm hover:text-[#9d95ff] transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -74,7 +74,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm hover:text-sky-400 transition-colors"
+                    className="text-sm hover:text-[#9d95ff] transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -88,37 +88,37 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-sm hover:text-sky-400 transition-colors">
+                <Link href="/about" className="text-sm hover:text-[#9d95ff] transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-sm hover:text-sky-400 transition-colors">
+                <Link href="/faq" className="text-sm hover:text-[#9d95ff] transition-colors">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-sm hover:text-sky-400 transition-colors">
+                <Link href="/blog" className="text-sm hover:text-[#9d95ff] transition-colors">
                   Blogs
                 </Link>
               </li>
               <li>
-                <Link href="/#selected-work" className="text-sm hover:text-sky-400 transition-colors">
+                <Link href="/#selected-work" className="text-sm hover:text-[#9d95ff] transition-colors">
                   Our Work
                 </Link>
               </li>
               <li>
-                <Link href="/#contact" className="text-sm hover:text-sky-400 transition-colors">
+                <Link href="/#contact" className="text-sm hover:text-[#9d95ff] transition-colors">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/privacy-policy" className="text-sm hover:text-sky-400 transition-colors">
+                <Link href="/privacy-policy" className="text-sm hover:text-[#9d95ff] transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-sm hover:text-sky-400 transition-colors">
+                <Link href="/terms" className="text-sm hover:text-[#9d95ff] transition-colors">
                   Terms &amp; Conditions
                 </Link>
               </li>
@@ -132,16 +132,16 @@ export default function Footer() {
               <li className="text-sm">
                 <a
                   href="mailto:support@pigiecore.co.ke"
-                  className="hover:text-sky-400 transition-colors"
+                  className="hover:text-[#9d95ff] transition-colors"
                 >
                   support@pigiecore.co.ke
                 </a>
               </li>
               <li className="text-sm">
-                <a href="tel:+254798118515" className="hover:text-sky-400 transition-colors">0798118515</a>
+                <a href="tel:+254798118515" className="hover:text-[#9d95ff] transition-colors">0798118515</a>
               </li>
               <li className="text-sm">
-                <a href="tel:+254708769459" className="hover:text-sky-400 transition-colors">0708769459</a>
+                <a href="tel:+254708769459" className="hover:text-[#9d95ff] transition-colors">0708769459</a>
               </li>
               <li className="text-sm">
                 <a
@@ -162,10 +162,10 @@ export default function Footer() {
             reserved.
           </p>
           <div className="flex items-center justify-center gap-6">
-            <Link href="/privacy-policy" className="text-sm text-slate-400 hover:text-sky-400 transition-colors">
+            <Link href="/privacy-policy" className="text-sm text-slate-400 hover:text-[#9d95ff] transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-sm text-slate-400 hover:text-sky-400 transition-colors">
+            <Link href="/terms" className="text-sm text-slate-400 hover:text-[#9d95ff] transition-colors">
               Terms &amp; Conditions
             </Link>
           </div>

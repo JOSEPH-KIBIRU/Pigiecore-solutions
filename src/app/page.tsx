@@ -23,6 +23,7 @@ import {
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import OfferPopup from "@/components/offer-popup";
+import Contact from "@/components/contact";
 import { SystemCanvas } from "@/components/redesign/system-canvas";
 import { siteUrl } from "@/lib/site";
 import "./redesign/redesign.css";
@@ -585,13 +586,15 @@ export default function Home() {
           <div className="stack-grid">{stack.map((item) => <div key={item} className="stack-item"><span className="stack-icon"><Cpu size={16} /></span><span>{item}</span><ArrowUpRight size={14} /></div>)}</div>
         </section>
 
-        <section id="contact" className="cta-section">
+        <section id="contact-cta" className="cta-section">
           <div className="cta-grid-lines" />
           <div className="cta-inner section-shell">
             <div><span className="cta-kicker">NEXT STEP · 01</span><h2>Have a complex problem? Good.</h2><p>Bring the workflow, the pain point or the rough idea. We will turn it into a clearer product path.</p></div>
-            <a href="mailto:support@pigiecore.co.ke" className="cta-button">support@pigiecore.co.ke <ArrowUpRight size={18} /></a>
+            <a href="#contact" className="cta-button">Start your project <ArrowUpRight size={18} /></a>
           </div>
         </section>
+
+        <Contact />
       </main>
       <Footer />
       <OfferPopup />

@@ -14,7 +14,6 @@ import {
   MoveUpRight,
   Network,
   PanelsTopLeft,
-  Search,
   ShieldCheck,
   Sparkles,
   Workflow,
@@ -24,6 +23,8 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import OfferPopup from "@/components/offer-popup";
 import Contact from "@/components/contact";
+import Showcase from "@/components/showcase";
+import BomaPulseCase from "@/components/bomapulse-case";
 import { SystemCanvas } from "@/components/redesign/system-canvas";
 import { siteUrl } from "@/lib/site";
 import "./redesign/redesign.css";
@@ -544,30 +545,10 @@ export default function Home() {
             <div><Pill>Selected build</Pill><h2>One screen can hide a very big system.</h2></div>
             <a href="#contact" className="text-link">Tell us what you are building <ArrowUpRight size={15} /></a>
           </div>
-          <article className="case-card">
-            <div className="case-copy">
-              <span className="case-label">CASE 001 · INTERNAL SYSTEM</span>
-              <h3>Operations command centre</h3>
-              <p>We imagine the product surface as a calm layer over a complex engine: role-based workspaces, live metrics, customer context, approvals, payments and an audit trail.</p>
-              <div className="case-bullets">
-                {["Role-based dashboards", "Live operational data", "API-first integrations", "Responsive by default"].map((item) => <span key={item}><Check size={14} /> {item}</span>)}
-              </div>
-              <a className="button-primary" href="#contact">Discuss your system <ArrowUpRight size={16} /></a>
-            </div>
-            <div className="case-ui">
-              <div className="case-sidebar">
-                <div className="case-logo">P</div>
-                <span /><span /><span /><span />
-              </div>
-              <div className="case-main">
-                <div className="case-ui-head"><div><span>Monday</span><strong>Operations overview</strong></div><button><Search size={14} /></button></div>
-                <div className="case-kpis"><div><small>Active jobs</small><b>128</b><em>+8.6%</em></div><div><small>Cash collected</small><b>KES 4.8M</b><em>+12.4%</em></div><div><small>Exceptions</small><b>07</b><em>Needs review</em></div></div>
-                <div className="case-chart"><div className="chart-head"><span>Workflow volume</span><small>Last 30 days</small></div><div className="chart-area"><div className="chart-line" /><div className="chart-grid-lines"><span /><span /><span /><span /></div></div></div>
-                <div className="case-table"><div><span>Customer</span><span>Status</span><span>Owner</span></div><div><span>Northstar Ltd</span><strong>Live</strong><span>AM</span></div><div><span>Acme Logistics</span><strong>Review</strong><span>BK</span></div><div><span>Horizon Homes</span><strong>Live</strong><span>CN</span></div></div>
-              </div>
-            </div>
-          </article>
         </section>
+
+        <Showcase />
+        <BomaPulseCase />
 
         <section id="about" className="section-shell about-section">
           <div className="about-panel">

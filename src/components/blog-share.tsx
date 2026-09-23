@@ -87,13 +87,13 @@ export default function BlogShare({ title, url }: { title: string; url: string }
       label: "Share on LinkedIn",
       href: shareUrl("linkedin", url, title),
       icon: LinkedInIcon,
-      className: "hover:bg-blue-600 hover:border-blue-600",
+      className: "hover:bg-[#1877F2] hover:border-[#1877F2]",
     },
     {
       label: "Share on Facebook",
       href: shareUrl("facebook", url, title),
       icon: FacebookIcon,
-      className: "hover:bg-blue-700 hover:border-blue-700",
+      className: "hover:bg-[#0A66C2] hover:border-[#0A66C2]",
     },
   ];
 
@@ -121,7 +121,7 @@ export default function BlogShare({ title, url }: { title: string; url: string }
         type="button"
         onClick={copyLink}
         aria-label="Copy link"
-        className={`${buttonClass} hover:bg-sky-500 hover:border-sky-500`}
+        className={`${buttonClass} hover:bg-brand hover:border-brand`}
       >
         {copied ? <Check className="w-4 h-4" /> : <Link2 className="w-4 h-4" />}
       </button>

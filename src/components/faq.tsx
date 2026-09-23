@@ -3,6 +3,7 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDown } from "lucide-react";
 import { FAQS, FAQ_GROUPS } from "@/lib/faq-data";
+import Badge from "@/components/ui/badge";
 import Reveal from "@/components/reveal";
 
 export { FAQS };
@@ -12,9 +13,7 @@ export default function Faq() {
     <section id="faq" className="py-20 sm:py-28 bg-surface-2">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-12">
-          <span className="text-sm font-semibold uppercase tracking-wider text-brand">
-            FAQ
-          </span>
+          <Badge>FAQ</Badge>
           <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-text-1 dark:text-white">
             Frequently Asked Questions
           </h2>
@@ -44,7 +43,7 @@ export default function Faq() {
                   <Accordion.Item
                     key={i}
                     value={String(i)}
-                    className="group rounded-2xl border border-border-default bg-surface-2 transition-colors data-[state=open]:border-brand/40 dark:border-border-subtle dark:bg-surface-2 dark:data-[state=open]:border-sky-800"
+                    className="group rounded-2xl border border-border-default bg-surface-2 transition-colors data-[state=open]:border-brand/40 dark:border-border-subtle dark:bg-surface-2 dark:data-[state=open]:border-brand/40"
                   >
                     <Accordion.Header>
                       <Accordion.Trigger className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left outline-none">

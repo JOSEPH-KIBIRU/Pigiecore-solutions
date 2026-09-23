@@ -19,7 +19,7 @@ export default function LegalPage({
           </Link>
           <Link
             href="/"
-            className="text-sm font-medium text-sky-400 hover:text-sky-300 transition-colors"
+            className="text-sm font-medium text-brand-soft hover:text-brand transition-colors"
           >
             Back to Home
           </Link>
@@ -41,21 +41,21 @@ export default function LegalPage({
             If you have any questions about this policy, reach us at{" "}
             <a
               href="mailto:support@pigiecore.co.ke"
-              className="text-sky-500 hover:text-sky-400"
+              className="text-brand hover:text-brand-soft"
             >
               support@pigiecore.co.ke
             </a>{" "}
             or call{" "}
             <a
               href="tel:+254798118515"
-              className="text-sky-500 hover:text-sky-400"
+              className="text-brand hover:text-brand-soft"
             >
               +254798118515
             </a>{" "}
             or{" "}
             <a
               href="tel:+254708769459"
-              className="text-sky-500 hover:text-sky-400"
+              className="text-brand hover:text-brand-soft"
             >
               +254708769459
             </a>

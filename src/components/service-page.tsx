@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Button from "@/components/ui/button";
 import {
   Code2,
   Cloud,
@@ -53,12 +54,9 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
               {entry.tagline}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-text-1 shadow-lg transition-all hover:bg-brand/10 hover:scale-[1.02]"
-              >
+              <Button href="/#contact" variant="light" size="md">
                 Start Your Project <ArrowRight className="w-4 h-4" />
-              </Link>
+              </Button>
               <Link
                 href="/solutions/custom-business-systems"
                 className="inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-3 text-sm font-medium text-white transition-all hover:bg-white/10"
@@ -156,7 +154,7 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
                 <Link
                   key={`${rel.type}/${rel.slug}`}
                   href={`/${rel.type}/${rel.slug}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-border-default bg-surface-2 px-5 py-2.5 text-sm font-medium text-text-2 transition-colors hover:border-sky-400 hover:text-brand dark:border-border-default dark:bg-surface-muted dark:text-text-2 dark:hover:text-sky-400"
+                  className="inline-flex items-center gap-2 rounded-full border border-border-default bg-surface-2 px-5 py-2.5 text-sm font-medium text-text-2 transition-colors hover:border-brand hover:text-brand dark:bg-surface-muted"
                 >
                   {relEntry?.name ?? rel.slug.replace(/-/g, " ")}
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -174,12 +172,9 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
                 Tell us about your project and we&apos;ll respond within 24 hours
                 with a plan and a clear quote.
               </p>
-              <Link
-                href="/#contact"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-semibold text-text-1 shadow-lg transition-all hover:bg-brand/10 hover:scale-[1.02]"
-              >
+              <Button href="/#contact" variant="primary" size="lg" className="mt-6">
                 Start Your Project <ArrowRight className="w-5 h-5" />
-              </Link>
+              </Button>
             </div>
           </Reveal>
         </div>

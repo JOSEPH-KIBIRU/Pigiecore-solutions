@@ -148,7 +148,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <Reveal>
             <Badge>Contact Us</Badge>
-            <h2 className="h-section mt-6 text-text-1 dark:text-white">
+            <h2 className="h-section mt-6" style={{ color: "var(--text-1, #101112)" }}>
               What are you looking to build?
             </h2>
             <p className="mt-5 text-lg text-text-2 dark:text-text-3 max-w-xl leading-relaxed">

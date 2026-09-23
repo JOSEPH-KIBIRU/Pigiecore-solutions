@@ -105,7 +105,7 @@ export default function BomaPulseCase() {
                   </a>
                   <Link
                     href="/#contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-border-strong dark:border-border-default px-6 py-3 text-sm font-semibold text-text-2 dark:text-white/80 transition-all hover:border-brand hover:text-brand dark:hover:text-sky-400"
+                    className="inline-flex items-center gap-2 rounded-full border border-border-strong dark:border-border-default px-6 py-3 text-sm font-semibold text-text-2 dark:text-white/80 transition-all hover:border-brand hover:text-brand"
                   >
                     <Plus className="w-4 h-4" /> Build a Similar Solution
                     <ArrowRight className="w-4 h-4" />

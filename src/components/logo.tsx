@@ -13,11 +13,11 @@ export default function Logo({
       aria-label="Pigiecore Solutions"
       role="img"
     >
-      <div className="absolute inset-0 rounded-full border-[3px] border-sky-200 dark:border-slate-700" />
-      <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-sky-500 border-r-indigo-500 animate-spin [animation-duration:2.4s]" />
+      <div className="absolute inset-0 rounded-full border-[3px] border-brand/25 dark:border-border-default" />
+      <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-brand border-r-brand-soft animate-spin [animation-duration:2.4s]" />
       <div className="absolute inset-0 flex items-center justify-center">
         <span
-          className="font-bold text-sky-600 dark:text-white tracking-tight select-none"
+          className="font-bold text-brand dark:text-white tracking-tight select-none"
           style={{ fontSize }}
         >
           PG

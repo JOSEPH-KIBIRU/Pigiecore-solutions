@@ -64,7 +64,7 @@ function sourceChip(url: string) {
       href={clean}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center align-baseline mx-1 rounded-full border border-border-default bg-surface-muted px-2 py-0.5 text-[11px] font-medium text-text-3 hover:border-brand/40 hover:text-brand dark:border-slate-700 dark:bg-slate-800 dark:text-text-3 dark:hover:text-sky-400"
+      className="inline-flex items-center align-baseline mx-1 rounded-full border border-border-default bg-surface-muted px-2 py-0.5 text-[11px] font-medium text-text-3 hover:border-brand/40 hover:text-brand dark:border-border-subtle dark:bg-surface-muted dark:text-text-3 dark:hover:text-brand-soft"
     >
       {label}
     </a>
@@ -130,7 +130,7 @@ function renderContent(text: string) {
 
     if (trimmed.startsWith("> ")) {
       return (
-        <blockquote key={i} className="mt-4 mb-4 border-l-4 border-brand/40 pl-4 italic text-text-2 dark:border-sky-700 dark:text-slate-300">
+        <blockquote key={i} className="mt-4 mb-4 border-l-4 border-brand/40 pl-4 italic text-text-2 dark:border-border-default dark:text-text-2">
           {renderInline(trimmed.slice(2))}
         </blockquote>
       );
@@ -318,7 +318,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group rounded-2xl border border-border-default bg-surface-2 px-5 py-4 transition-all hover:border-brand/40 hover:shadow-md dark:border-slate-800 dark:bg-surface-2 dark:hover:border-sky-700"
+                  className="group rounded-2xl border border-border-default bg-surface-2 px-5 py-4 transition-all hover:border-brand/40 hover:shadow-md dark:border-border-subtle dark:bg-surface-2 dark:hover:border-brand/40"
                 >
                   <span className="block text-sm font-semibold text-text-1 dark:text-white group-hover:text-brand dark:group-hover:text-brand">
                     {item.label}

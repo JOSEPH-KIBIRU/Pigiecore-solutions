@@ -17,7 +17,7 @@ export default function FloatingWhatsApp() {
   return (
     <div className="fixed bottom-6 left-4 sm:bottom-8 sm:left-6 z-50 flex flex-col items-start gap-3">
       {open && (
-        <div className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl dark:border-slate-700 dark:bg-slate-900">
+        <div className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl dark:border-slate-700 dark:bg-surface-2">
           <p className="px-3 pt-1 text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
             Chat with us on WhatsApp
           </p>
@@ -28,7 +28,7 @@ export default function FloatingWhatsApp() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700 dark:text-slate-200 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-300"
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700 dark:text-white/80 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-300"
             >
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">

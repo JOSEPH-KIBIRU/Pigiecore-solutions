@@ -39,17 +39,17 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
   const Icon = ICONS[entry.icon] ?? Code2;
 
   return (
-    <main className="flex flex-col flex-1 bg-surface-2 dark:bg-slate-950 pt-20 sm:pt-24">
-      <section className="bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
+    <main className="flex flex-col flex-1 bg-surface-2 pt-20 sm:pt-24">
+      <section className="bg-ink-panel">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
           <Reveal>
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-100 mb-4">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-soft mb-4">
               <Icon className="w-4 h-4" /> {entry.eyebrow}
             </span>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               {entry.h1}
             </h1>
-            <p className="mt-4 text-lg text-sky-100/90 max-w-2xl leading-relaxed">
+            <p className="mt-4 text-lg text-white/70 max-w-2xl leading-relaxed">
               {entry.tagline}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -82,7 +82,7 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20 bg-white dark:bg-slate-900">
+        <section className="py-16 sm:py-20 bg-surface-2">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <h2 className="text-3xl font-bold text-text-1 dark:text-white sm:text-4xl">
@@ -94,8 +94,8 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
               <Reveal key={feature.title} delay={(i % 2) * 0.08}>
                 <div className="h-full rounded-2xl border border-border-default bg-surface-2 p-6 dark:border-border-default dark:bg-surface-muted">
                   <div className="flex items-start gap-3">
-                    <span className="mt-0.5 w-6 h-6 rounded-full bg-brand/15 dark:bg-sky-950/40 flex items-center justify-center shrink-0">
-                      <Check className="w-4 h-4 text-brand dark:text-sky-400" />
+                    <span className="mt-0.5 w-6 h-6 rounded-full bg-brand/15 dark:bg-brand/15 flex items-center justify-center shrink-0">
+                      <Check className="w-4 h-4 text-brand dark:text-brand-soft" />
                     </span>
                     <div>
                       <h3 className="text-lg font-semibold text-text-1 dark:text-white">
@@ -123,7 +123,7 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
           <div className="mt-8 space-y-3">
             {entry.faqs.map((faq) => (
               <Reveal key={faq.q}>
-                <details className="group rounded-2xl border border-border-default bg-white dark:border-border-default dark:bg-surface-muted open:ring-1 open:ring-sky-500/20">
+                <details className="group rounded-2xl border border-border-default bg-surface-2 open:border-brand/40 open:ring-1 open:ring-brand/20">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-base font-semibold text-text-1 dark:text-white marker:hidden">
                     {faq.q}
                     <ArrowRight className="w-4 h-4 shrink-0 text-brand transition-transform group-open:rotate-90" />
@@ -140,7 +140,7 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20 bg-white dark:bg-slate-900">
+        <section className="py-16 sm:py-20 bg-surface-2">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <h2 className="text-3xl font-bold text-text-1 dark:text-white sm:text-4xl">
@@ -166,11 +166,11 @@ export default function ServicePage({ entry }: { entry: ServiceEntry }) {
           </div>
 
           <Reveal>
-            <div className="mt-12 rounded-2xl bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700 p-8 sm:p-10 text-center">
+            <div className="mt-12 rounded-2xl bg-gradient-to-br from-brand-hover via-brand-hover to-brand-hover p-8 sm:p-10 text-center">
               <h2 className="text-2xl sm:text-3xl font-bold text-white">
                 Ready to build this for your business?
               </h2>
-              <p className="mt-3 text-sky-100/90 max-w-xl mx-auto">
+              <p className="mt-3 text-white/70 max-w-xl mx-auto">
                 Tell us about your project and we&apos;ll respond within 24 hours
                 with a plan and a clear quote.
               </p>

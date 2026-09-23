@@ -92,7 +92,7 @@ export default function OfferPopup() {
               href={href}
               {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               onClick={dismiss}
-              className="inline-flex items-center gap-2 mt-4 rounded-full bg-white text-slate-900 px-5 py-2.5 text-sm font-semibold shadow-lg transition-transform hover:scale-[1.03]"
+              className="inline-flex items-center gap-2 mt-4 rounded-full bg-surface-2 text-slate-900 px-5 py-2.5 text-sm font-semibold shadow-lg transition-transform hover:scale-[1.03]"
             >
               <Sparkles className="w-4 h-4" /> {offer.button_text}
             </Link>

@@ -127,14 +127,14 @@ export default function Contact() {
   }
 
   const inputClass = (hasError: boolean) =>
-    `block w-full rounded-xl border bg-white px-4 py-3 text-text-1 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-surface-muted dark:text-white dark:placeholder-slate-500 dark:border-border-default ${
+    `block w-full rounded-xl border bg-surface-2 px-4 py-3 text-text-1 placeholder:text-text-3 shadow-sm focus:ring-2 outline-none transition-all ${
       hasError
-        ? "border-red-400 focus:border-red-500 focus:ring-red-500/20 dark:border-red-500/60"
-        : "border-border-strong focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-600"
+        ? "border-error/60 focus:border-error focus:ring-error/20"
+        : "border-border-strong focus:border-brand focus:ring-brand/20"
     }`;
 
   const selectClass =
-    "block w-full rounded-xl border border-border-strong bg-white px-4 py-3 text-text-1 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-surface-muted dark:text-white dark:border-slate-600";
+    "block w-full rounded-xl border border-border-strong bg-surface-2 px-4 py-3 text-text-1 shadow-sm focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none transition-all";
 
   const fieldLabel =
     "block text-sm font-medium text-text-2 mb-1.5 dark:text-text-2";
@@ -142,7 +142,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-20 sm:py-28 lg:py-32 bg-surface-2 dark:bg-slate-950 scroll-mt-20 sm:scroll-mt-28 lg:scroll-mt-32 overflow-hidden"
+      className="py-20 sm:py-28 lg:py-32 bg-surface-1 scroll-mt-20 sm:scroll-mt-28 lg:scroll-mt-32 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -162,14 +162,14 @@ export default function Contact() {
                 const Icon = item.icon;
                 const content = (
                   <>
-                    <span className="w-11 h-11 shrink-0 rounded-xl bg-white border border-border-default shadow-sm flex items-center justify-center text-brand dark:bg-slate-900 dark:border-border-subtle dark:text-sky-400">
+                    <span className="w-11 h-11 shrink-0 rounded-xl bg-brand/10 border border-brand/20 flex items-center justify-center text-brand">
                       <Icon className="w-5 h-5" />
                     </span>
                     <span>
-                      <span className="block text-xs font-semibold uppercase tracking-wider text-text-3 dark:text-text-3">
+                      <span className="block text-xs font-semibold uppercase tracking-wider text-text-3">
                         {item.label}
                       </span>
-                      <span className="mt-0.5 block text-text-1 dark:text-white">
+                      <span className="mt-0.5 block text-text-1">
                         {item.value}
                       </span>
                     </span>
@@ -196,7 +196,7 @@ export default function Contact() {
           </Reveal>
 
           <Reveal>
-            <div className="rounded-3xl border border-border-default bg-white p-6 sm:p-8 shadow-xl shadow-slate-200/60 lg:sticky lg:top-24 dark:border-border-subtle dark:bg-slate-900 dark:shadow-none">
+            <div className="rounded-3xl border border-border-default bg-surface-2 p-6 sm:p-8 shadow-card lg:sticky lg:top-24">
               <form className="space-y-5" noValidate onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>

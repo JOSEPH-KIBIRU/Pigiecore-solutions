@@ -9,7 +9,7 @@ export { FAQS };
 
 export default function Faq() {
   return (
-    <section id="faq" className="py-20 sm:py-28 bg-white dark:bg-slate-950">
+    <section id="faq" className="py-20 sm:py-28 bg-surface-2">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-12">
           <span className="text-sm font-semibold uppercase tracking-wider text-brand">
@@ -44,7 +44,7 @@ export default function Faq() {
                   <Accordion.Item
                     key={i}
                     value={String(i)}
-                    className="group rounded-2xl border border-border-default bg-surface-2 transition-colors data-[state=open]:border-brand/40 dark:border-border-subtle dark:bg-slate-900 dark:data-[state=open]:border-sky-800"
+                    className="group rounded-2xl border border-border-default bg-surface-2 transition-colors data-[state=open]:border-brand/40 dark:border-border-subtle dark:bg-surface-2 dark:data-[state=open]:border-sky-800"
                   >
                     <Accordion.Header>
                       <Accordion.Trigger className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left outline-none">

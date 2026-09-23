@@ -26,16 +26,16 @@ export default function ServicesIndexPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-surface-2 dark:bg-slate-950">
-        <div className="bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
+      <main className="min-h-screen bg-surface-2 dark:bg-surface-1">
+        <div className="bg-ink-panel">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-100 mb-4">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-soft mb-4">
               Services
             </span>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               Software Services
             </h1>
-            <p className="mt-4 text-lg text-sky-100/90 max-w-2xl">
+            <p className="mt-4 text-lg text-white/70 max-w-2xl">
               End-to-end development services — from discovery to deployment and
               long-term support.
             </p>
@@ -50,12 +50,12 @@ export default function ServicesIndexPage() {
                 <Link
                   key={service.slug}
                   href={`/services/${service.slug}`}
-                  className="group rounded-2xl border border-border-default bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-border-subtle dark:bg-slate-900"
+                  className="group rounded-2xl border border-border-default bg-surface-2 p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-border-default dark:bg-surface-2"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center text-brand mb-5 group-hover:scale-110 transition-transform dark:bg-brand/15 dark:text-sky-400">
+                  <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center text-brand mb-5 group-hover:scale-110 transition-transform dark:bg-brand/15 dark:text-brand-soft">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h2 className="text-lg font-bold text-text-1 dark:text-white group-hover:text-brand dark:group-hover:text-sky-400 transition-colors">
+                  <h2 className="text-lg font-bold text-text-1 dark:text-white group-hover:text-brand dark:group-hover:text-brand-soft transition-colors">
                     {service.name}
                   </h2>
                   <p className="mt-2 text-sm text-text-3 dark:text-text-3 leading-relaxed">

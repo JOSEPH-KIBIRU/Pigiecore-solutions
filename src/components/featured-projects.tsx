@@ -49,7 +49,7 @@ const FALLBACK: Project[] = [
       "Property listings, market analytics, lead tracking and investment ROI in a single live workspace.",
     tags: ["Real Estate", "Dashboard"],
     image: null,
-    gradient: "from-sky-500 to-blue-600",
+    gradient: "from-brand to-brand-hover",
     href: "/solutions/property-management",
   },
   {
@@ -61,7 +61,7 @@ const FALLBACK: Project[] = [
       "Real-time GPS tracking, route optimization, delivery scheduling and fleet maintenance logs.",
     tags: ["Logistics", "Tracking"],
     image: null,
-    gradient: "from-emerald-500 to-teal-600",
+    gradient: "from-brand-2 to-brand",
     href: "/solutions/fleet-management",
   },
   {
@@ -73,7 +73,7 @@ const FALLBACK: Project[] = [
       "Student records, fees, attendance, grading and parent communication in one system.",
     tags: ["Education", "ERP"],
     image: null,
-    gradient: "from-violet-500 to-purple-600",
+    gradient: "from-brand to-brand-hover",
     href: "/solutions/school-management",
   },
 ];
@@ -88,7 +88,7 @@ function toProject(t: Template, index: number): Project {
     description: t.description,
     tags: [label],
     image: t.image_url,
-    gradient: t.preview_gradient || "from-sky-500 to-blue-600",
+    gradient: t.preview_gradient || "from-brand to-brand-hover",
     href: t.url || "#contact",
   };
 }

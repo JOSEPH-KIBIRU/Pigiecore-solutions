@@ -62,10 +62,10 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col flex-1 bg-surface-2 dark:bg-slate-950">
-        <section className="bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
+      <main className="flex flex-col flex-1 bg-surface-2 dark:bg-surface-1">
+        <section className="bg-gradient-to-br from-brand-hover via-brand-hover to-brand-hover">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
-            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-100 mb-4">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-soft mb-4">
               About Us
             </span>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
@@ -73,14 +73,14 @@ export default function AboutPage() {
               <br />
               Designed for Business.
             </h1>
-            <p className="mt-4 text-lg text-sky-100/90 max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
               We're a team of passionate professionals dedicated to solving local
               business problems with software that actually works.
             </p>
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 bg-white dark:bg-slate-900">
+        <section className="py-16 sm:py-20 bg-surface-2 dark:bg-surface-2">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {STATS.map((s) => (
@@ -142,7 +142,7 @@ export default function AboutPage() {
               {DIFFERENTIATORS.map((item, i) => (
                 <Reveal key={item.title} delay={i * 0.08}>
                   <div
-                    className="p-6 rounded-2xl bg-white dark:bg-surface-muted border border-border-default dark:border-border-default shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                    className="p-6 rounded-2xl bg-surface-2 dark:bg-surface-muted border border-border-default dark:border-border-default shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                   >
                     <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand to-brand-hover flex items-center justify-center mb-4">
                       <item.icon className="w-5 h-5 text-white" />
@@ -160,7 +160,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 bg-white dark:bg-slate-900">
+        <section className="py-16 sm:py-20 bg-surface-2 dark:bg-surface-2">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Reveal>
               <h2 className="text-3xl font-bold text-text-1 dark:text-white sm:text-4xl">

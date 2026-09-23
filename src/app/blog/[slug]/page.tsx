@@ -257,7 +257,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-white dark:bg-slate-950 pt-16">
+      <main className="min-h-screen bg-surface-1 pt-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
         <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm text-brand hover:text-brand transition-colors mb-8">
@@ -318,9 +318,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group rounded-2xl border border-border-default bg-surface-2 px-5 py-4 transition-all hover:border-brand/40 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-sky-700"
+                  className="group rounded-2xl border border-border-default bg-surface-2 px-5 py-4 transition-all hover:border-brand/40 hover:shadow-md dark:border-slate-800 dark:bg-surface-2 dark:hover:border-sky-700"
                 >
-                  <span className="block text-sm font-semibold text-text-1 dark:text-white group-hover:text-brand dark:group-hover:text-sky-400">
+                  <span className="block text-sm font-semibold text-text-1 dark:text-white group-hover:text-brand dark:group-hover:text-brand">
                     {item.label}
                   </span>
                   <span className="mt-1 text-xs text-brand font-medium">
@@ -332,7 +332,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         )}
 
-        <div className="mt-12 p-6 rounded-2xl bg-surface-2 dark:bg-slate-900 border border-border-default dark:border-slate-800">
+        <div className="mt-12 p-6 rounded-2xl bg-surface-2 dark:bg-surface-2 border border-border-default dark:border-slate-800">
           <p className="text-sm text-text-2 dark:text-text-3">
             Need software like this for your business?{" "}
             <Link href="/#contact" className="text-brand hover:text-brand font-medium">

@@ -46,7 +46,7 @@ export default function BomaPulseCase() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="selected-work" className="py-20 sm:py-28 bg-surface-2 dark:bg-slate-900">
+    <section id="selected-work" className="py-20 sm:py-28 bg-surface-2 dark:bg-surface-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-14">
           <span className="inline-flex items-center rounded-full border border-brand/25 bg-brand/10 px-4 py-1.5 text-sm font-medium text-brand dark:border-brand/30 dark:bg-brand/15 dark:text-brand-soft">
@@ -62,7 +62,7 @@ export default function BomaPulseCase() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <div className="overflow-hidden rounded-3xl border border-border-default bg-white shadow-xl dark:border-border-default dark:bg-surface-muted">
+          <div className="overflow-hidden rounded-3xl border border-border-default bg-surface-2 shadow-xl dark:border-border-default dark:bg-surface-muted">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="border-b lg:border-b-0 lg:border-r border-border-default dark:border-border-default">
                 <div className="h-9 bg-surface-muted dark:bg-slate-700/50 flex items-center px-4 gap-1.5 border-b border-border-default/50 dark:border-border-default/50">
@@ -105,7 +105,7 @@ export default function BomaPulseCase() {
                   </a>
                   <Link
                     href="/#contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-border-strong dark:border-slate-600 px-6 py-3 text-sm font-semibold text-text-2 dark:text-slate-200 transition-all hover:border-brand hover:text-brand dark:hover:text-sky-400"
+                    className="inline-flex items-center gap-2 rounded-full border border-border-strong dark:border-border-default px-6 py-3 text-sm font-semibold text-text-2 dark:text-white/80 transition-all hover:border-brand hover:text-brand dark:hover:text-sky-400"
                   >
                     <Plus className="w-4 h-4" /> Build a Similar Solution
                     <ArrowRight className="w-4 h-4" />
@@ -130,8 +130,8 @@ export default function BomaPulseCase() {
                   </button>
                 ))}
               </div>
-              <div className="rounded-2xl bg-surface-2 dark:bg-slate-900 p-6 sm:p-8">
-                <p className="text-text-2 dark:text-slate-200 leading-8">
+              <div className="rounded-2xl bg-surface-2 dark:bg-surface-2 p-6 sm:p-8">
+                <p className="text-text-2 dark:text-white/80 leading-8">
                   {TABS[active].content}
                 </p>
               </div>

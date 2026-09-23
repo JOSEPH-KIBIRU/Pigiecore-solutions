@@ -12,13 +12,13 @@ export default function Faq() {
     <section id="faq" className="py-20 sm:py-28 bg-white dark:bg-slate-950">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-12">
-          <span className="text-sm font-semibold uppercase tracking-wider text-sky-500">
+          <span className="text-sm font-semibold uppercase tracking-wider text-brand">
             FAQ
           </span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-text-1 dark:text-white">
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 text-text-2 dark:text-text-3 max-w-2xl mx-auto leading-relaxed">
             Everything you need to know about working with Pigiecore Solutions
             — our products, pricing, timelines, and support.
           </p>
@@ -30,10 +30,10 @@ export default function Faq() {
           return (
             <Reveal key={group} delay={groupIndex * 0.05} className="mb-10">
               <h3 className="mb-4 flex items-center gap-3">
-                <span className="text-base font-semibold text-slate-900 dark:text-white">
+                <span className="text-base font-semibold text-text-1 dark:text-white">
                   {group}
                 </span>
-                <span className="h-px flex-1 bg-slate-200 dark:bg-slate-800"></span>
+                <span className="h-px flex-1 bg-slate-200 dark:bg-surface-muted"></span>
               </h3>
               <Accordion.Root
                 type="multiple"
@@ -44,19 +44,19 @@ export default function Faq() {
                   <Accordion.Item
                     key={i}
                     value={String(i)}
-                    className="group rounded-2xl border border-slate-200 bg-slate-50 transition-colors data-[state=open]:border-sky-300 dark:border-slate-800 dark:bg-slate-900 dark:data-[state=open]:border-sky-800"
+                    className="group rounded-2xl border border-border-default bg-surface-2 transition-colors data-[state=open]:border-brand/40 dark:border-border-subtle dark:bg-slate-900 dark:data-[state=open]:border-sky-800"
                   >
                     <Accordion.Header>
                       <Accordion.Trigger className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left outline-none">
-                        <span className="text-base font-semibold text-slate-900 dark:text-white">
+                        <span className="text-base font-semibold text-text-1 dark:text-white">
                           {item.q}
                         </span>
-                        <ChevronDown className="w-5 h-5 shrink-0 text-sky-500 transition-transform duration-300 group-data-[state=open]:rotate-180" />
+                        <ChevronDown className="w-5 h-5 shrink-0 text-brand transition-transform duration-300 group-data-[state=open]:rotate-180" />
                       </Accordion.Trigger>
                     </Accordion.Header>
                     <Accordion.Content className="overflow-hidden text-sm data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                       <div className="px-6 pb-5">
-                        <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        <p className="text-text-2 dark:text-text-3 leading-relaxed">
                           {item.a}
                         </p>
                       </div>

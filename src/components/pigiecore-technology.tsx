@@ -80,7 +80,7 @@ function TechCard({
         />
       </div>
 
-      <span className="ml-auto text-[14px] font-medium text-white/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:text-white/80">
+      <span className="ml-auto text-[14px] font-medium text-white/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100 max-sm:opacity-100">
         {technology.name}
       </span>
     </div>

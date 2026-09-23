@@ -64,7 +64,7 @@ function sourceChip(url: string) {
       href={clean}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center align-baseline mx-1 rounded-full border border-slate-200 bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-500 hover:border-sky-300 hover:text-sky-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:text-sky-400"
+      className="inline-flex items-center align-baseline mx-1 rounded-full border border-border-default bg-surface-muted px-2 py-0.5 text-[11px] font-medium text-text-3 hover:border-brand/40 hover:text-brand dark:border-slate-700 dark:bg-slate-800 dark:text-text-3 dark:hover:text-sky-400"
     >
       {label}
     </a>
@@ -86,7 +86,7 @@ function renderInline(text: string) {
         return <span key={i}>{m[1]}</span>;
       }
       return (
-        <a key={i} href={m[2]} target="_blank" rel="noopener noreferrer" className="text-sky-500 hover:text-sky-600 underline underline-offset-2">
+        <a key={i} href={m[2]} target="_blank" rel="noopener noreferrer" className="text-brand hover:text-brand underline underline-offset-2">
           {m[1]}
         </a>
       );
@@ -118,11 +118,11 @@ function renderContent(text: string) {
       const level = trimmed.startsWith("### ") ? 3 : 2;
       const label = trimmed.replace(/^#{2,3}\s+/, "");
       return level === 2 ? (
-        <h2 key={i} className="mt-8 mb-3 text-2xl font-bold text-slate-900 dark:text-white">
+        <h2 key={i} className="mt-8 mb-3 text-2xl font-bold text-text-1 dark:text-white">
           {renderInline(label)}
         </h2>
       ) : (
-        <h3 key={i} className="mt-6 mb-2 text-xl font-semibold text-slate-900 dark:text-white">
+        <h3 key={i} className="mt-6 mb-2 text-xl font-semibold text-text-1 dark:text-white">
           {renderInline(label)}
         </h3>
       );
@@ -130,7 +130,7 @@ function renderContent(text: string) {
 
     if (trimmed.startsWith("> ")) {
       return (
-        <blockquote key={i} className="mt-4 mb-4 border-l-4 border-sky-300 pl-4 italic text-slate-600 dark:border-sky-700 dark:text-slate-300">
+        <blockquote key={i} className="mt-4 mb-4 border-l-4 border-brand/40 pl-4 italic text-text-2 dark:border-sky-700 dark:text-slate-300">
           {renderInline(trimmed.slice(2))}
         </blockquote>
       );
@@ -260,12 +260,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <main className="min-h-screen bg-white dark:bg-slate-950 pt-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm text-sky-500 hover:text-sky-600 transition-colors mb-8">
+        <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm text-brand hover:text-brand transition-colors mb-8">
           <ArrowLeft className="w-4 h-4" /> Back to Insights
         </Link>
 
         {post.cover_image_url && (
-          <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-8 bg-slate-100 dark:bg-slate-800">
+          <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-8 bg-surface-muted dark:bg-slate-800">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={post.cover_image_url}
@@ -275,7 +275,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         )}
 
-        <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <div className="flex items-center gap-3 text-sm text-text-3 dark:text-text-3 mb-4">
           {post.published_at && (
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="w-4 h-4" /> {formatDate(post.published_at)}
@@ -289,20 +289,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-text-1 dark:text-white leading-tight">
           {post.title}
         </h1>
 
         {post.excerpt && (
-          <p className="mt-4 text-lg text-slate-500 dark:text-slate-400 leading-relaxed">{post.excerpt}</p>
+          <p className="mt-4 text-lg text-text-3 dark:text-text-3 leading-relaxed">{post.excerpt}</p>
         )}
 
-        <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-lg text-slate-700 dark:text-slate-300 leading-relaxed tracking-wide break-words overflow-hidden">
+        <div className="mt-8 border-t border-border-default dark:border-slate-800 pt-8 text-lg text-text-2 dark:text-slate-300 leading-relaxed tracking-wide break-words overflow-hidden">
           {post.content ? renderContent(post.content) : null}
         </div>
 
-        <div className="mt-8 flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+        <div className="mt-8 flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-border-default dark:border-slate-800">
+          <p className="text-sm font-medium text-text-3 dark:text-text-3">
             Liked this article?
           </p>
           <BlogShare title={post.title} url={postUrl} />
@@ -310,7 +310,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {related.length > 0 && (
           <div className="mt-10">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="text-lg font-bold text-text-1 dark:text-white mb-4">
               Keep exploring
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -318,12 +318,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 transition-all hover:border-sky-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-sky-700"
+                  className="group rounded-2xl border border-border-default bg-surface-2 px-5 py-4 transition-all hover:border-brand/40 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-sky-700"
                 >
-                  <span className="block text-sm font-semibold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400">
+                  <span className="block text-sm font-semibold text-text-1 dark:text-white group-hover:text-brand dark:group-hover:text-sky-400">
                     {item.label}
                   </span>
-                  <span className="mt-1 text-xs text-sky-500 font-medium">
+                  <span className="mt-1 text-xs text-brand font-medium">
                     Learn more &rarr;
                   </span>
                 </Link>
@@ -332,10 +332,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         )}
 
-        <div className="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-          <p className="text-sm text-slate-600 dark:text-slate-400">
+        <div className="mt-12 p-6 rounded-2xl bg-surface-2 dark:bg-slate-900 border border-border-default dark:border-slate-800">
+          <p className="text-sm text-text-2 dark:text-text-3">
             Need software like this for your business?{" "}
-            <Link href="/#contact" className="text-sky-500 hover:text-sky-600 font-medium">
+            <Link href="/#contact" className="text-brand hover:text-brand font-medium">
               Talk to Pigiecore Solutions
             </Link>
             .

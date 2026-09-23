@@ -31,13 +31,13 @@ export default function Testimonials() {
   if (!loaded || items.length === 0) return null;
 
   return (
-    <section id="testimonials" className="py-20 sm:py-28 bg-slate-50 dark:bg-slate-900">
+    <section id="testimonials" className="py-20 sm:py-28 bg-surface-2 dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+          <h2 className="text-3xl font-bold tracking-tight text-text-1 sm:text-4xl dark:text-white">
             What Our Clients Say
           </h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-text-2 dark:text-text-3 max-w-2xl mx-auto">
             Real feedback from businesses we have helped automate and grow.
           </p>
         </Reveal>
@@ -46,15 +46,15 @@ export default function Testimonials() {
           {items.map((item, i) => (
             <Reveal key={item.id} delay={(i % 3) * 0.08}>
               <div
-                className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-slate-700 dark:bg-slate-800"
+                className="relative rounded-2xl border border-border-default bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-border-default dark:bg-surface-muted"
               >
                 <Quote className="absolute top-5 right-5 w-8 h-8 text-sky-100 dark:text-sky-900" />
                 <div className="flex gap-0.5 mb-4">
                   {[1, 2, 3, 4, 5].map((n) => (
-                    <Star key={n} className={`w-4 h-4 ${n <= item.rating ? "text-amber-400 fill-amber-400" : "text-slate-300 dark:text-slate-600"}`} />
+                    <Star key={n} className={`w-4 h-4 ${n <= item.rating ? "text-amber-400 fill-amber-400" : "text-slate-300 dark:text-text-2"}`} />
                   ))}
                 </div>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                <p className="text-sm text-text-2 dark:text-text-2 leading-relaxed mb-6">
                   &ldquo;{item.content}&rdquo;
                 </p>
                 <div className="flex items-center gap-3">
@@ -62,8 +62,8 @@ export default function Testimonials() {
                     {item.client_name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-slate-900 dark:text-white">{item.client_name}</div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400">
+                    <div className="text-sm font-semibold text-text-1 dark:text-white">{item.client_name}</div>
+                    <div className="text-xs text-text-3 dark:text-text-3">
                       {[item.role, item.company].filter(Boolean).join(" \u00b7 ") || "Client"}
                     </div>
                   </div>

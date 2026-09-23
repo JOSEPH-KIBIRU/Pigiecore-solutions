@@ -70,7 +70,7 @@ export default async function BlogPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <main className="min-h-screen bg-surface-2 dark:bg-slate-950">
         <div className="relative bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
           <a
             href="/feed.xml"
@@ -93,11 +93,11 @@ export default async function BlogPage() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {error ? (
-          <p className="text-center text-slate-500 dark:text-slate-400">
+          <p className="text-center text-text-3 dark:text-text-3">
             Something went wrong loading posts.
           </p>
         ) : posts.length === 0 ? (
-          <p className="text-center text-slate-500 dark:text-slate-400">
+          <p className="text-center text-text-3 dark:text-text-3">
             No posts yet. Check back soon!
           </p>
         ) : (
@@ -106,10 +106,10 @@ export default async function BlogPage() {
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="group rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-slate-800 dark:bg-slate-900"
+                className="group rounded-2xl border border-border-default bg-white overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-border-subtle dark:bg-slate-900"
               >
                 {post.cover_image_url ? (
-                  <div className="aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-slate-800">
+                  <div className="aspect-[16/9] overflow-hidden bg-surface-muted dark:bg-surface-muted">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={post.cover_image_url}
@@ -120,12 +120,12 @@ export default async function BlogPage() {
                     />
                   </div>
                 ) : (
-                  <div className="aspect-[16/9] bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center">
+                  <div className="aspect-[16/9] bg-gradient-to-br from-sky-400 to-brand-hover flex items-center justify-center">
                     <span className="flex items-center justify-center w-14 h-14 rounded-2xl bg-white/25 backdrop-blur-sm text-2xl font-bold text-white">P</span>
                   </div>
                 )}
                 <div className="p-5">
-                  <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-3">
+                  <div className="flex items-center gap-3 text-xs text-text-3 dark:text-text-3 mb-3">
                     {post.published_at && (
                       <span className="inline-flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5" /> {formatDate(post.published_at)}
@@ -136,15 +136,15 @@ export default async function BlogPage() {
                       <Clock className="w-3.5 h-3.5" /> {formatReadingTime(estimateReadingTime(post.content))}
                     </span>
                   </div>
-                  <h2 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                  <h2 className="text-lg font-bold text-text-1 dark:text-white group-hover:text-brand dark:group-hover:text-sky-400 transition-colors">
                     {post.title}
                   </h2>
                   {post.excerpt && (
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 line-clamp-3">
+                    <p className="mt-2 text-sm text-text-3 dark:text-text-3 line-clamp-3">
                       {post.excerpt}
                     </p>
                   )}
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-500">
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand">
                     Read more <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                   </span>
                 </div>

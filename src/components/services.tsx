@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Reveal from "@/components/reveal";
 import { getEntry } from "@/lib/service-content";
+import Badge from "@/components/ui/badge";
 
 type ColorKey =
   | "sky"
@@ -95,26 +96,26 @@ const colorMap: Record<
   }
 > = {
   sky: {
-    grad: "from-sky-500 to-blue-600",
-    text: "text-sky-600 dark:text-sky-400",
-    chip: "bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300",
-    softText: "text-slate-600 dark:text-slate-300",
-    ring: "group-hover:border-sky-300 dark:group-hover:border-sky-500/50",
+    grad: "from-brand to-brand-hover",
+    text: "text-brand dark:text-sky-400",
+    chip: "bg-brand/15 text-brand dark:bg-brand/15 dark:text-brand-soft",
+    softText: "text-text-2 dark:text-text-2",
+    ring: "group-hover:border-brand/40 dark:group-hover:border-brand/50",
     bar: "bg-sky-400",
   },
   violet: {
     grad: "from-violet-500 to-purple-600",
     text: "text-violet-600 dark:text-violet-400",
     chip: "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300",
-    softText: "text-slate-600 dark:text-slate-300",
+    softText: "text-text-2 dark:text-text-2",
     ring: "group-hover:border-violet-300 dark:group-hover:border-violet-500/50",
     bar: "bg-violet-400",
   },
   emerald: {
     grad: "from-emerald-500 to-teal-600",
-    text: "text-emerald-600 dark:text-emerald-400",
-    chip: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
-    softText: "text-slate-600 dark:text-slate-300",
+    text: "text-success dark:text-emerald-400",
+    chip: "bg-emerald-100 text-emerald-700 dark:bg-success/100/15 dark:text-emerald-300",
+    softText: "text-text-2 dark:text-text-2",
     ring: "group-hover:border-emerald-300 dark:group-hover:border-emerald-500/50",
     bar: "bg-emerald-400",
   },
@@ -122,7 +123,7 @@ const colorMap: Record<
     grad: "from-pink-500 to-rose-600",
     text: "text-pink-600 dark:text-pink-400",
     chip: "bg-pink-100 text-pink-700 dark:bg-pink-500/15 dark:text-pink-300",
-    softText: "text-slate-600 dark:text-slate-300",
+    softText: "text-text-2 dark:text-text-2",
     ring: "group-hover:border-pink-300 dark:group-hover:border-pink-500/50",
     bar: "bg-pink-400",
   },
@@ -130,15 +131,15 @@ const colorMap: Record<
     grad: "from-amber-500 to-orange-600",
     text: "text-amber-600 dark:text-amber-400",
     chip: "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
-    softText: "text-slate-600 dark:text-slate-300",
+    softText: "text-text-2 dark:text-text-2",
     ring: "group-hover:border-amber-300 dark:group-hover:border-amber-500/50",
     bar: "bg-amber-400",
   },
   indigo: {
-    grad: "from-indigo-500 to-blue-600",
+    grad: "from-indigo-500 to-brand-hover",
     text: "text-indigo-600 dark:text-indigo-400",
     chip: "bg-indigo-100 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300",
-    softText: "text-slate-600 dark:text-slate-300",
+    softText: "text-text-2 dark:text-text-2",
     ring: "group-hover:border-indigo-300 dark:group-hover:border-indigo-500/50",
     bar: "bg-indigo-400",
   },
@@ -146,7 +147,7 @@ const colorMap: Record<
     grad: "from-teal-500 to-cyan-600",
     text: "text-teal-600 dark:text-teal-400",
     chip: "bg-teal-100 text-teal-700 dark:bg-teal-500/15 dark:text-teal-300",
-    softText: "text-slate-600 dark:text-slate-300",
+    softText: "text-text-2 dark:text-text-2",
     ring: "group-hover:border-teal-300 dark:group-hover:border-teal-500/50",
     bar: "bg-teal-400",
   },
@@ -218,13 +219,11 @@ export default function Services() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-16 lg:mb-20">
-          <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
-            What We Build
-          </span>
-          <h2 className="h-section mt-5 text-slate-900 dark:text-white">
+          <Badge>What We Build</Badge>
+          <h2 className="h-section mt-5 text-text-1 dark:text-white">
             Software Built Around Your Business
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-text-2 dark:text-text-2">
             From custom systems to SaaS platforms, we build software that fits
             the way your business works.
           </p>
@@ -254,7 +253,7 @@ export default function Services() {
                       <span className="h-px w-8 bg-current opacity-40"></span>
                     </span>
                     <h3
-                      className={`mt-4 text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl`}
+                      className={`mt-4 text-2xl font-bold tracking-tight text-text-1 dark:text-white sm:text-3xl`}
                     >
                       {service.title}
                     </h3>
@@ -268,7 +267,7 @@ export default function Services() {
                         {bullets.map((b) => (
                           <li
                             key={b.title}
-                            className="flex items-start gap-3 text-slate-700 dark:text-slate-300"
+                            className="flex items-start gap-3 text-text-2 dark:text-text-2"
                           >
                             <span
                               className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${c.grad} text-white`}

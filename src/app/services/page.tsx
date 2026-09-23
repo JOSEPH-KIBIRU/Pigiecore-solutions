@@ -26,7 +26,7 @@ export default function ServicesIndexPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <main className="min-h-screen bg-surface-2 dark:bg-slate-950">
         <div className="bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-100 mb-4">
@@ -50,18 +50,18 @@ export default function ServicesIndexPage() {
                 <Link
                   key={service.slug}
                   href={`/services/${service.slug}`}
-                  className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-slate-800 dark:bg-slate-900"
+                  className="group rounded-2xl border border-border-default bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-border-subtle dark:bg-slate-900"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 mb-5 group-hover:scale-110 transition-transform dark:bg-sky-950/30 dark:text-sky-400">
+                  <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center text-brand mb-5 group-hover:scale-110 transition-transform dark:bg-brand/15 dark:text-sky-400">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h2 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                  <h2 className="text-lg font-bold text-text-1 dark:text-white group-hover:text-brand dark:group-hover:text-sky-400 transition-colors">
                     {service.name}
                   </h2>
-                  <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                  <p className="mt-2 text-sm text-text-3 dark:text-text-3 leading-relaxed">
                     {service.tagline}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-500">
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand">
                     Learn more{" "}
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                   </span>

@@ -20,7 +20,7 @@ export default function FinalCta() {
             <div className="mt-9">
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-9 py-4 text-base font-semibold text-sky-600 shadow-lg transition-all hover:bg-sky-50 hover:shadow-xl"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-9 py-4 text-base font-semibold text-brand-ink shadow-lg transition-all hover:bg-brand/10 hover:shadow-xl"
               >
                 Start Your Project <ArrowRight className="w-5 h-5" />
               </Link>

@@ -42,7 +42,7 @@ const slides = [
     title: "Real Estate Dashboards",
     description:
       "Property management platforms with analytics, lead tracking, investment calculators, and smart MLS integrations.",
-    gradient: "from-sky-500 to-blue-600",
+    gradient: "from-brand to-brand-hover",
   },
   {
     image:
@@ -101,15 +101,15 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-20 sm:py-28 lg:py-32 bg-slate-50 dark:bg-slate-900"
+      className="py-20 sm:py-28 lg:py-32 bg-surface-2 dark:bg-slate-900"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <Reveal>
-            <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+            <span className="inline-flex items-center rounded-full border border-brand/25 bg-brand/10 px-4 py-1.5 text-sm font-medium text-brand dark:border-brand/30 dark:bg-brand/15 dark:text-brand-soft">
               Why Pigiecore
             </span>
-            <h2 className="mt-5 text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
+            <h2 className="mt-5 text-3xl font-bold tracking-tight text-text-1 dark:text-white sm:text-4xl lg:text-5xl">
               Why Businesses Choose Pigiecore
             </h2>
             <div className="mt-8 space-y-6">
@@ -117,14 +117,14 @@ export default function About() {
                 const Icon = reason.icon;
                 return (
                   <div key={reason.title} className="flex items-start gap-4">
-                    <div className="w-11 h-11 shrink-0 rounded-xl bg-sky-100 dark:bg-sky-500/20 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+                    <div className="w-11 h-11 shrink-0 rounded-xl bg-brand/15 dark:bg-brand/20 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-brand dark:text-sky-400" />
                     </div>
                     <div>
-                      <div className="font-bold text-slate-900 dark:text-white">
+                      <div className="font-bold text-text-1 dark:text-white">
                         {reason.title}
                       </div>
-                      <div className="mt-1 text-slate-600 dark:text-slate-400 leading-relaxed">
+                      <div className="mt-1 text-text-2 dark:text-text-3 leading-relaxed">
                         {reason.description}
                       </div>
                     </div>
@@ -134,7 +134,7 @@ export default function About() {
             </div>
             <Link
               href="/#contact"
-              className="mt-9 inline-flex items-center gap-2 rounded-full bg-sky-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600 hover:shadow-xl"
+              className="mt-9 inline-flex items-center gap-2 rounded-full bg-brand px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-hover hover:shadow-xl"
             >
               Talk to Our Team <ArrowRight className="w-5 h-5" />
             </Link>
@@ -143,16 +143,16 @@ export default function About() {
           <Reveal delay={0.15}>
             <div className="relative">
             <div
-              className="aspect-[4/3] rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-800 shadow-sm"
+              className="aspect-[4/3] rounded-2xl border border-border-default dark:border-border-default overflow-hidden bg-white dark:bg-surface-muted shadow-sm"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
             >
               <div className="h-full flex flex-col">
-                <div className="h-9 bg-slate-100 dark:bg-slate-700/50 flex items-center px-4 gap-1.5 border-b border-slate-200/50 dark:border-slate-700/50">
+                <div className="h-9 bg-surface-muted dark:bg-slate-700/50 flex items-center px-4 gap-1.5 border-b border-border-default/50 dark:border-border-default/50">
                   <span className="w-3 h-3 rounded-full bg-red-400"></span>
                   <span className="w-3 h-3 rounded-full bg-amber-400"></span>
                   <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
-                  <span className="ml-3 text-[11px] text-slate-400 dark:text-slate-500 font-mono">
+                  <span className="ml-3 text-[11px] text-text-3 dark:text-text-3 font-mono">
                     what-we-do — Pigiecore Solutions
                   </span>
                 </div>
@@ -193,7 +193,7 @@ export default function About() {
                     </div>
                   ))}
                 </div>
-                <div className="h-9 px-4 bg-slate-100 dark:bg-slate-700/50 border-t border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between">
+                <div className="h-9 px-4 bg-surface-muted dark:bg-slate-700/50 border-t border-border-default/50 dark:border-border-default/50 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     {slides.map((_, i) => (
                       <button
@@ -201,13 +201,13 @@ export default function About() {
                         onClick={() => setCurrent(i)}
                         className={`h-1.5 rounded-full transition-all duration-500 ${
                           i === current
-                            ? "w-6 bg-sky-500"
+                            ? "w-6 bg-brand"
                             : "w-1.5 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400"
                         }`}
                       />
                     ))}
                   </div>
-                  <span className="text-[11px] text-slate-400 dark:text-slate-500 font-mono">
+                  <span className="text-[11px] text-text-3 dark:text-text-3 font-mono">
                     {String(current + 1).padStart(2, "0")} /{" "}
                     {String(slides.length).padStart(2, "0")}
                   </span>
@@ -215,7 +215,7 @@ export default function About() {
               </div>
             </div>
 
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-sky-200 to-blue-200 rounded-2xl -z-10 dark:from-sky-500/10 dark:to-blue-500/10"></div>
+            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-sky-200 to-blue-200 rounded-2xl -z-10 dark:from-brand/10 dark:to-blue-500/10"></div>
             <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-violet-200 to-purple-200 rounded-xl -z-10 dark:from-violet-500/10 dark:to-purple-500/10"></div>
           </div>
           </Reveal>

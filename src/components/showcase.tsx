@@ -42,8 +42,8 @@ const fallbackTemplates = [
     title: "Real Estate Dashboard",
     description:
       "Property listings, market analytics, lead tracking, and investment ROI calculators in a single dashboard.",
-    gradient: "from-sky-500 to-blue-600",
-    preview: "bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600",
+    gradient: "from-brand to-brand-hover",
+    preview: "bg-gradient-to-br from-sky-400 via-brand to-indigo-600",
     href: "/solutions/property-management",
   },
   {
@@ -168,13 +168,13 @@ export default function Showcase() {
     <section id="showcase" className="py-20 sm:py-28 lg:py-32 bg-white dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-12">
-          <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+          <span className="inline-flex items-center rounded-full border border-brand/25 bg-brand/10 px-4 py-1.5 text-sm font-medium text-brand dark:border-brand/30 dark:bg-brand/15 dark:text-brand-soft">
             Our Solutions
           </span>
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
+          <h2 className="text-3xl font-bold tracking-tight text-text-1 sm:text-4xl dark:text-white">
             Solutions We Build
           </h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-text-2 dark:text-text-3 max-w-2xl mx-auto">
             Explore the types of business systems Pigiecore can design and
             develop.
           </p>
@@ -184,7 +184,7 @@ export default function Showcase() {
           {scrollPos > 0 && (
             <button
               onClick={() => scroll(-320)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -translate-x-4 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-600 hover:text-sky-500 transition-colors hidden md:flex dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:text-sky-400"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -translate-x-4 w-10 h-10 rounded-full bg-white border border-border-default shadow-md flex items-center justify-center text-text-2 hover:text-brand transition-colors hidden md:flex dark:bg-surface-muted dark:border-border-default dark:text-text-3 dark:hover:text-sky-400"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
@@ -192,7 +192,7 @@ export default function Showcase() {
           {scrollPos < maxScroll - 10 && (
             <button
               onClick={() => scroll(320)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 translate-x-4 w-10 h-10 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-slate-600 hover:text-sky-500 transition-colors hidden md:flex dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:text-sky-400"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 translate-x-4 w-10 h-10 rounded-full bg-white border border-border-default shadow-md flex items-center justify-center text-text-2 hover:text-brand transition-colors hidden md:flex dark:bg-surface-muted dark:border-border-default dark:text-text-3 dark:hover:text-sky-400"
             >
               <ArrowRight className="w-5 h-5" />
             </button>
@@ -211,7 +211,7 @@ export default function Showcase() {
                   key={i}
                   className="flex-shrink-0 w-[85vw] sm:w-[380px] snap-start"
                 >
-                  <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 dark:border-slate-800 dark:bg-slate-900">
+                  <div className="rounded-2xl border border-border-default bg-white shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 dark:border-border-subtle dark:bg-slate-900">
                     <div
                       className={`${template.preview} p-6 flex items-center justify-center min-h-[200px] relative`}
                     >
@@ -235,10 +235,10 @@ export default function Showcase() {
                       )}
                     </div>
                     <div className="p-5">
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                      <h3 className="text-lg font-semibold text-text-1 dark:text-white">
                         {template.title}
                       </h3>
-                      <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                      <p className="mt-2 text-sm text-text-2 dark:text-text-3 leading-relaxed">
                         {template.description}
                       </p>
                       {template.url ? (
@@ -246,14 +246,14 @@ export default function Showcase() {
                           href={template.url.startsWith("http") ? template.url : `https://${template.url}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-500 hover:text-sky-600 transition-colors dark:text-sky-400 dark:hover:text-sky-300"
+                          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand hover:text-brand transition-colors dark:text-sky-400 dark:hover:text-sky-300"
                         >
                           View Project →
                         </a>
                       ) : (
                         <Link
                           href={template.href}
-                          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sky-500 hover:text-sky-600 transition-colors dark:text-sky-400 dark:hover:text-sky-300"
+                          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand hover:text-brand transition-colors dark:text-sky-400 dark:hover:text-sky-300"
                         >
                           Learn More →
                         </Link>
@@ -279,7 +279,7 @@ export default function Showcase() {
                 }}
                 className={`w-2 h-2 rounded-full transition-all ${
                   Math.round(scrollPos / 320) === i
-                    ? "bg-sky-500 w-6"
+                    ? "bg-brand w-6"
                     : "bg-slate-300 dark:bg-slate-600"
                 }`}
               />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Reveal from "@/components/reveal";
 import { Mail, Phone, Clock, MapPin, Send, MessageCircle } from "lucide-react";
 import { track } from "@vercel/analytics";
+import Badge from "@/components/ui/badge";
 
 interface ContactErrors {
   name?: string;
@@ -126,33 +127,31 @@ export default function Contact() {
   }
 
   const inputClass = (hasError: boolean) =>
-    `block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:border-slate-700 ${
+    `block w-full rounded-xl border bg-white px-4 py-3 text-text-1 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-surface-muted dark:text-white dark:placeholder-slate-500 dark:border-border-default ${
       hasError
         ? "border-red-400 focus:border-red-500 focus:ring-red-500/20 dark:border-red-500/60"
-        : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-600"
+        : "border-border-strong focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-600"
     }`;
 
   const selectClass =
-    "block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-slate-800 dark:text-white dark:border-slate-600";
+    "block w-full rounded-xl border border-border-strong bg-white px-4 py-3 text-text-1 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none transition-all dark:bg-surface-muted dark:text-white dark:border-slate-600";
 
   const fieldLabel =
-    "block text-sm font-medium text-slate-700 mb-1.5 dark:text-slate-300";
+    "block text-sm font-medium text-text-2 mb-1.5 dark:text-text-2";
 
   return (
     <section
       id="contact"
-      className="py-20 sm:py-28 lg:py-32 bg-slate-50 dark:bg-slate-950 scroll-mt-20 sm:scroll-mt-28 lg:scroll-mt-32 overflow-hidden"
+      className="py-20 sm:py-28 lg:py-32 bg-surface-2 dark:bg-slate-950 scroll-mt-20 sm:scroll-mt-28 lg:scroll-mt-32 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <Reveal>
-            <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
-              Contact Us
-            </span>
-            <h2 className="h-section mt-6 text-slate-900 dark:text-white">
+            <Badge>Contact Us</Badge>
+            <h2 className="h-section mt-6 text-text-1 dark:text-white">
               What are you looking to build?
             </h2>
-            <p className="mt-5 text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+            <p className="mt-5 text-lg text-text-2 dark:text-text-3 max-w-xl leading-relaxed">
               Tell us about your project and we will get back to you within 1
               hour. Free consultation, no obligation — just a clear conversation
               about your goals.
@@ -163,14 +162,14 @@ export default function Contact() {
                 const Icon = item.icon;
                 const content = (
                   <>
-                    <span className="w-11 h-11 shrink-0 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-sky-500 dark:bg-slate-900 dark:border-slate-800 dark:text-sky-400">
+                    <span className="w-11 h-11 shrink-0 rounded-xl bg-white border border-border-default shadow-sm flex items-center justify-center text-brand dark:bg-slate-900 dark:border-border-subtle dark:text-sky-400">
                       <Icon className="w-5 h-5" />
                     </span>
                     <span>
-                      <span className="block text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      <span className="block text-xs font-semibold uppercase tracking-wider text-text-3 dark:text-text-3">
                         {item.label}
                       </span>
-                      <span className="mt-0.5 block text-slate-900 dark:text-white">
+                      <span className="mt-0.5 block text-text-1 dark:text-white">
                         {item.value}
                       </span>
                     </span>
@@ -197,7 +196,7 @@ export default function Contact() {
           </Reveal>
 
           <Reveal>
-            <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xl shadow-slate-200/60 lg:sticky lg:top-24 dark:border-slate-800 dark:bg-slate-900 dark:shadow-none">
+            <div className="rounded-3xl border border-border-default bg-white p-6 sm:p-8 shadow-xl shadow-slate-200/60 lg:sticky lg:top-24 dark:border-border-subtle dark:bg-slate-900 dark:shadow-none">
               <form className="space-y-5" noValidate onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
@@ -218,7 +217,7 @@ export default function Contact() {
                       aria-invalid={!!errors.name}
                     />
                     {errors.name && (
-                      <p className="mt-1.5 text-sm text-red-500">{errors.name}</p>
+                      <p className="mt-1.5 text-sm text-error">{errors.name}</p>
                     )}
                   </div>
                   <div>
@@ -239,7 +238,7 @@ export default function Contact() {
                       aria-invalid={!!errors.email}
                     />
                     {errors.email && (
-                      <p className="mt-1.5 text-sm text-red-500">{errors.email}</p>
+                      <p className="mt-1.5 text-sm text-error">{errors.email}</p>
                     )}
                   </div>
                 </div>
@@ -263,7 +262,7 @@ export default function Contact() {
                     aria-invalid={!!errors.phone}
                   />
                   {errors.phone && (
-                    <p className="mt-1.5 text-sm text-red-500">{errors.phone}</p>
+                    <p className="mt-1.5 text-sm text-error">{errors.phone}</p>
                   )}
                 </div>
                 <div>
@@ -337,13 +336,13 @@ export default function Contact() {
                     aria-invalid={!!errors.message}
                   ></textarea>
                   {errors.message && (
-                    <p className="mt-1.5 text-sm text-red-500">{errors.message}</p>
+                    <p className="mt-1.5 text-sm text-error">{errors.message}</p>
                   )}
                 </div>
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:from-sky-600 hover:to-blue-700 hover:shadow-xl hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand to-brand-hover px-8 py-4 text-base font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:opacity-95 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {status === "loading"
                     ? "Sending..."
@@ -357,12 +356,12 @@ export default function Contact() {
                     )}
                 </button>
                 {status === "success" && (
-                  <p className="text-sm text-emerald-600 text-center dark:text-emerald-400">
+                  <p className="text-sm text-success text-center dark:text-emerald-400">
                     Thanks! We will get back to you soon.
                   </p>
                 )}
                 {status === "error" && (
-                  <p className="text-sm text-red-600 text-center dark:text-red-400">
+                  <p className="text-sm text-error text-center dark:text-red-400">
                     Something went wrong. Please try again or email us directly.
                   </p>
                 )}

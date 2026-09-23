@@ -62,7 +62,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col flex-1 bg-slate-50 dark:bg-slate-950">
+      <main className="flex flex-col flex-1 bg-surface-2 dark:bg-slate-950">
         <section className="bg-gradient-to-br from-sky-600 via-blue-600 to-indigo-700">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 text-center">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-100 mb-4">
@@ -86,10 +86,10 @@ export default function AboutPage() {
               {STATS.map((s) => (
                 <div
                   key={s.label}
-                  className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-center"
+                  className="p-5 rounded-2xl border border-border-default dark:border-border-default bg-surface-2 dark:bg-surface-muted text-center"
                 >
-                  <div className="text-3xl font-bold text-sky-500">{s.value}</div>
-                  <div className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  <div className="text-3xl font-bold text-brand">{s.value}</div>
+                  <div className="mt-1 text-sm text-text-3 dark:text-text-3">
                     {s.label}
                   </div>
                 </div>
@@ -100,10 +100,10 @@ export default function AboutPage() {
 
         <section className="py-16 sm:py-20">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
+            <h2 className="text-3xl font-bold text-text-1 dark:text-white sm:text-4xl">
               Who We Are
             </h2>
-            <div className="mt-6 space-y-5 text-lg text-slate-600 dark:text-slate-300 leading-8">
+            <div className="mt-6 space-y-5 text-lg text-text-2 dark:text-text-2 leading-8">
               <p>
                 Pigiecore Solutions is a team of <strong>Experienced professionals</strong>{" "}
                 passionate about solving local business problems. We live where our
@@ -117,10 +117,10 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <h2 className="mt-12 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
+            <h2 className="mt-12 text-3xl font-bold text-text-1 dark:text-white sm:text-4xl">
               Why We Do This
             </h2>
-            <div className="mt-6 space-y-5 text-lg text-slate-600 dark:text-slate-300 leading-8">
+            <div className="mt-6 space-y-5 text-lg text-text-2 dark:text-text-2 leading-8">
               <p>
                 Pigiecore was founded on a simple belief: <strong>great software
                 should be accessible to every business, regardless of size.</strong>{" "}
@@ -135,22 +135,22 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <h2 className="mt-12 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
+            <h2 className="mt-12 text-3xl font-bold text-text-1 dark:text-white sm:text-4xl">
               What Makes Us Different
             </h2>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
               {DIFFERENTIATORS.map((item, i) => (
                 <Reveal key={item.title} delay={i * 0.08}>
                   <div
-                    className="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                    className="p-6 rounded-2xl bg-white dark:bg-surface-muted border border-border-default dark:border-border-default shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                   >
-                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand to-brand-hover flex items-center justify-center mb-4">
                       <item.icon className="w-5 h-5 text-white" />
                     </div>
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-lg font-bold text-text-1 dark:text-white">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="mt-2 text-text-2 dark:text-text-3 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -163,16 +163,16 @@ export default function AboutPage() {
         <section className="py-16 sm:py-20 bg-white dark:bg-slate-900">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Reveal>
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
+              <h2 className="text-3xl font-bold text-text-1 dark:text-white sm:text-4xl">
                 Ready to build with us?
               </h2>
-              <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-lg text-text-2 dark:text-text-3 max-w-2xl mx-auto">
                 Tell us about your business and we'll show you what custom software
                 could do for it — with a response within 24 hours.
               </p>
               <Link
                 href="/#contact"
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-sky-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-hover"
               >
                 Start a Project <ArrowRight className="w-5 h-5" />
               </Link>

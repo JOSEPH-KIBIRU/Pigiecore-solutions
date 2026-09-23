@@ -26,7 +26,7 @@ export default function SolutionsIndexPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <main className="min-h-screen bg-surface-2 dark:bg-slate-950">
         <div className="bg-gradient-to-br from-teal-600 via-emerald-600 to-green-700">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
             <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teal-100 mb-4">
@@ -50,15 +50,15 @@ export default function SolutionsIndexPage() {
                 <Link
                   key={solution.slug}
                   href={`/solutions/${solution.slug}`}
-                  className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-slate-800 dark:bg-slate-900"
+                  className="group rounded-2xl border border-border-default bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 dark:border-border-subtle dark:bg-slate-900"
                 >
                   <div className="w-12 h-12 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600 mb-5 group-hover:scale-110 transition-transform dark:bg-teal-950/30 dark:text-teal-400">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h2 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                  <h2 className="text-lg font-bold text-text-1 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                     {solution.name}
                   </h2>
-                  <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                  <p className="mt-2 text-sm text-text-3 dark:text-text-3 leading-relaxed">
                     {solution.tagline}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-teal-600 dark:text-teal-400">

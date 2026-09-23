@@ -46,30 +46,30 @@ export default function BomaPulseCase() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="selected-work" className="py-20 sm:py-28 bg-slate-50 dark:bg-slate-900">
+    <section id="selected-work" className="py-20 sm:py-28 bg-surface-2 dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center mb-14">
-          <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+          <span className="inline-flex items-center rounded-full border border-brand/25 bg-brand/10 px-4 py-1.5 text-sm font-medium text-brand dark:border-brand/30 dark:bg-brand/15 dark:text-brand-soft">
             Our Work
           </span>
-            <h2 className="h-section mt-5 text-slate-900 dark:text-white">
+            <h2 className="h-section mt-5 text-text-1 dark:text-white">
             Selected Work
           </h2>
-          <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-text-2 dark:text-text-3 max-w-2xl mx-auto">
             Real systems we&apos;ve shipped. BomaPulse is our first full case
             study.
           </p>
         </Reveal>
 
         <Reveal delay={0.05}>
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-800">
+          <div className="overflow-hidden rounded-3xl border border-border-default bg-white shadow-xl dark:border-border-default dark:bg-surface-muted">
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-700">
-                <div className="h-9 bg-slate-100 dark:bg-slate-700/50 flex items-center px-4 gap-1.5 border-b border-slate-200/50 dark:border-slate-700/50">
+              <div className="border-b lg:border-b-0 lg:border-r border-border-default dark:border-border-default">
+                <div className="h-9 bg-surface-muted dark:bg-slate-700/50 flex items-center px-4 gap-1.5 border-b border-border-default/50 dark:border-border-default/50">
                   <span className="w-3 h-3 rounded-full bg-red-400"></span>
                   <span className="w-3 h-3 rounded-full bg-amber-400"></span>
                   <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
-                  <span className="ml-3 text-[11px] text-slate-400 dark:text-slate-500 font-mono">
+                  <span className="ml-3 text-[11px] text-text-3 dark:text-text-3 font-mono">
                     bomapulse — live
                   </span>
                 </div>
@@ -83,13 +83,13 @@ export default function BomaPulseCase() {
                 </div>
               </div>
               <div className="flex flex-col justify-center p-8 sm:p-10">
-                <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
+                <span className="inline-flex items-center rounded-full border border-brand/25 bg-brand/10 px-3 py-1 text-xs font-semibold text-brand dark:border-brand/30 dark:bg-brand/15 dark:text-brand-soft">
                   Case Study
                 </span>
-                <h3 className="mt-4 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+                <h3 className="mt-4 text-2xl sm:text-3xl font-bold text-text-1 dark:text-white">
                   BomaPulse — Real Estate, Fully Automated
                 </h3>
-                <p className="mt-4 text-slate-600 dark:text-slate-300 leading-8">
+                <p className="mt-4 text-text-2 dark:text-text-2 leading-8">
                   A property management platform that helps landlords and agents
                   collect rent, track units, and understand their portfolio — all
                   from one dashboard.
@@ -99,13 +99,13 @@ export default function BomaPulseCase() {
                     href={BOMAPULSE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-sky-600"
+                    className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-hover"
                   >
                     Visit BomaPulse <ExternalLink className="w-4 h-4" />
                   </a>
                   <Link
                     href="/#contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-300 dark:border-slate-600 px-6 py-3 text-sm font-semibold text-slate-700 dark:text-slate-200 transition-all hover:border-sky-500 hover:text-sky-500 dark:hover:text-sky-400"
+                    className="inline-flex items-center gap-2 rounded-full border border-border-strong dark:border-slate-600 px-6 py-3 text-sm font-semibold text-text-2 dark:text-slate-200 transition-all hover:border-brand hover:text-brand dark:hover:text-sky-400"
                   >
                     <Plus className="w-4 h-4" /> Build a Similar Solution
                     <ArrowRight className="w-4 h-4" />
@@ -114,7 +114,7 @@ export default function BomaPulseCase() {
               </div>
             </div>
 
-            <div className="border-t border-slate-200 dark:border-slate-700 p-6 sm:p-8">
+            <div className="border-t border-border-default dark:border-border-default p-6 sm:p-8">
               <div className="flex flex-wrap gap-2 mb-6">
                 {TABS.map((tab, i) => (
                   <button
@@ -122,16 +122,16 @@ export default function BomaPulseCase() {
                     onClick={() => setActive(i)}
                     className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
                       i === active
-                        ? "bg-sky-500 text-white shadow-md shadow-sky-500/25"
-                        : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-700/50 dark:text-slate-300 dark:hover:bg-slate-700"
+                        ? "bg-brand text-white shadow-md shadow-brand/25"
+                        : "bg-surface-muted text-text-2 hover:bg-slate-200 dark:bg-slate-700/50 dark:text-text-2 dark:hover:bg-slate-700"
                     }`}
                   >
                     {tab.label}
                   </button>
                 ))}
               </div>
-              <div className="rounded-2xl bg-slate-50 dark:bg-slate-900 p-6 sm:p-8">
-                <p className="text-slate-700 dark:text-slate-200 leading-8">
+              <div className="rounded-2xl bg-surface-2 dark:bg-slate-900 p-6 sm:p-8">
+                <p className="text-text-2 dark:text-slate-200 leading-8">
                   {TABS[active].content}
                 </p>
               </div>

@@ -99,7 +99,7 @@ function TechColumn({
   const duplicated = [...items, ...items];
 
   return (
-    <div className="relative h-[400px] overflow-hidden">
+    <div className="relative h-[320px] overflow-hidden sm:h-[400px]">
       {/* Fade top */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-[#101114] to-transparent" />
 
@@ -158,7 +158,7 @@ export default function PigiecoreTechnology() {
         {/* Technology showcase */}
         <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           {/* Animated technologies — right */}
-          <div className="grid grid-cols-3 gap-4 lg:order-2">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:order-2">
             <TechColumn items={columnOne} duration={24} />
 
             <TechColumn items={columnTwo} reverse duration={28} />

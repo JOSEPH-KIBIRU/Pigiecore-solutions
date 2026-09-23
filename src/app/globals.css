@@ -4,17 +4,41 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  /* Backgrounds */
+  --surface-1: #ffffff; /* page */
+  --surface-2: #f7f7f5; /* secondary */
+  --surface-3: #ffffff; /* elevated */
+  --surface-muted: #f1f0ec; /* muted */
+
+  /* Text */
+  --text-1: #101112;
+  --text-2: #4b4d52;
+  --text-3: #6d6d72;
+  --text-inverse: #ffffff;
+
+  /* Brand (from Pigiecore identity: technical violet + cyan secondary) */
+  --brand: #6b5cff;
+  --brand-hover: #5b4de0;
+  --brand-soft: #9d95ff;
+  --brand-2: #0ea5e9;
+
+  /* Borders */
+  --border-subtle: rgba(16, 17, 18, 0.06);
+  --border-default: rgba(16, 17, 18, 0.12);
+  --border-strong: rgba(16, 17, 18, 0.22);
+
+  /* States */
+  --success: #15803d;
+  --warning: #b45309;
+  --error: #dc2626;
+
+  /* Legacy aliases kept for existing components */
   --background: #ffffff;
   --foreground: #0f172a;
   --primary: #0a1628;
   --accent: #6b5cff;
   --accent-dark: #5b4de0;
   --accent-soft: #9d95ff;
-  --brand-ink: #101112;
-  --brand-paper: #fbfaf7;
-  --brand-canvas: #f3f0ea;
-  --brand-muted: #6d6d72;
-  --brand-line: rgba(16, 17, 18, 0.1);
   --muted: #64748b;
   --light-bg: #f8fafc;
   --card-border: #e2e8f0;
@@ -24,6 +48,29 @@
 }
 
 .dark {
+  --surface-1: #0b0c0e;
+  --surface-2: #101114;
+  --surface-3: #17191e;
+  --surface-muted: #0f1013;
+
+  --text-1: #f4f5f7;
+  --text-2: #c3c6cc;
+  --text-3: #8b8e95;
+  --text-inverse: #0b0c0e;
+
+  --brand: #9d95ff;
+  --brand-hover: #b3adff;
+  --brand-soft: #6b5cff;
+  --brand-2: #38bdf8;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.22);
+
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #f87171;
+
   --background: #0a0a0a;
   --foreground: #e2e8f0;
   --primary: #f1f5f9;
@@ -39,34 +86,31 @@
 }
 
 /* ------------------------------------------------------------------
-   Design tokens (single source of truth).
-   Colors, radii and a fluid type scale live here only — components
-   should use these tokens instead of raw hex / one-off values.
+   Design tokens — single source of truth (radius, shadow, type,
+   container, motion). Colors are runtime vars mapped in @theme inline.
 ------------------------------------------------------------------ */
 @theme {
-  /* Brand palette */
-  --color-brand: #6b5cff;
-  --color-brand-strong: #5b4de0;
-  --color-brand-soft: #9d95ff;
-  --color-ink: #101112;
-  --color-ink-2: #17191e;
-  --color-paper: #fbfaf7;
-  --color-canvas: #f3f0ea;
-  --color-muted-ink: #6d6d72;
-  --color-line: rgba(16, 17, 18, 0.1);
-
-  /* Radii */
   --radius-card: 1.25rem;
-  --radius-panel: 2rem;
+  --radius-panel: 1.75rem;
   --radius-pill: 999px;
 
+  --shadow-card: 0 1px 2px rgba(16, 17, 18, 0.04), 0 12px 30px rgba(16, 17, 18, 0.06);
+  --shadow-panel: 0 30px 80px rgba(16, 17, 18, 0.12);
+  --shadow-glow: 0 0 40px rgba(107, 92, 255, 0.22);
+
+  --container-page: 80rem;
+
   /* Fluid type scale (mobile-first, no overflow at 320px) */
-  --text-eyebrow: 0.6875rem; /* 11px */
-  --text-hero: clamp(2.5rem, 8vw, 7.375rem);
-  --text-display: clamp(2.25rem, 5.6vw, 4.875rem);
-  --text-section: clamp(1.75rem, 3.6vw, 3rem);
-  --text-card: clamp(1.125rem, 1.6vw, 1.75rem);
-  --text-lead: clamp(1rem, 1.4vw, 1.125rem);
+  --text-eyebrow: 0.6875rem;
+  --text-hero: clamp(2.7rem, 7vw, 6rem);
+  --text-display: clamp(2.25rem, 5vw, 4rem);
+  --text-section: clamp(2rem, 4vw, 4rem);
+  --text-card: clamp(1.1rem, 2vw, 1.5rem);
+  --text-lead: clamp(0.95rem, 1.2vw, 1.1rem);
+  --text-body: clamp(0.95rem, 1vw, 1.05rem);
+
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
@@ -80,6 +124,27 @@
   --color-light-bg: var(--light-bg);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
+
+  /* Semantic surfaces / text / brand / borders / states */
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-muted: var(--surface-muted);
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-text-inverse: var(--text-inverse);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-2: var(--brand-2);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -291,4 +356,55 @@ body, body * {
 
 *::-webkit-scrollbar-track {
   background: transparent;
+}
+
+/* ------------------------------------------------------------------
+   Typography & layout primitives (use these instead of ad-hoc values)
+------------------------------------------------------------------ */
+.u-container {
+  width: min(100% - 32px, var(--container-page));
+  margin-inline: auto;
+}
+@media (min-width: 640px) {
+  .u-container { width: min(100% - 48px, var(--container-page)); }
+}
+
+.u-section { padding-block: clamp(4.5rem, 8vw, 8rem); }
+
+.h-hero {
+  font-size: var(--text-hero);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+.h-section {
+  font-size: var(--text-section);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  font-weight: 650;
+  text-wrap: balance;
+}
+.h-card {
+  font-size: var(--text-card);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+.lead {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+.eyebrow-u {
+  font-size: var(--text-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+}
+
+body {
+  font-feature-settings: "cv11", "ss01";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }

@@ -149,7 +149,7 @@ export default function Contact() {
             <span className="inline-flex items-center rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/30 dark:text-sky-300">
               Contact Us
             </span>
-            <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15] dark:text-white">
+            <h2 className="h-section mt-6 text-slate-900 dark:text-white">
               What are you looking to build?
             </h2>
             <p className="mt-5 text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">

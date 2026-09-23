@@ -145,7 +145,7 @@ export default function PigiecoreTechnology() {
             </span>
           </div>
 
-          <h2 className="text-[clamp(38px,5vw,66px)] font-semibold leading-[1.02] tracking-[-0.05em]">
+          <h2 className="h-section">
             A modern stack,
             <span className="block text-white/40">chosen for the job.</span>
           </h2>
@@ -173,7 +173,7 @@ export default function PigiecoreTechnology() {
                 Technology meets business
               </span>
 
-              <h3 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h3 className="h-card mt-5">
                 We don&apos;t just build software.
                 <span className="block text-white/40">
                   We build digital infrastructure.

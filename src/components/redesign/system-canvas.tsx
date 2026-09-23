@@ -30,7 +30,7 @@ export function SystemCanvas() {
         <div className="core-icon"><Sparkles size={20} /></div>
         <div>
           <div className="core-kicker">Pigiecore Solutions</div>
-          <div className="core-title">We offer you customized services</div>
+          <div className="core-title">One connected system for your business</div>
         </div>
         <div className="core-status"><span /> Live</div>
         <div className="core-bars">

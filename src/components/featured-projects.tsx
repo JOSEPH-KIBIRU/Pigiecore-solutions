@@ -220,11 +220,11 @@ export default function FeaturedProjects() {
             </AnimatePresence>
           </div>
 
-          {/* RIGHT — PROJECT IMAGE */}
+          {/* RIGHT — PROJECT IMAGE (unframed, floating) */}
           <div className="relative">
-            <div className="pointer-events-none absolute inset-0 -z-10 rounded-[40px] bg-[#6b5cff]/[0.08] blur-[100px]" />
+            <div className="pointer-events-none absolute inset-x-6 top-1/2 -z-10 h-2/3 -translate-y-1/2 rounded-full bg-[#6b5cff]/[0.14] blur-[100px]" />
 
-            <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.025] p-3 shadow-2xl">
+            <div className="relative">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={project.id}
@@ -240,11 +240,11 @@ export default function FeaturedProjects() {
                       alt={`${project.title} project`}
                       loading="lazy"
                       decoding="async"
-                      className="block aspect-[16/10] w-full rounded-[20px] object-cover"
+                      className="mx-auto block h-auto max-h-[560px] w-full object-contain drop-shadow-[0_30px_70px_rgba(0,0,0,0.5)]"
                     />
                   ) : (
                     <div
-                      className={`flex aspect-[16/10] w-full items-center justify-center rounded-[20px] bg-gradient-to-br ${project.gradient}`}
+                      className={`flex aspect-[16/10] w-full items-center justify-center rounded-none bg-gradient-to-br ${project.gradient} drop-shadow-[0_30px_70px_rgba(0,0,0,0.5)]`}
                     >
                       <span className="text-5xl font-bold text-white/90">
                         {project.title.charAt(0)}

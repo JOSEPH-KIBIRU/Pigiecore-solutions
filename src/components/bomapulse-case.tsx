@@ -62,27 +62,19 @@ export default function BomaPulseCase() {
         </Reveal>
 
         <Reveal delay={0.05}>
-          <div className="overflow-hidden rounded-3xl border border-border-default bg-surface-2 shadow-xl dark:border-border-default dark:bg-surface-muted">
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="border-b lg:border-b-0 lg:border-r border-border-default dark:border-border-default">
-                <div className="h-9 bg-surface-muted dark:bg-slate-700/50 flex items-center px-4 gap-1.5 border-b border-border-default/50 dark:border-border-default/50">
-                  <span className="w-3 h-3 rounded-full bg-red-400"></span>
-                  <span className="w-3 h-3 rounded-full bg-amber-400"></span>
-                  <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
-                  <span className="ml-3 text-[11px] text-text-3 dark:text-text-3 font-mono">
-                    bomapulse — live
-                  </span>
-                </div>
-                <div className="relative">
-                  <img
-                    src={BOMAPULSE_IMAGE}
-                    alt="BomaPulse dashboard screenshot"
-                    className="w-full aspect-[4/3] object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center p-8 sm:p-10">
+          <div className="relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+            <div className="relative order-2 lg:order-1">
+              <div className="pointer-events-none absolute inset-x-8 top-1/2 -z-10 h-2/3 -translate-y-1/2 rounded-full bg-brand/15 blur-[90px]" />
+              <img
+                src={BOMAPULSE_IMAGE}
+                alt="BomaPulse dashboard screenshot"
+                loading="lazy"
+                decoding="async"
+                className="mx-auto block h-auto max-h-[540px] w-full object-contain drop-shadow-[0_30px_70px_rgba(0,0,0,0.35)]"
+              />
+            </div>
+            <div className="flex flex-col justify-center order-1 lg:order-2">
                 <span className="inline-flex items-center rounded-full border border-brand/25 bg-brand/10 px-3 py-1 text-xs font-semibold text-brand dark:border-brand/30 dark:bg-brand/15 dark:text-brand-soft">
                   Case Study
                 </span>
@@ -114,7 +106,7 @@ export default function BomaPulseCase() {
               </div>
             </div>
 
-            <div className="border-t border-border-default dark:border-border-default p-6 sm:p-8">
+            <div className="mt-12 border-t border-border-default pt-8">
               <div className="flex flex-wrap gap-2 mb-6">
                 {TABS.map((tab, i) => (
                   <button
@@ -123,14 +115,14 @@ export default function BomaPulseCase() {
                     className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
                       i === active
                         ? "bg-brand text-white shadow-md shadow-brand/25"
-                        : "bg-surface-muted text-text-2 hover:bg-slate-200 dark:bg-slate-700/50 dark:text-text-2 dark:hover:bg-slate-700"
+                        : "bg-surface-muted text-text-2 hover:bg-surface-muted dark:bg-surface-muted dark:text-text-2"
                     }`}
                   >
                     {tab.label}
                   </button>
                 ))}
               </div>
-              <div className="rounded-2xl bg-surface-2 dark:bg-surface-2 p-6 sm:p-8">
+              <div className="rounded-2xl bg-surface-1 p-6 sm:p-8">
                 <p className="text-text-2 dark:text-white/80 leading-8">
                   {TABS[active].content}
                 </p>

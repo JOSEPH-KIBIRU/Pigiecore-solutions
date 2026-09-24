@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { signIn, signOut, getCurrentUser } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import AdminInvoices from "@/components/admin-invoices";
+import Logo from "@/components/logo";
 import AdminUsers from "@/components/admin-users";
 import AdminBlog from "@/components/admin-blog";
 import AdminTestimonials from "@/components/admin-testimonials";
@@ -477,9 +478,7 @@ export default function AdminPage() {
       <main className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center py-20">
         <div className="w-full max-w-md px-4">
           <div className="mb-8 text-center">
-            <div className="w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-sky-500/25">
-              <span className="text-white font-bold text-2xl">P</span>
-            </div>
+            <Logo size={56} accentColor="#4D9BFF" className="mx-auto mb-4 text-text-1 dark:text-white" />
             <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Welcome Back</h1>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
               Sign in to manage your site

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Pigiecore Solutions">
+  <defs>
+    <style>
+      .pg-primary { fill: #000000; }
+      .pg-accent { fill: #0056D2; }
+      .pg-text-main { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: 72px; fill: #000000; letter-spacing: 1px; }
+      .pg-text-sub { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 26px; fill: #0056D2; letter-spacing: 4px; }
+    </style>
+  </defs>
+
+  <rect width="600" height="600" fill="#FFFFFF" />
+
+  <g transform="translate(150, 100)">
+    <path class="pg-primary" d="M0,0 L200,0 C255,0 300,45 300,100 L300,100 C300,155 255,200 200,200 L120,200 L120,300 L0,300 Z" />
+    <path fill="#FFFFFF" d="M120,60 L180,60 C203,60 220,77 220,100 C220,123 203,140 180,140 L120,140 Z" />
+    <circle class="pg-accent" cx="260" cy="140" r="18" />
+  </g>
+
+  <text x="300" y="480" text-anchor="middle" class="pg-text-main">PIGIECORE</text>
+  <text x="300" y="530" text-anchor="middle" class="pg-text-sub">SOLUTIONS</text>
+</svg>

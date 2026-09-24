@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Custom software development in Kenya for real estate, logistics, salons, schools, and hospitals.",
     start_url: "/",
     display: "standalone",
-    background_color: "#0f172a",
-    theme_color: "#0ea5e9",
+    background_color: "#0b0c0e",
+    theme_color: "#6b5cff",
     icons: [
       {
         src: "/icon.svg",

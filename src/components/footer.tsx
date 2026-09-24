@@ -26,7 +26,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#101114] text-white/55 py-14 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 text-center sm:text-left">
           <div className="lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
               <Logo size={36} className="text-white" />

@@ -58,7 +58,7 @@ export default function Navbar() {
       <div className="w-full px-5 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-16 gap-6">
           <Link href="/" aria-label="Pigiecore Solutions — Home" className="shrink-0">
-            <Logo size={38} />
+            <Logo size={38} accentColor="#4D9BFF" className="text-white" />
           </Link>
 
           {/* Desktop nav */}

@@ -557,9 +557,7 @@ export default function AdminPage() {
       <aside className="w-64 shrink-0 bg-white border-r border-slate-200 dark:bg-slate-900 dark:border-slate-800 hidden lg:flex flex-col">
         <div className="p-6 border-b border-slate-200 dark:border-slate-800">
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-base">P</span>
-            </div>
+            <Logo size={36} accentColor="#4D9BFF" className="text-slate-900 dark:text-white" />
             <span className="font-bold text-slate-900 dark:text-white">PigieCore</span>
           </Link>
         </div>
@@ -590,9 +588,7 @@ export default function AdminPage() {
       <div className="flex-1 min-w-0">
         <div className="lg:hidden bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 p-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">P</span>
-            </div>
+            <Logo size={32} accentColor="#4D9BFF" className="text-slate-900 dark:text-white" />
             <span className="font-bold text-slate-900 dark:text-white text-sm">PigieCore</span>
           </Link>
           <button

@@ -14,7 +14,7 @@ const SERVICES = [
   { value: "other", label: "Other" },
 ];
 
-interface Invoice {
+interface Quotation {
   id: number;
   created_at: string;
   client_name: string;
@@ -26,7 +26,7 @@ interface Invoice {
   vat_rate: number;
   vat_amount: number;
   total: number;
-  invoice_number: string;
+  quote_number: string;
   status: string;
   payment_bank: string | null;
   payment_account_name: string | null;
@@ -48,8 +48,8 @@ function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
-function generateInvoiceNumber(): string {
-  const prefix = "PINV";
+function generateQuotationNumber(): string {
+  const prefix = "PQT";
   const date = new Date();
   const d = date.getDate().toString().padStart(2, "0");
   const m = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -58,8 +58,8 @@ function generateInvoiceNumber(): string {
   return `${prefix}-${d}${m}${y}-${rand}`;
 }
 
-export default function AdminInvoices() {
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
+export default function AdminQuotations() {
+  const [quotations, setQuotations] = useState<Quotation[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [clients, setClients] = useState<ClientOption[]>([]);
@@ -89,19 +89,19 @@ export default function AdminInvoices() {
   const [company, setCompany] = useState<{ company_name?: string; email?: string; phone?: string; address?: string; logo_url?: string } | null>(null);
 
   useEffect(() => {
-    fetchInvoices();
+    fetchQuotations();
     fetchClients();
     fetchCompany();
   }, []);
 
-  async function fetchInvoices() {
+  async function fetchQuotations() {
     setLoading(true);
     const { data, error } = await supabase
-      .from("invoices")
+      .from("quotations")
       .select("*")
       .order("created_at", { ascending: false })
       .limit(50);
-    if (!error && data) setInvoices(data as Invoice[]);
+    if (!error && data) setQuotations(data as Quotation[]);
     setLoading(false);
   }
 
@@ -125,7 +125,7 @@ export default function AdminInvoices() {
     setShowForm(true);
   }
 
-  function openEditForm(inv: Invoice) {
+  function openEditForm(inv: Quotation) {
     setEditingId(inv.id);
     setForm({
       client_name: inv.client_name,
@@ -156,7 +156,7 @@ export default function AdminInvoices() {
     if (data) setCompany(data);
   }
 
-  async function saveInvoice() {
+  async function saveQuotation() {
     const nextErrors: Record<string, string> = {};
     if (!form.client_name.trim()) {
       nextErrors.client_name = "Client name is required";
@@ -198,12 +198,12 @@ export default function AdminInvoices() {
 
     let error;
     if (editingId) {
-      ({ error } = await supabase.from("invoices").update(payload).eq("id", editingId));
+      ({ error } = await supabase.from("quotations").update(payload).eq("id", editingId));
     } else {
-      const invoiceNumber = generateInvoiceNumber();
-      ({ error } = await supabase.from("invoices").insert({
+      const quotationNumber = generateQuotationNumber();
+      ({ error } = await supabase.from("quotations").insert({
         ...payload,
-        invoice_number: invoiceNumber,
+        quote_number: quotationNumber,
         status: "pending",
       }));
     }
@@ -216,22 +216,22 @@ export default function AdminInvoices() {
 
     setShowForm(false);
     setEditingId(null);
-    fetchInvoices();
+    fetchQuotations();
     setSaving(false);
   }
 
   async function updateStatus(id: number, status: string) {
-    await supabase.from("invoices").update({ status }).eq("id", id);
-    setInvoices((prev) => prev.map((inv) => (inv.id === id ? { ...inv, status } : inv)));
+    await supabase.from("quotations").update({ status }).eq("id", id);
+    setQuotations((prev) => prev.map((inv) => (inv.id === id ? { ...inv, status } : inv)));
   }
 
-  async function deleteInvoice(id: number) {
-    if (!window.confirm("Delete this invoice?")) return;
-    await supabase.from("invoices").delete().eq("id", id);
-    setInvoices((prev) => prev.filter((inv) => inv.id !== id));
+  async function deleteQuotation(id: number) {
+    if (!window.confirm("Delete this quotation?")) return;
+    await supabase.from("quotations").delete().eq("id", id);
+    setQuotations((prev) => prev.filter((inv) => inv.id !== id));
   }
 
-  async function buildPdf(inv: Invoice) {
+  async function buildPdf(inv: Quotation) {
     const { default: jsPDF } = await import("jspdf");
 
     const pdf = new jsPDF("p", "mm", "a4");
@@ -276,16 +276,16 @@ export default function AdminInvoices() {
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor("#94a3b8");
     pdf.text(company?.email || company?.phone || "Custom Software Solutions", left + 13, 18.5);
-    // INVOICE badge on the right
+    // QUOTATION badge on the right
     pdf.setFillColor("#6b5cff");
     pdf.roundedRect(125, 9, pageW + left - 125, 16, 1, 1, "F");
     pdf.setTextColor("#ffffff");
     pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
-    pdf.text("INVOICE", 128, 20);
-    const invoiceWordWidth = pdf.getTextWidth("INVOICE");
+    pdf.text("QUOTATION", 128, 20);
+    const quotationWordWidth = pdf.getTextWidth("QUOTATION");
     pdf.setFontSize(9);
-    pdf.text(`#${inv.invoice_number}`, 128 + invoiceWordWidth + 6, 20);
+    pdf.text(`#${inv.quote_number}`, 128 + quotationWordWidth + 6, 20);
 
     y = 44;
 
@@ -299,7 +299,7 @@ export default function AdminInvoices() {
     }
 
     const metaTop = billY;
-    text("INVOICE DATE", 7, left + pageW, { color: "#94a3b8", align: "right", top: metaTop });
+    text("QUOTATION DATE", 7, left + pageW, { color: "#94a3b8", align: "right", top: metaTop });
     text(formatDate(inv.created_at), 10, left + pageW, { color: "#334155", align: "right", top: metaTop + 5.5 });
     if (inv.client_phone) {
       y = billY + 18;
@@ -375,12 +375,12 @@ export default function AdminInvoices() {
     return pdf;
   }
 
-  async function downloadPdf(inv: Invoice) {
+  async function downloadPdf(inv: Quotation) {
     const pdf = await buildPdf(inv);
-    pdf.save(`${inv.invoice_number}.pdf`);
+    pdf.save(`${inv.quote_number}.pdf`);
   }
 
-  async function emailInvoice(inv: Invoice) {
+  async function emailQuotation(inv: Quotation) {
     setSendingId(inv.id);
     setFormError("");
     try {
@@ -399,17 +399,17 @@ export default function AdminInvoices() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           to: inv.client_email,
-          subject: `Invoice ${inv.invoice_number} from Pigiecore Solutions`,
-          message: `<p>Hi ${inv.client_name},</p><p>Please find your invoice <strong>${inv.invoice_number}</strong> for <strong>${formatCurrency(inv.total)}</strong> attached below.</p><p>Thank you for your business!</p><p>— Pigiecore Solutions</p>`,
+          subject: `Quotation ${inv.quote_number} from Pigiecore Solutions`,
+          message: `<p>Hi ${inv.client_name},</p><p>Please find your quotation <strong>${inv.quote_number}</strong> for <strong>${formatCurrency(inv.total)}</strong> attached below.</p><p>Thank you for your business!</p><p>— Pigiecore Solutions</p>`,
           pdfBase64,
-          fileName: `${inv.invoice_number}.pdf`,
+          fileName: `${inv.quote_number}.pdf`,
         }),
       });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error || "Failed to send email");
       }
-      setActionMessage(`Invoice ${inv.invoice_number} sent to ${inv.client_email}`);
+      setActionMessage(`Quotation ${inv.quote_number} sent to ${inv.client_email}`);
       updateStatus(inv.id, "sent");
     } catch (err) {
       setFormError(err instanceof Error ? err.message : "Failed to send email");
@@ -424,10 +424,10 @@ export default function AdminInvoices() {
         : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"
     }`;
 
-  const filtered = invoices.filter(
+  const filtered = quotations.filter(
     (inv) =>
       inv.client_name.toLowerCase().includes(search.toLowerCase()) ||
-      inv.invoice_number.toLowerCase().includes(search.toLowerCase()) ||
+      inv.quote_number.toLowerCase().includes(search.toLowerCase()) ||
       inv.client_email.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -435,12 +435,12 @@ export default function AdminInvoices() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Invoices</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Create and manage invoices</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Quotations</h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Create and manage quotations</p>
         </div>
         <button onClick={openNewForm}
           className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-sky-500/25">
-          <Plus className="w-4 h-4" /> New Invoice
+          <Plus className="w-4 h-4" /> New Quotation
         </button>
       </div>
 
@@ -459,7 +459,7 @@ export default function AdminInvoices() {
         <div className="mb-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-              {editingId ? "Edit Invoice" : "New Invoice"}
+              {editingId ? "Edit Quotation" : "New Quotation"}
             </h2>
             <button onClick={() => setShowForm(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
               <X className="w-5 h-5" />
@@ -658,9 +658,9 @@ export default function AdminInvoices() {
           </div>
 
           <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-            <button onClick={saveInvoice} disabled={saving}
+            <button onClick={saveQuotation} disabled={saving}
               className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-sky-500/25 disabled:opacity-50">
-              {saving ? "Saving..." : editingId ? "Update Invoice" : "Generate Invoice"}
+              {saving ? "Saving..." : editingId ? "Update Quotation" : "Generate Quotation"}
             </button>
             <button onClick={() => setShowForm(false)}
               className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800">
@@ -672,16 +672,16 @@ export default function AdminInvoices() {
 
       <div className="relative mb-4">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search invoices by client or number..."
+        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search quotations by client or number..."
           className="w-full max-w-xs pl-9 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-sm text-slate-900 placeholder-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100" />
       </div>
 
       <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
         {loading ? (
-          <div className="p-12 text-center text-slate-500 dark:text-slate-400">Loading invoices...</div>
+          <div className="p-12 text-center text-slate-500 dark:text-slate-400">Loading quotations...</div>
         ) : filtered.length === 0 ? (
           <div className="p-12 text-center text-slate-500 dark:text-slate-400">
-            {search ? "No matches found." : "No invoices yet. Create your first one!"}
+            {search ? "No matches found." : "No quotations yet. Create your first one!"}
           </div>
         ) : (
           <div className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -693,7 +693,7 @@ export default function AdminInvoices() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{inv.client_name}</div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400">{inv.invoice_number} &middot; {inv.client_email}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">{inv.quote_number} &middot; {inv.client_email}</div>
                   </div>
                   <div className="text-right">
                     <div className="text-lg font-bold text-slate-900 dark:text-white">{formatCurrency(inv.total)}</div>
@@ -724,12 +724,12 @@ export default function AdminInvoices() {
                     className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-sky-500 font-medium">
                     <Download className="w-3 h-3" /> PDF
                   </button>
-                  <button onClick={() => emailInvoice(inv)} disabled={sendingId === inv.id}
+                  <button onClick={() => emailQuotation(inv)} disabled={sendingId === inv.id}
                     className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-emerald-500 font-medium disabled:opacity-50">
                     {sendingId === inv.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
                     {sendingId === inv.id ? "Sending..." : "Email"}
                   </button>
-                  <button onClick={() => deleteInvoice(inv.id)}
+                  <button onClick={() => deleteQuotation(inv.id)}
                     className="inline-flex items-center gap-1 text-xs text-red-400 hover:text-red-500 font-medium ml-auto">
                     <Trash2 className="w-3 h-3" /> Delete
                   </button>

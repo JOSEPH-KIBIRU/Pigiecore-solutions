@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import { signIn, signOut, getCurrentUser } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import AdminInvoices from "@/components/admin-invoices";
+import AdminQuotations from "@/components/admin-quotations";
+import AdminSettings from "@/components/admin-settings";
 import Logo from "@/components/logo";
 import AdminUsers from "@/components/admin-users";
 import AdminBlog from "@/components/admin-blog";
@@ -42,6 +44,8 @@ import {
   Newspaper,
   Quote as QuoteIcon,
   Megaphone,
+  ReceiptText,
+  Settings,
   Menu,
 } from "lucide-react";
 
@@ -125,10 +129,12 @@ const NAV_ITEMS = [
   { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
   { key: "templates", label: "Templates", icon: ImageIcon },
   { key: "invoices", label: "Invoices", icon: FileText },
+  { key: "quotations", label: "Quotations", icon: ReceiptText },
   { key: "users", label: "Users", icon: UserIcon },
   { key: "blog", label: "Blog", icon: Newspaper },
   { key: "testimonials", label: "Testimonials", icon: QuoteIcon },
   { key: "offers", label: "Hero Offers", icon: Megaphone },
+  { key: "settings", label: "Company Details", icon: Settings },
 ] as const;
 
 function serviceLabel(value: string | null) {
@@ -169,7 +175,7 @@ const WARN_BEFORE_MS = 30000;
 export default function AdminPage() {
   const [user, setUser] = useState<{ email?: string } | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"dashboard" | "templates" | "invoices" | "users" | "blog" | "testimonials" | "offers">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "templates" | "invoices" | "quotations" | "users" | "blog" | "testimonials" | "offers" | "settings">("dashboard");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [showLoginPassword, setShowLoginPassword] = useState(false);
@@ -1018,6 +1024,12 @@ export default function AdminPage() {
           )}
           {activeTab === "invoices" && (
             <AdminInvoices />
+          )}
+          {activeTab === "quotations" && (
+            <AdminQuotations />
+          )}
+          {activeTab === "settings" && (
+            <AdminSettings />
           )}
           {activeTab === "users" && (
             <AdminUsers />

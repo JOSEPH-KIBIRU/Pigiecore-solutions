@@ -105,22 +105,6 @@ export default function RootLayout({
   return (
     // UPDATED: Added scroll-smooth and scroll-pt-[80px] (80px offset for your 64px navbar)
     <html lang="en" suppressHydrationWarning className={`${inter.variable} scroll-smooth scroll-pt-[80px]`}>
-      <head>
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var stored = localStorage.getItem("theme");
-                if (stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-                  document.documentElement.classList.add("dark");
-                }
-              })();
-            `,
-          }}
-        />
-      </head>
       <body className="min-h-full flex flex-col text-slate-900 font-sans transition-colors duration-300">
         {children}
         <BackToTop />

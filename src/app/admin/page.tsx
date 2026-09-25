@@ -25,6 +25,8 @@ import {
   Search,
   X,
   AlertCircle,
+  Eye,
+  EyeOff,
   Home,
   Globe,
   Truck,
@@ -161,7 +163,7 @@ const emptyTemplate = {
   sort_order: 0,
 };
 
-const IDLE_TIMEOUT_MS = 120000;
+const IDLE_TIMEOUT_MS = 180000;
 const WARN_BEFORE_MS = 30000;
 
 export default function AdminPage() {
@@ -170,6 +172,7 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<"dashboard" | "templates" | "invoices" | "users" | "blog" | "testimonials" | "offers">("dashboard");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [loginFieldErrors, setLoginFieldErrors] = useState<Record<string, string>>({});
   const [showLogoutWarn, setShowLogoutWarn] = useState(false);
@@ -502,14 +505,24 @@ export default function AdminPage() {
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">Password</label>
-              <input type="password" id="password" value={loginPassword}
-                onChange={(e) => { setLoginPassword(e.target.value); if (loginFieldErrors.password) setLoginFieldErrors((er) => ({ ...er, password: "" })); }}
-                className={`block w-full rounded-xl border bg-white px-4 py-3 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-slate-100 ${
-                  loginFieldErrors.password
-                    ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
-                    : "border-slate-300 focus:border-sky-500 focus:ring-sky-500/20 dark:border-slate-700"
-                }`}
-                placeholder="Enter your password" />
+              <div className="relative">
+                <input type={showLoginPassword ? "text" : "password"} id="password" value={loginPassword}
+                  onChange={(e) => { setLoginPassword(e.target.value); if (loginFieldErrors.password) setLoginFieldErrors((er) => ({ ...er, password: "" })); }}
+                  className={`block w-full rounded-xl border bg-white px-4 py-3 pr-11 text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition-all dark:bg-slate-800 dark:text-slate-100 ${
+                    loginFieldErrors.password
+                      ? "border-red-400 focus:border-red-500 focus:ring-red-500/20"
+                      : "border-slate-300 focus:border-brand focus:ring-brand/20 dark:border-slate-700"
+                  }`}
+                  placeholder="Enter your password" />
+                <button
+                  type="button"
+                  onClick={() => setShowLoginPassword((v) => !v)}
+                  aria-label={showLoginPassword ? "Hide password" : "Show password"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-slate-200"
+                >
+                  {showLoginPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
               {loginFieldErrors.password && (
                 <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{loginFieldErrors.password}</p>
               )}

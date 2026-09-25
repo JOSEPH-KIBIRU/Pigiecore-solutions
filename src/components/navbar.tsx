@@ -23,56 +23,6 @@ const SOLUTIONS = [
   { label: "Custom Business Systems", href: "/solutions/custom-business-systems" },
 ];
 
-function toggleDark(): void {
-  const html = document.documentElement;
-  const next = html.classList.contains("dark") ? "light" : "dark";
-  if (next === "dark") {
-    html.classList.add("dark");
-  } else {
-    html.classList.remove("dark");
-  }
-  localStorage.setItem("theme", next);
-}
-
-function SunIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-    </svg>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
-    </svg>
-  );
-}
-
-function ThemeToggle() {
-  return (
-    <>
-      <span className="dark:hidden">
-        <SunIcon />
-      </span>
-      <span className="hidden dark:inline">
-        <MoonIcon />
-      </span>
-    </>
-  );
-}
-
 type DropdownKey = "services" | "solutions" | null;
 
 export default function Navbar() {
@@ -104,7 +54,7 @@ export default function Navbar() {
     "text-sm text-slate-600 hover:text-brand transition-colors dark:text-slate-300 dark:hover:text-brand-soft";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface-2 border-b border-slate-200 dark:bg-surface-1 dark:border-slate-800">
+        <nav className="fixed top-0 left-0 right-0 z-50 dark bg-[#0b0c0e] border-b border-white/10">
       <div className="w-full px-5 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-16 gap-6">
           <Link href="/" aria-label="Pigiecore Solutions — Home" className="shrink-0">
@@ -197,13 +147,6 @@ export default function Navbar() {
             <Link href="/#contact" className={linkClass}>
               Contact
             </Link>
-            <button
-              onClick={toggleDark}
-              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800"
-              aria-label="Toggle dark mode"
-            >
-              <ThemeToggle />
-            </button>
             <Link
               href="/admin"
               className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-brand hover:text-brand dark:border-border-default dark:text-white/80 dark:hover:border-[#9d95ff] dark:hover:text-brand-soft"
@@ -220,13 +163,6 @@ export default function Navbar() {
 
           {/* Mobile controls */}
           <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={toggleDark}
-              className="p-2 rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-300"
-              aria-label="Toggle dark mode"
-            >
-              <ThemeToggle />
-            </button>
             <Link
               href="/admin"
               className="p-2 rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-300"

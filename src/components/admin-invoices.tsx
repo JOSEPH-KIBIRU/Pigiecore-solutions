@@ -74,10 +74,10 @@ export default function AdminInvoices() {
     description: "",
     amount: "",
     vat_rate: 16,
-    payment_bank: "Equity Bank",
-    payment_account_name: "Bomapulse Ventures",
-    payment_account_number: "",
-    payment_branch: "Nairobi",
+    
+    
+    
+    
   });
 
   const [formError, setFormError] = useState("");
@@ -118,7 +118,7 @@ export default function AdminInvoices() {
 
   function openNewForm() {
     setEditingId(null);
-    setForm({ client_name: "", client_email: "", client_phone: "", service: "website", description: "", amount: "", vat_rate: 16, payment_bank: "Equity Bank", payment_account_name: "Bomapulse Ventures", payment_account_number: "", payment_branch: "Nairobi" });
+    setForm({ client_name: "", client_email: "", client_phone: "", service: "website", description: "", amount: "", vat_rate: 16 });
     setVatInclusive(false);
     setFormError("");
     setFieldErrors({});
@@ -135,10 +135,10 @@ export default function AdminInvoices() {
       description: inv.description ?? "",
       amount: String(inv.amount),
       vat_rate: inv.vat_rate,
-      payment_bank: inv.payment_bank ?? "Equity Bank",
-      payment_account_name: inv.payment_account_name ?? "Bomapulse Ventures",
-      payment_account_number: inv.payment_account_number ?? "",
-      payment_branch: inv.payment_branch ?? "",
+      
+      
+      
+      
     });
     setFormError("");
     setFieldErrors({});
@@ -153,7 +153,7 @@ export default function AdminInvoices() {
 
   async function fetchCompany() {
     const { data } = await supabase.from("company_settings").select("*").eq("id", 1).maybeSingle();
-    if (data) { setCompany(data); setForm((f) => ({ ...f, payment_bank: data.bank_name || f.payment_bank, payment_account_name: data.bank_account_name || f.payment_account_name, payment_account_number: data.bank_account_number || f.payment_account_number, payment_branch: data.bank_branch || f.payment_branch })); }
+    if (data) setCompany(data);
   }
 
   async function saveInvoice() {
@@ -190,10 +190,10 @@ export default function AdminInvoices() {
       vat_rate: vatRate,
       vat_amount: vatAmount,
       total,
-      payment_bank: form.payment_bank || null,
-      payment_account_name: form.payment_account_name || null,
-      payment_account_number: form.payment_account_number || null,
-      payment_branch: form.payment_branch || null,
+      
+      
+      
+      
     };
 
     let error;
@@ -399,10 +399,10 @@ export default function AdminInvoices() {
     pdf.setFontSize(8);
     pdf.text("PAYMENT DETAILS", left + 10, y + 7.3);
 
-    const bank = inv.payment_bank || co?.bank_name || "\u2014";
-    const accName = inv.payment_account_name || co?.bank_account_name || "\u2014";
-    const accNo = inv.payment_account_number || co?.bank_account_number || "\u2014";
-    const branch = inv.payment_branch || co?.bank_branch || "\u2014";
+    const bank = co?.bank_name || "\u2014";
+    const accName = co?.bank_account_name || "\u2014";
+    const accNo = co?.bank_account_number || "\u2014";
+    const branch = co?.bank_branch || "\u2014";
 
     const l1 = left + 8;
     const v1 = left + 32;
@@ -642,54 +642,6 @@ export default function AdminInvoices() {
               <p className="mt-1 text-[10px] text-slate-400 dark:text-slate-500">
                 {vatInclusive ? "Amount entered includes VAT — system calculates backward" : "VAT is added on top of the amount"}
               </p>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center dark:bg-emerald-950/30">
-                <FileText className="w-4 h-4 text-emerald-500" />
-              </div>
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Payment Details</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Bank</label>
-                <input
-                  type="text"
-                  value={form.payment_bank}
-                  onChange={(e) => setForm((f) => ({ ...f, payment_bank: e.target.value }))}
-                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Account Name</label>
-                <input
-                  type="text"
-                  value={form.payment_account_name}
-                  onChange={(e) => setForm((f) => ({ ...f, payment_account_name: e.target.value }))}
-                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Account Number</label>
-                <input
-                  type="text"
-                  value={form.payment_account_number}
-                  onChange={(e) => setForm((f) => ({ ...f, payment_account_number: e.target.value }))}
-                  placeholder="e.g. 011xxxxxxx"
-                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Branch</label>
-                <input
-                  type="text"
-                  value={form.payment_branch}
-                  onChange={(e) => setForm((f) => ({ ...f, payment_branch: e.target.value }))}
-                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-                />
-              </div>
             </div>
           </div>
 

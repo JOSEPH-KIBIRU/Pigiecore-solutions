@@ -253,9 +253,17 @@ export default function AdminQuotations() {
     const brand = "#6b5cff";
     const rule = "#e5e7eb";
 
+    let co: typeof company = company;
+    if (!co) {
+      try {
+        const { data } = await supabase.from("company_settings").select("*").eq("id", 1).maybeSingle();
+        if (data) { co = data; setCompany(data); }
+      } catch { /* ignore */ }
+    }
+
     let logoData: string | null = null;
-    if (company?.logo_url) {
-      try { logoData = await urlToDataUrl(company.logo_url); } catch { logoData = null; }
+    if (co?.logo_url) {
+      try { logoData = await urlToDataUrl(co.logo_url as string); } catch { logoData = null; }
     }
 
     // ---------- Header ----------
@@ -275,18 +283,18 @@ export default function AdminQuotations() {
     pdf.setTextColor(ink);
     pdf.setFontSize(15);
     pdf.setFont("helvetica", "bold");
-    pdf.text(company?.company_name || "Pigiecore Solutions", nameX, 19);
+    pdf.text(co?.company_name || "Pigiecore Solutions", nameX, 19);
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(muted);
-    pdf.text([company?.email || "support@pigiecore.co.ke", company?.phone || "0798118515"].join("  \u00b7  "), nameX, 24.5);
+    pdf.text([co?.email || "support@pigiecore.co.ke", co?.phone || "0798118515"].join("  \u00b7  "), nameX, 24.5);
 
     pdf.setFontSize(8);
     pdf.setTextColor(muted);
     const rightLines = [
-      company?.address || "Nairobi, Kenya",
-      company?.website || "",
-      company?.tax_pin ? "PIN: " + company.tax_pin : "",
+      co?.address || "Nairobi, Kenya",
+      co?.website || "",
+      co?.tax_pin ? "PIN: " + co.tax_pin : "",
     ].filter(Boolean) as string[];
     let ry = 16;
     rightLines.forEach((ln) => { pdf.text(ln, rightX, ry, { align: "right" }); ry += 4; });
@@ -391,10 +399,10 @@ export default function AdminQuotations() {
     pdf.setFontSize(8);
     pdf.text("PAYMENT DETAILS", left + 10, y + 7.3);
 
-    const bank = inv.payment_bank || company?.bank_name || "\u2014";
-    const accName = inv.payment_account_name || company?.bank_account_name || "\u2014";
-    const accNo = inv.payment_account_number || company?.bank_account_number || "\u2014";
-    const branch = inv.payment_branch || company?.bank_branch || "\u2014";
+    const bank = inv.payment_bank || co?.bank_name || "\u2014";
+    const accName = inv.payment_account_name || co?.bank_account_name || "\u2014";
+    const accNo = inv.payment_account_number || co?.bank_account_number || "\u2014";
+    const branch = inv.payment_branch || co?.bank_branch || "\u2014";
 
     const l1 = left + 8;
     const v1 = left + 32;
@@ -422,8 +430,8 @@ export default function AdminQuotations() {
     pdf.line(left, footY, rightX, footY);
     pdf.setFontSize(8);
     pdf.setTextColor(muted);
-    pdf.text([company?.company_name || "Pigiecore Solutions", company?.email || "support@pigiecore.co.ke", company?.phone || "0798118515"].join("  \u00b7  "), left + pageW / 2, footY + 6, { align: "center" });
-    pdf.text(company?.notes || "Thank you for your business!", left + pageW / 2, footY + 11, { align: "center" });
+    pdf.text([co?.company_name || "Pigiecore Solutions", co?.email || "support@pigiecore.co.ke", co?.phone || "0798118515"].join("  \u00b7  "), left + pageW / 2, footY + 6, { align: "center" });
+    pdf.text(co?.notes || "Thank you for your business!", left + pageW / 2, footY + 11, { align: "center" });
 
     return pdf;
   }

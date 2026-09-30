@@ -86,7 +86,7 @@ export default function AdminInvoices() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
   const [vatInclusive, setVatInclusive] = useState(false);
-  const [company, setCompany] = useState<{ company_name?: string; email?: string; phone?: string; address?: string; website?: string; tax_pin?: string; logo_url?: string; bank_name?: string; bank_account_name?: string; bank_account_number?: string; bank_branch?: string } | null>(null);
+  const [company, setCompany] = useState<{ company_name?: string; email?: string; phone?: string; address?: string; website?: string; tax_pin?: string; logo_url?: string; bank_name?: string; bank_account_name?: string; bank_account_number?: string; bank_branch?: string; notes?: string } | null>(null);
 
   useEffect(() => {
     fetchInvoices();
@@ -231,148 +231,199 @@ export default function AdminInvoices() {
     setInvoices((prev) => prev.filter((inv) => inv.id !== id));
   }
 
+  async function urlToDataUrl(url: string): Promise<string> {
+    const res = await fetch(url);
+    const blob = await res.blob();
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(String(reader.result));
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
   async function buildPdf(inv: Invoice) {
     const { default: jsPDF } = await import("jspdf");
-
     const pdf = new jsPDF("p", "mm", "a4");
-    const pageW = 190;
-    const left = 10;
-    const right = 10;
-    let y = 20;
+    const pageW = 182;
+    const left = 14;
+    const rightX = left + pageW;
+    const ink = "#0f172a";
+    const muted = "#6b7280";
+    const brand = "#6b5cff";
+    const rule = "#e5e7eb";
 
-    function text(txt: string, size: number, x: number, opts?: { bold?: boolean; color?: string; align?: "left" | "right" | "center"; top?: number }) {
-      pdf.setFontSize(size);
-      pdf.setFont("helvetica", opts?.bold ? "bold" : "normal");
-      if (opts?.color) pdf.setTextColor(opts.color);
-      else pdf.setTextColor("#1e293b");
-      const py = opts?.top ?? y;
-      if (opts?.align === "right") {
-        pdf.text(txt, left + pageW, py, { align: "right" });
-      } else if (opts?.align === "center") {
-        pdf.text(txt, x, py, { align: "center" });
-      } else {
-        pdf.text(txt, x, py);
-      }
+    let logoData: string | null = null;
+    if (company?.logo_url) {
+      try { logoData = await urlToDataUrl(company.logo_url); } catch { logoData = null; }
     }
 
-    function line(yPos: number) {
-      pdf.setDrawColor("#e2e8f0");
-      pdf.setLineWidth(0.3);
-      pdf.line(left, yPos, left + pageW, yPos);
+    // ---------- Header ----------
+    if (logoData) {
+      try { pdf.addImage(logoData, "PNG", left, 12, 16, 16); } catch { logoData = null; }
+    }
+    if (!logoData) {
+      pdf.setFillColor(brand);
+      pdf.roundedRect(left, 12, 16, 16, 3, 3, "F");
+      pdf.setTextColor("#ffffff");
+      pdf.setFontSize(18);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("P", left + 5.3, 23.8);
     }
 
-    // --- Header band ---
-    pdf.setFillColor("#101114");
-    pdf.rect(0, 0, 210, 34, "F");
-    pdf.setFillColor("#6b5cff");
-    pdf.roundedRect(left, 8, 8, 8, 1, 1, "F");
-    pdf.setTextColor("#ffffff");
-    pdf.setFontSize(13);
+    const nameX = left + 22;
+    pdf.setTextColor(ink);
+    pdf.setFontSize(15);
     pdf.setFont("helvetica", "bold");
-    pdf.text("P", left + 2.6, 14);
-    pdf.setFontSize(16);
-    pdf.text(company?.company_name || "Pigiecore Solutions", left + 13, 13.5);
+    pdf.text(company?.company_name || "Pigiecore Solutions", nameX, 19);
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
-    pdf.setTextColor("#94a3b8");
-    pdf.text([company?.email || "support@pigiecore.co.ke", company?.phone || "0798118515"].filter(Boolean).join("  \u00b7  "), left + 13, 18.5);
-    pdf.setFontSize(7);
-    pdf.text([company?.address, company?.website, company?.tax_pin ? ("PIN " + company.tax_pin) : ""].filter(Boolean).join("  \u00b7  "), left + 13, 22.5);
-    // INVOICE badge on the right
-    pdf.setFillColor("#6b5cff");
-    pdf.roundedRect(125, 9, pageW + left - 125, 16, 1, 1, "F");
-    pdf.setTextColor("#ffffff");
-    pdf.setFontSize(13);
+    pdf.setTextColor(muted);
+    pdf.text([company?.email || "support@pigiecore.co.ke", company?.phone || "0798118515"].join("  \u00b7  "), nameX, 24.5);
+
+    pdf.setFontSize(8);
+    pdf.setTextColor(muted);
+    const rightLines = [
+      company?.address || "Nairobi, Kenya",
+      company?.website || "",
+      company?.tax_pin ? "PIN: " + company.tax_pin : "",
+    ].filter(Boolean) as string[];
+    let ry = 16;
+    rightLines.forEach((ln) => { pdf.text(ln, rightX, ry, { align: "right" }); ry += 4; });
+
+    pdf.setDrawColor(rule);
+    pdf.setLineWidth(0.3);
+    pdf.line(left, 34, rightX, 34);
+
+    // ---------- Title ----------
+    pdf.setTextColor(ink);
+    pdf.setFontSize(22);
     pdf.setFont("helvetica", "bold");
-    pdf.text("INVOICE", 128, 20);
-    const invoiceWordWidth = pdf.getTextWidth("INVOICE");
+    pdf.text("INVOICE", left, 48);
     pdf.setFontSize(9);
-    pdf.text(`#${inv.invoice_number}`, 128 + invoiceWordWidth + 6, 20);
-
-    y = 44;
-
-    // --- Bill To + meta ---
-    const billY = y;
-    text("BILL TO", 7, left, { color: "#94a3b8" });
-    text(inv.client_name, 13, left, { bold: true, top: billY + 5.5 });
-    text(inv.client_email, 10, left, { color: "#64748b", top: billY + 12 });
-    if (inv.client_phone) {
-      text(inv.client_phone, 10, left, { color: "#64748b", top: billY + 18 });
-    }
-
-    const metaTop = billY;
-    text("INVOICE DATE", 7, left + pageW, { color: "#94a3b8", align: "right", top: metaTop });
-    text(formatDate(inv.created_at), 10, left + pageW, { color: "#334155", align: "right", top: metaTop + 5.5 });
-    if (inv.client_phone) {
-      y = billY + 18;
-    } else {
-      y = billY + 12;
-    }
-    y += 8;
-    line(y);
-    y += 6;
-
-    // --- Items table ---
-    pdf.setFillColor("#f1f5f9");
-    pdf.rect(left, y, pageW, 8, "F");
-    text("DESCRIPTION", 8, left + 3, { color: "#64748b" });
-    text("AMOUNT", 8, left + pageW - 3, { color: "#64748b", align: "right" });
-    y += 11;
-
-    text(inv.description || inv.service, 11, left + 3);
-    text(formatCurrency(inv.amount), 11, left + pageW - 3, { align: "right" });
-    y += 8;
-    text(`VAT (${inv.vat_rate}%)`, 9, left + 3, { color: "#64748b" });
-    text(formatCurrency(inv.vat_amount), 9, left + pageW - 3, { color: "#64748b", align: "right" });
-    y += 4;
-    line(y);
-    y += 4;
-
-    // --- Totals ---
-    const colW = 55;
-    const totalX = left + pageW - colW;
-    text("Subtotal", 10, totalX, { color: "#64748b" });
-    text(formatCurrency(inv.amount), 10, left + pageW, { color: "#334155", align: "right" });
-    y += 5;
-    text(`VAT (${inv.vat_rate}%)`, 10, totalX, { color: "#64748b" });
-    text(formatCurrency(inv.vat_amount), 10, left + pageW, { color: "#334155", align: "right" });
-    y += 5;
-    pdf.setFillColor("#6b5cff");
-    pdf.roundedRect(totalX, y + 2, colW, 9, 1, 1, "F");
-    text("TOTAL", 10, totalX + 3, { bold: true, color: "#ffffff", top: y + 8 });
-    text(formatCurrency(inv.total), 12, left + pageW - 3, { bold: true, color: "#ffffff", align: "right", top: y + 8 });
-    y += 16;
-
-    // --- Payment Details box ---
-    pdf.setFillColor("#f8fafc");
-    pdf.setDrawColor("#e2e8f0");
-    pdf.roundedRect(left, y - 2, pageW, 30, 1.5, 1.5, "FD");
-    const py = y;
-    pdf.setFillColor("#6b5cff");
-    pdf.roundedRect(left + 3, py + 1, 3, 3, 0.5, 0.5, "F");
-    text("PAYMENT DETAILS", 7, left + 8, { color: "#0c4a6e", bold: true, top: py + 3 });
-    let rowY = py + 11;
-    text("Bank", 8, left + 8, { color: "#94a3b8" });
-    text(inv.payment_bank || company?.bank_name || "\u2014", 9, left + 40, { color: "#334155" });
-    text("Account Name", 8, left + 68, { color: "#94a3b8" });
-    text(inv.payment_account_name || company?.bank_account_name || "\u2014", 9, left + 100, { color: "#334155" });
-    rowY += 6;
-    text("Account No.", 8, left + 8, { color: "#94a3b8", top: rowY });
-    text(inv.payment_account_number || company?.bank_account_number || "\u2014", 9, left + 40, { color: "#334155", top: rowY });
-    text("Branch", 8, left + 68, { color: "#94a3b8", top: rowY });
-    text(inv.payment_branch || company?.bank_branch || "\u2014", 9, left + 100, { color: "#334155", top: rowY });
-    y += 34;
-
-    // --- Footer ---
-    line(278);
-    y = 278;
-    y += 6;
-    pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
-    pdf.setTextColor("#94a3b8");
-    pdf.text([company?.company_name || "Pigiecore Solutions", company?.email || "support@pigiecore.co.ke", company?.phone || "0798118515"].join("  \u00b7  "), left + pageW / 2, y, { align: "center" });
-    pdf.setTextColor("#cbd5e1");
-    pdf.text("Thank you for your business!", left + pageW / 2, y + 5, { align: "center" });
+    pdf.setTextColor(muted);
+    pdf.text("#" + inv.invoice_number, left, 54);
+
+    pdf.setFontSize(8);
+    pdf.setTextColor(muted);
+    pdf.text("INVOICE DATE", rightX, 45, { align: "right" });
+    pdf.setFontSize(9);
+    pdf.setTextColor(ink);
+    pdf.text(formatDate(inv.created_at), rightX, 49.5, { align: "right" });
+
+    // ---------- Bill To ----------
+    let y = 66;
+    pdf.setFontSize(8);
+    pdf.setTextColor(muted);
+    pdf.text("BILL TO", left, y);
+    pdf.setTextColor(ink);
+    pdf.setFontSize(12);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(inv.client_name, left, y + 6);
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.setTextColor(muted);
+    pdf.text(inv.client_email, left, y + 11.5);
+    if (inv.client_phone) pdf.text(inv.client_phone, left, y + 17);
+
+    y = 92;
+    pdf.setDrawColor(rule);
+    pdf.line(left, y, rightX, y);
+    y += 2;
+
+    // ---------- Items ----------
+    pdf.setFillColor("#f5f3ff");
+    pdf.rect(left, y, pageW, 9, "F");
+    pdf.setTextColor(muted);
+    pdf.setFontSize(8);
+    pdf.text("DESCRIPTION", left + 4, y + 6);
+    pdf.text("AMOUNT", rightX - 4, y + 6, { align: "right" });
+    y += 14;
+
+    pdf.setTextColor(ink);
+    pdf.setFontSize(11);
+    pdf.text(inv.description || inv.service, left + 4, y);
+    pdf.text(formatCurrency(inv.amount), rightX - 4, y, { align: "right" });
+    y += 7;
+    pdf.setTextColor(muted);
+    pdf.setFontSize(9);
+    pdf.text("VAT (" + inv.vat_rate + "%)", left + 4, y);
+    pdf.text(formatCurrency(inv.vat_amount), rightX - 4, y, { align: "right" });
+    y += 6;
+    pdf.setDrawColor(rule);
+    pdf.line(left, y, rightX, y);
+
+    // ---------- Totals ----------
+    y += 5;
+    const colX = rightX - 60;
+    pdf.setFontSize(9);
+    pdf.setTextColor(muted);
+    pdf.text("Subtotal", colX, y);
+    pdf.setTextColor(ink);
+    pdf.text(formatCurrency(inv.amount), rightX - 4, y, { align: "right" });
+    y += 5;
+    pdf.setTextColor(muted);
+    pdf.text("VAT (" + inv.vat_rate + "%)", colX, y);
+    pdf.setTextColor(ink);
+    pdf.text(formatCurrency(inv.vat_amount), rightX - 4, y, { align: "right" });
+    y += 3;
+    pdf.setFillColor(brand);
+    pdf.roundedRect(colX, y, 60, 10, 1.5, 1.5, "F");
+    pdf.setTextColor("#ffffff");
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(10);
+    pdf.text("TOTAL", colX + 4, y + 6.6);
+    pdf.setFontSize(11);
+    pdf.text(formatCurrency(inv.total), rightX - 4, y + 6.6, { align: "right" });
+    pdf.setFont("helvetica", "normal");
+    y += 20;
+
+    // ---------- Payment details ----------
+    const cardH = 32;
+    pdf.setFillColor("#f8fafc");
+    pdf.setDrawColor(rule);
+    pdf.roundedRect(left, y, pageW, cardH, 2, 2, "FD");
+    pdf.setFillColor(brand);
+    pdf.roundedRect(left + 5, y + 4.8, 2.5, 2.5, 0.5, 0.5, "F");
+    pdf.setTextColor(ink);
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(8);
+    pdf.text("PAYMENT DETAILS", left + 10, y + 7.3);
+
+    const bank = inv.payment_bank || company?.bank_name || "\u2014";
+    const accName = inv.payment_account_name || company?.bank_account_name || "\u2014";
+    const accNo = inv.payment_account_number || company?.bank_account_number || "\u2014";
+    const branch = inv.payment_branch || company?.bank_branch || "\u2014";
+
+    const l1 = left + 8;
+    const v1 = left + 32;
+    const l2 = left + 100;
+    const v2 = left + 124;
+
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(8);
+    pdf.setTextColor(muted);
+    pdf.text("Bank", l1, y + 15);
+    pdf.text("Account Name", l2, y + 15);
+    pdf.text("Account No.", l1, y + 23);
+    pdf.text("Branch", l2, y + 23);
+
+    pdf.setTextColor(ink);
+    pdf.setFontSize(9);
+    pdf.text(String(bank), v1, y + 15);
+    pdf.text(String(accName), v2, y + 15);
+    pdf.text(String(accNo), v1, y + 23);
+    pdf.text(String(branch), v2, y + 23);
+
+    // ---------- Footer ----------
+    const footY = 278;
+    pdf.setDrawColor(rule);
+    pdf.line(left, footY, rightX, footY);
+    pdf.setFontSize(8);
+    pdf.setTextColor(muted);
+    pdf.text([company?.company_name || "Pigiecore Solutions", company?.email || "support@pigiecore.co.ke", company?.phone || "0798118515"].join("  \u00b7  "), left + pageW / 2, footY + 6, { align: "center" });
+    pdf.text(company?.notes || "Thank you for your business!", left + pageW / 2, footY + 11, { align: "center" });
 
     return pdf;
   }

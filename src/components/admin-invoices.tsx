@@ -86,7 +86,7 @@ export default function AdminInvoices() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
   const [vatInclusive, setVatInclusive] = useState(false);
-  const [company, setCompany] = useState<{ company_name?: string; email?: string; phone?: string; address?: string; logo_url?: string } | null>(null);
+  const [company, setCompany] = useState<{ company_name?: string; email?: string; phone?: string; address?: string; website?: string; tax_pin?: string; logo_url?: string; bank_name?: string; bank_account_name?: string; bank_account_number?: string; bank_branch?: string } | null>(null);
 
   useEffect(() => {
     fetchInvoices();
@@ -153,7 +153,7 @@ export default function AdminInvoices() {
 
   async function fetchCompany() {
     const { data } = await supabase.from("company_settings").select("*").eq("id", 1).maybeSingle();
-    if (data) setCompany(data);
+    if (data) { setCompany(data); setForm((f) => ({ ...f, payment_bank: data.bank_name || f.payment_bank, payment_account_name: data.bank_account_name || f.payment_account_name, payment_account_number: data.bank_account_number || f.payment_account_number, payment_branch: data.bank_branch || f.payment_branch })); }
   }
 
   async function saveInvoice() {
@@ -275,7 +275,9 @@ export default function AdminInvoices() {
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor("#94a3b8");
-    pdf.text(company?.email || company?.phone || "Custom Software Solutions", left + 13, 18.5);
+    pdf.text([company?.email || "support@pigiecore.co.ke", company?.phone || "0798118515"].filter(Boolean).join("  \u00b7  "), left + 13, 18.5);
+    pdf.setFontSize(7);
+    pdf.text([company?.address, company?.website, company?.tax_pin ? ("PIN " + company.tax_pin) : ""].filter(Boolean).join("  \u00b7  "), left + 13, 22.5);
     // INVOICE badge on the right
     pdf.setFillColor("#6b5cff");
     pdf.roundedRect(125, 9, pageW + left - 125, 16, 1, 1, "F");
@@ -351,14 +353,14 @@ export default function AdminInvoices() {
     text("PAYMENT DETAILS", 7, left + 8, { color: "#0c4a6e", bold: true, top: py + 3 });
     let rowY = py + 11;
     text("Bank", 8, left + 8, { color: "#94a3b8" });
-    text(inv.payment_bank || "\u2014", 9, left + 40, { color: "#334155" });
+    text(inv.payment_bank || company?.bank_name || "\u2014", 9, left + 40, { color: "#334155" });
     text("Account Name", 8, left + 68, { color: "#94a3b8" });
-    text(inv.payment_account_name || "\u2014", 9, left + 100, { color: "#334155" });
+    text(inv.payment_account_name || company?.bank_account_name || "\u2014", 9, left + 100, { color: "#334155" });
     rowY += 6;
     text("Account No.", 8, left + 8, { color: "#94a3b8", top: rowY });
-    text(inv.payment_account_number || "\u2014", 9, left + 40, { color: "#334155", top: rowY });
+    text(inv.payment_account_number || company?.bank_account_number || "\u2014", 9, left + 40, { color: "#334155", top: rowY });
     text("Branch", 8, left + 68, { color: "#94a3b8", top: rowY });
-    text(inv.payment_branch || "\u2014", 9, left + 100, { color: "#334155", top: rowY });
+    text(inv.payment_branch || company?.bank_branch || "\u2014", 9, left + 100, { color: "#334155", top: rowY });
     y += 34;
 
     // --- Footer ---
@@ -368,7 +370,7 @@ export default function AdminInvoices() {
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor("#94a3b8");
-    pdf.text("Pigiecore Solutions  \u00b7  support@pigiecore.co.ke  \u00b7  0798118515 / 0708769459", left + pageW / 2, y, { align: "center" });
+    pdf.text([company?.company_name || "Pigiecore Solutions", company?.email || "support@pigiecore.co.ke", company?.phone || "0798118515"].join("  \u00b7  "), left + pageW / 2, y, { align: "center" });
     pdf.setTextColor("#cbd5e1");
     pdf.text("Thank you for your business!", left + pageW / 2, y + 5, { align: "center" });
 

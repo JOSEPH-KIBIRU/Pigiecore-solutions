@@ -268,7 +268,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (!user) return;
-    const events = ["mousedown", "keydown", "scroll", "touchstart", "mousemove"] as const;
+    const events = ["mousedown", "keydown", "touchstart"] as const;
     function handleActivity() {
       if (warnActiveRef.current) cancelLogout();
       else resetInactivityTimer();
